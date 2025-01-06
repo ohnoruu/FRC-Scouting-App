@@ -1,1 +1,1 @@
-# scouting-app-prototype-beach-blitz-2024
+# FRC-SCOUTING-APP
