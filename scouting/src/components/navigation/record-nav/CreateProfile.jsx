@@ -10,16 +10,50 @@ import './CreateProfile.css';
 export default function CreateProfile() {
     const navigate = useNavigate();
 
-
+    //variables
     const [teamName, setTeamName] = useState('');
     const [teamNumber, setTeamNumber] = useState('');
-    const [drivebase, setDrivebase] = useState('');
-    const [drivebaseDropdown, setDrivebaseDropdown] = useState('');
+    const [drivebase, setDrivebaseDropdown] = useState('');
+    const [algaeIntake, setAlgaeIntake] = useState({
+        ground: false,
+        claw: false,
+        wheel: false,
+        other: ''
+    });
+    const [coralIntake, setCoralIntake] = useState({
+        ground: false,
+        claw: false,
+        wheel: false,
+        other: ''
+    });
+    const [algaeCapability, setAlgaeCapability] = useState({
+        //0 = none, 1 = inconsistent, 2 = consistent
+        netScoring: null,
+        processorScoring: null
+    });
+    const [coralCapability, setCoralCapability] = useState({
+        //0 = none, 1 = inconsistent, 2 = consistent
+        scoreL1: null,
+        scoreL2: null,
+        scoreL3: null,
+        scoreL4: null
+    });
+    const [climbing, setClimbing] = useState({
+        shallow: false,
+        deep: false
+    });
+    const [autonomous, setAutonomous] = useState({
+        //0 = none, 1 = inconsistent, 2 = consistent
+        autoCapability: null,
+        autoDetails: ''
+    });
+    const [additionalDetails, setAdditionalDetails] = useState('');
+    
+    /*
     const [autonomous, setAutonomous] = useState(false);
     const [intake, setIntake] = useState('');
     const [intakeDropdown, setIntakeDropdown] = useState('');
-    const [additionalDetails, setAdditionalDetails] = useState('');
-
+    */
 
     const drivebaseSelection = [
         { label: 'Mecanum', value: 'Mecanum' },
@@ -29,13 +63,21 @@ export default function CreateProfile() {
         { label: 'Other', value: 'Other' },
     ];
 
-
+    /*
     const intakeSelection = [
         { label: 'Over', value: 'Over' },
         { label: 'Under', value: 'Under' },
         { label: 'Other', value: 'Other' },
     ];
+    */
 
+    //data manipulation functions
+    const updateAlgaeIntake = (key, value) => {
+        setAlgaeIntake(prevState => ({
+            ...prevState,
+            [key]: value
+        }));
+    }
 
     const submitProfile = async () => {
         const profileData = {
@@ -60,7 +102,6 @@ export default function CreateProfile() {
 
         navigate(-1);
     };
-
 
     return (
         <div className="createProfile_container">
@@ -134,8 +175,11 @@ export default function CreateProfile() {
                                     <div className="createProfile_autoCapabilities">
                                         <span className="createProfile_headerText">Autonomous</span>
                                         <RecordConsistency description=""/>
-                                        <input type="text"
-                                       
+                                        <span className="createProfile_text">Auto Details</span>
+                                        <input 
+                                            type="text"
+                                            className="createProfile_detailInput"
+                                            placeholder="Record auto cycles, etc.."
                                         />
                                     </div>
                                 </div>
