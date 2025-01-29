@@ -8,6 +8,9 @@
     overflow-y: auto;
 }
 
+.createProfile_text{
+    color: #616161;
+}
 
 .topPiece {
     width: 100%;
@@ -48,6 +51,11 @@
     color: #616161;
 }
 
+.createProfile_checklist{
+    font-size: 16px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
 
 .createProfile_submitButton {
     width: 80px;
