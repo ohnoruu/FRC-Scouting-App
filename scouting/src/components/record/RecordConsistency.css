@@ -1,0 +1,36 @@
+.checklist_container{
+    margin-bottom: 20px;
+    color: #616161;
+}
+
+
+.checklist_attribute{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    margin-bottom: 2px;
+    gap: 2vw;
+}
+
+
+.checklist_column{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.checklist_header{
+    text-decoration: underline;
+}
+
+
+.checklist_otherInput{
+    width: 48%;
+    font-size: 15px;
+    min-height: 50px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 10px;
+}

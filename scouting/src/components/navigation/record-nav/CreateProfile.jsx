@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa'
 import axios from 'axios';
+import ReefscapeChecklist from '../../record/ReefscapeChecklist';
+import RecordConsistency from '../../record/RecordConsistency';
 import './CreateProfile.css';
+
 
 export default function CreateProfile() {
     const navigate = useNavigate();
+
 
     const [teamName, setTeamName] = useState('');
     const [teamNumber, setTeamNumber] = useState('');
@@ -16,6 +20,7 @@ export default function CreateProfile() {
     const [intakeDropdown, setIntakeDropdown] = useState('');
     const [additionalDetails, setAdditionalDetails] = useState('');
 
+
     const drivebaseSelection = [
         { label: 'Mecanum', value: 'Mecanum' },
         { label: 'Tank', value: 'Tank' },
@@ -24,11 +29,13 @@ export default function CreateProfile() {
         { label: 'Other', value: 'Other' },
     ];
 
+
     const intakeSelection = [
         { label: 'Over', value: 'Over' },
         { label: 'Under', value: 'Under' },
         { label: 'Other', value: 'Other' },
     ];
+
 
     const submitProfile = async () => {
         const profileData = {
@@ -43,14 +50,17 @@ export default function CreateProfile() {
             matches: [],
         };
 
+
         try {
             await axios.post('https://cyberlions-web-server-1028328220227.us-central1.run.app/addProfile', profileData);
         } catch (error) {
             console.error('Error making a POST request:', error);
         }
 
+
         navigate(-1);
     };
+
 
     return (
         <div className="createProfile_container">
@@ -61,7 +71,7 @@ export default function CreateProfile() {
                     <span className="createProfile_headerText">Create Robot Profile</span>
                 </div>
                 <div className="createProfile_scrollView">
-                    <span className="headerText">General Information</span>
+                    <span className="createProfile_headerText">General Information</span>
                     <div className="createProfile_row">
                         <div className="inputContainer">
                             <div>
@@ -71,7 +81,9 @@ export default function CreateProfile() {
                                 <input value={teamNumber} className="smallInput" placeholder="Team Number" type="number" onChange={e => setTeamNumber(e.target.value)} />
                             </div>
                             <div className="marginTop10">
-                                <span className="headerText">Drivebase</span>
+
+
+                                <span className="createProfile_headerText">Drivebase</span>
                                 <select className="createProfile_dropdown" value={drivebaseDropdown} onChange={e => {
                                     setDrivebaseDropdown(e.target.value);
                                     setDrivebase(e.target.value);
@@ -82,24 +94,50 @@ export default function CreateProfile() {
                                     ))}
                                 </select>
                                 {drivebaseDropdown === 'Other' && <input className="bigInput" placeholder="Other Drivebase" onChange={e => setDrivebase(e.target.value)} />}
-                            </div>
-                            <div className="marginTop10">
-                                <span className="headerText">Intake</span>
-                                <select className="createProfile_dropdown" value={intakeDropdown} onChange={e => {
-                                    setIntakeDropdown(e.target.value);
-                                    setIntake(e.target.value);
-                                }}>
-                                    <option value="" disabled>Intake</option>
-                                    {intakeSelection.map(option => (
-                                        <option key={option.value} value={option.value}>{option.label}</option>
-                                    ))}
-                                </select>
-                                {intakeDropdown === 'Other' && <input className="bigInput" placeholder="Other Intake" onChange={e => setIntake(e.target.value)} />}
-                            </div>
-                            <div className="row space-between align-center">
-                                <div className="row align-center marginTop20">
-                                    <input type="checkbox" checked={autonomous} onChange={e => setAutonomous(e.target.checked)} />
-                                    <span className="createProfile_subText">Autonomous</span>
+                                <div className="createProfile_intakeSection">
+                                    <span className="createProfile_headerText">Intake</span>
+                                    <ReefscapeChecklist headerText="Algae"/>
+                                    <ReefscapeChecklist headerText="Coral"/>
+                                </div>
+                                <div className="createProfile_capabilitiesSection">
+
+
+                                    <div className="createProfile_algaeCapabilities">
+                                        <span className="createProfile_headerText">Algae</span>
+                                        <RecordConsistency description="Scores into net"/>
+                                        <RecordConsistency description="Scores into processor"/>
+                                    </div>
+
+
+                                    <div className="createProfile_coralCapabilities">
+                                        <span className="createProfile_headerText">Coral</span>
+                                        <RecordConsistency description="Scores L1"/>
+                                        <RecordConsistency description="Scores L2"/>
+                                        <RecordConsistency description="Scores L3"/>
+                                        <RecordConsistency description="Scores L4"/>
+                                    </div>
+
+
+                                    <div className="createProfile_climbingCapabilities">
+                                        <span className="createProfile_headerText">Climbing</span>
+                                        <div className="createProfile_checklist">
+                                            <input type="checkbox"/>
+                                            <span className="createProfile_text">Can climb shallow cage</span>
+                                        </div>
+                                        <div className="createProfile_checklist">
+                                            <input type="checkbox"/>
+                                            <span className="createProfile_text">Can climb deep cage</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="createProfile_autoCapabilities">
+                                        <span className="createProfile_headerText">Autonomous</span>
+                                        <RecordConsistency description=""/>
+                                        <input type="text"
+                                       
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
