@@ -10,7 +10,7 @@ const ReefscapeChecklist = ({headerText, intakeState, updateIntake})=>{
         updateIntake(key, !intakeState[key]);
     };
 
-    const handleOtherChange = (event) => {
+    const handleOtherChange = () => {
         setIsOtherChecked(!isOtherChecked);
         updateIntake('other', !isOtherChecked ? otherText : '');
     };

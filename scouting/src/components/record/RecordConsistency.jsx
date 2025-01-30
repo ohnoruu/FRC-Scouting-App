@@ -2,27 +2,22 @@ import React from 'react';
 import './RecordConsistency.css'
 
 
-export default function RecordConsistency({description}){
+export default function RecordConsistency({description, value, onChange}){
     return (
         <div className="recordConsistency_container">
             <span className="recordConsistency_description">{description}</span>
             <div className="recordConsistency_columns">
-                <div className="recordConsistency_attribute">
-                    <span className="recordConsistency_text">None</span>
-                    <input type="checkbox"/>
+                {["None", "Inconsistent", "Consistent"].map((label, index) => (
+                    <div key={label} className="recordConsistency_attribute">
+                    <span className="recordConsistency_text">{label}</span>
+                    <input 
+                        type="checkbox"
+                        name={description} //ensure only one is selected per category
+                        checked={value===index}
+                        onChange={() => onChange(index)} //update state in CreateProfile
+                    />
                 </div>
-
-
-                <div className="recordConsistency_attribute">
-                    <span className="recordConsistency_text">Inconsistent</span>
-                    <input type="checkbox"/>
-                </div>
-
-
-                <div className="recordConsistency_attribute">
-                    <span className="recordConsistency_text">Consistent</span>
-                    <input type="checkbox"/>
-                </div>
+                ))}
             </div>
         </div>
     );
