@@ -1,23 +1,38 @@
 import React from 'react';
 import './RecordConsistency.css'
 
-
-export default function RecordConsistency({description, value, onChange}){
+// 0 = none, 1 = inconsistent, 2 = consistent
+export default function RecordConsistency({ description, value, onChange }) {
     return (
         <div className="recordConsistency_container">
             <span className="recordConsistency_description">{description}</span>
             <div className="recordConsistency_columns">
-                {["None", "Inconsistent", "Consistent"].map((label, index) => (
-                    <div key={label} className="recordConsistency_attribute">
-                    <span className="recordConsistency_text">{label}</span>
+                <div className="recordConsistency_attribute">
+                    <span className="recordConsistency_text">None</span>
                     <input 
                         type="checkbox"
-                        name={description} //ensure only one is selected per category
-                        checked={value===index}
-                        onChange={() => onChange(index)} //update state in CreateProfile
+                        checked={value === 0}
+                        onChange={() => onChange(0)}
                     />
                 </div>
-                ))}
+
+                <div className="recordConsistency_attribute">
+                    <span className="recordConsistency_text">Inconsistent</span>
+                    <input 
+                        type="checkbox"
+                        checked={value === 1}
+                        onChange={() => onChange(1)}
+                    />
+                </div>
+
+                <div className="recordConsistency_attribute">
+                    <span className="recordConsistency_text">Consistent</span>
+                    <input 
+                        type="checkbox"
+                        checked={value === 2}
+                        onChange={() => onChange(2)}
+                    />
+                </div>
             </div>
         </div>
     );

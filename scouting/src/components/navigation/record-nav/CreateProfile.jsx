@@ -50,9 +50,12 @@ export default function CreateProfile() {
     };
 
     const updateScoreCapability = (type, key, value) => {
-        setScoreCapability = (prev => ({
+        setScoreCapability(prev => ({
             ...prev,
-            [type]: {...prev[type], [key]: value}
+            [type]: {
+                ...prev[type],
+                [key]: value
+            }
         }));
     };
 
@@ -153,12 +156,12 @@ export default function CreateProfile() {
                                         <RecordConsistency 
                                             description="Scores into net"
                                             value={scoreCapability.algae.netScoring}
-                                            onChange={(value) => updateScoreCapability('algae', 'netScoring', value)}
+                                            onChange={value => updateScoreCapability('algae', 'netScoring', value)}
                                         />
                                         <RecordConsistency 
                                             description="Scores into processor"
                                             value={scoreCapability.algae.processorScoring}
-                                            onChange={(value) => updateScoreCapability('algae', 'processorScoring', value)}
+                                            onChange={value => updateScoreCapability('algae', 'processorScoring', value)}
                                         />
                                     </div>
 
@@ -187,7 +190,11 @@ export default function CreateProfile() {
                                             <span className="createProfile_text">Can climb shallow cage</span>
                                         </div>
                                         <div className="createProfile_checklist">
-                                            <input type="checkbox"/>
+                                            <input 
+                                                type="checkbox"
+                                                checked={climbing.deep}
+                                                onChange={() => updateClimbing('deep')}
+                                            />
                                             <span className="createProfile_text">Can climb deep cage</span>
                                         </div>
                                     </div>
@@ -205,6 +212,7 @@ export default function CreateProfile() {
                                             type="text"
                                             className="createProfile_detailInput"
                                             placeholder="Record auto cycles, etc.."
+                                            onChange={e => setAutoDetails(e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -213,7 +221,10 @@ export default function CreateProfile() {
                     </div>
                     <div className="marginTop20">
                         <span className="createProfile_headerText">Additional Details</span>
-                        <textarea value={additionalDetails} className="createProfile_detailInput" onChange={e => setAdditionalDetails(e.target.value)} />
+                        <textarea 
+                            value={additionalDetails} 
+                            className="createProfile_detailInput" 
+                            onChange={e => setAdditionalDetails(e.target.value)} />
                     </div>
                     <button className="createProfile_submitButton" onClick={submitProfile}>
                         <span className="createProfile_submitButtonText">Submit</span>

@@ -3,8 +3,8 @@ import './ReefscapeChecklist.css';
 
 
 const ReefscapeChecklist = ({headerText, intakeState, updateIntake})=>{
-    const [isOtherChecked, setIsOtherChecked] = useState(intakeState.other || '');
-    const [otherText, setOtherText] = useState(intakeState.other !== '');
+    const [isOtherChecked, setIsOtherChecked] = useState(intakeState.other !== '');
+    const [otherText, setOtherText] = useState(intakeState.other || '');
 
     const handleCheckboxChange = (key) => {
         updateIntake(key, !intakeState[key]);
@@ -12,7 +12,11 @@ const ReefscapeChecklist = ({headerText, intakeState, updateIntake})=>{
 
     const handleOtherChange = () => {
         setIsOtherChecked(!isOtherChecked);
-        updateIntake('other', !isOtherChecked ? otherText : '');
+        if (!isOtherChecked){
+            updateIntake('other', otherText || ''); //Whenever 'other' is checked, the text input should be empty.
+        } else {
+            updateIntake('other', !isOtherChecked ? otherText : ''); //Clear other when unchecked
+        }
     };
 
     return(
@@ -58,7 +62,8 @@ const ReefscapeChecklist = ({headerText, intakeState, updateIntake})=>{
                             className="checklist_otherInput"
                             value={otherText}
                             onChange={(e)=> {
-                                setOtherText(e.target.value);
+                                const value = e.target.value
+                                setOtherText(value);
                                 updateIntake('other', e.target.value);
                             }}
                             placeholder="Specify other..."
