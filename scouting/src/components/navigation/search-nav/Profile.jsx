@@ -46,10 +46,24 @@ export default function Profile() {
                         </div>
 
                         <div className="profile_robotDetails">
+                            <span className="profile_header">General Details</span>
                             <span className="profile_text">Drivebase: {robotProfileData.profile?.drivebase}</span>
-                            <span className="profile_text">Autonomous: {robotProfileData.profile?.autonomous?.toString()}</span>
-                            <span className="profile_text">Intake: {robotProfileData.profile?.intake}</span>
-                            <span className="profile_text">Additional Details: {robotProfileData.profile?.additionalDetails}</span>
+                            <span className="profile_text">Autonomous Details: {/*robotProfileData.profile?.autoDetails || 'N/A'*/}</span>
+                            <span className="profile-text">Climbing Capabilities: {/*robotProfileData.profile?.climbing.shallow ? 'Shallow: ' : ''*/} {robotProfileData.profile?.climbing.deep ? 'Deep' : ''}</span>
+                            <span className="profile_text">Additional Details: {/*robotProfileData.profile?.additionalDetails || 'N/A'*/}</span>
+                        </div>
+
+                        <div className="profile_intakeSection">
+                            <span className="profile_header">Intake Capabilities</span>
+                            <span className="profile_text">Algae: {/*Object.entries(robotProfileData.profile?.intakeData.algae || {}).map(([key, value]) => value ? key: null).filter(Boolean).join(', ') || 'None'*/}</span>
+                            <span className="profile_text">Coral: {/*Object.entries(robotProfileData.profile?.intakeData.coral || {}).map(([key, value]) => value ? key: null).filter(Boolean).join(', ') || 'None'*/}</span>
+                        </div>
+
+                        <div className="profile_scoringSection">
+                            <span className="profile_header">Scoring Capabilities</span>
+                            <span className="profile_text">Algae: Net - {/*robotProfileData.profile?.scoreCapability.algae.netScoring || 'N/A'}, Processor - {robotProfileData.profile?.scoreCapability.algae.processorScoring || 'N/A'*/}</span>
+                            <span classname="profile_text">Coral: {/*Object.entries(robotProfileData.profile?.scoreCapability.coral || {}).map(([level, value]) => value ? `${level}: ${value}` : null).filter(Boolean).join(', ') || 'None'*/}</span>
+                            <span className="profile_text">Autonomous: {/*robotProfileData.profile?.scoreCapability.auto || 'N/A'*/}</span>
                         </div>
                     </>
                 ) : (
@@ -57,6 +71,7 @@ export default function Profile() {
                 )}
 
                 <div className="profile_matchSection">
+                    <span className="profile_header">Mathc History</span>
                     {robotProfileData?.matches?.map((match) => (
                         <div key={`${robotProfileData.profile?.teamName} match ${match.matchNumber}`}
                             onClick={() => navigate('/navigator/search/match-stats', { state: { teamNumber: robotProfileData.profile?.teamNumber, matchData: match } })}>
