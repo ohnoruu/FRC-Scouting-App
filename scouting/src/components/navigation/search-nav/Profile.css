@@ -1,92 +1,102 @@
 .profile_container {
-    width: '100%';
-    height: '100%';
-    gap: 20px;
-    background-color: white;
-    margin: 1vh;
-  }
-  
-  .profile_topPiece {
-    height: 8%;
-    background-color: #E1584B;
-  }
-  
-  .profile_buttonPiece {
-    margin-top: 2vh;
-    margin-left: 2vh;
-    font-size: 24px;
-    color: #646464;
-    cursor: pointer;
-  }
-  
-  .profile_middlePieceContainer {
-    width: 100%;
-    align-items: center;
-    margin-top: 3vh;
-    max-height: 93.5%;
-  }
-  
-  .profile_middlePiece {
-    width: 90%;
-    gap: 20px;
-  }
-  
-  .profile_teamMain {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: space-between;
-    max-height: 150px;
-  }
+  width: '100%';
+  height: '100%';
+  gap: 20px;
+  background-color: white;
+  margin: 1vh;
+}
 
-  .profile_teamSubMain{ 
-    margin-left: 2vh;
-    gap: 1vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .profile_image {
-    max-width: 55%;
-    max-height: 100px;
-  }
-  
-  .profile_robotDetails {
-    align-items: left;
-    gap: 1vh;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 2vh;
-  }
-  
-  .profile_matchSection {
-    justify-self: center;
-    gap: 100px;
-    overflow-y: auto;
-    width: 100%;
-    height: 100vh;
-    margin-left: 2vh;
-  }
-  
-  .profile_matches {
-    display: flex;
-    flex-direction: column;
-    border: 2px solid #C8C8C8;
-    padding: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .profile_text {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .profile_subText {
-    font-size: 12px;
-  }
-  
-  .profile_header {
-    font-size: 25px;
-  }
+.profile_topPiece {
+  height: 8%;
+  background-color: #E1584B;
+}
+
+.profile_buttonPiece {
+  margin-top: 2vh;
+  margin-left: 2vh;
+  font-size: 24px;
+  color: #646464;
+  cursor: pointer;
+}
+
+.profile_middlePieceContainer {
+  width: 100%;
+  align-items: center;
+  margin-top: 3vh;
+  max-height: 93.5%;
+}
+
+.profile_middlePiece {
+  width: 90%;
+  gap: 20px;
+}
+
+.profile_teamMain {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+  max-height: 150px;
+}
+
+.profile_teamSubMain{ 
+  margin-left: 2vh;
+  gap: 1vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_image {
+  max-width: 55%;
+  max-height: 100px;
+}
+
+.profile_robotDetails {
+  align-items: left;
+  gap: 1vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 2vh;
+}
+
+.profile_intakeSection{
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_scoringSection{
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_matchSection {
+  align-items: left;
+  gap: 1vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 2vh;
+}
+
+.profile_matches {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #C8C8C8;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.profile_text {
+  font-size: 14px;
+  width: 100%;
+}
+
+.profile_subText {
+  font-size: 12px;
+}
+
+.profile_header {
+  font-size: 25px;
+}

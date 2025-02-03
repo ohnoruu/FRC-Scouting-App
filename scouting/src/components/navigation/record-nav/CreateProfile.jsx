@@ -75,6 +75,7 @@ export default function CreateProfile() {
                 intakeData, 
                 scoreCapability, //includes algae, coral, and autonomous consistency
                 climbing,
+                autoDetails,
                 additionalDetails,
             },
             matches: [],
