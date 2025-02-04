@@ -58,7 +58,7 @@ export default function Profile() {
                             <span className="profile_header">General Details</span>
                             <span className="profile_text">Drivebase: {robotProfileData.profile?.drivebase}</span>
                             <span className="profile_text">Autonomous Details: {robotProfileData.profile?.autoDetails || 'N/A' /*retest this, post request didnt go through first time*/ }</span>  
-                            <span className="profile-text">Climbing Capabilities: 
+                            <span className="profile_text">Climbing Capabilities: 
                                 {robotProfileData.profile?.climbing?.shallow && ' Can climb shallow cage'} 
                                 {robotProfileData.profile?.climbing?.shallow && robotProfileData.profile?.climbing?.deep ? ' and ' : ''}
                                 {robotProfileData.profile?.climbing?.deep && 'Can climb deep cage'}
@@ -77,11 +77,11 @@ export default function Profile() {
                                 <span className="profile_text">Algae: Net - {computeScore(robotProfileData.profile?.scoreCapability.algae.netScoring)}, Processor - {computeScore(robotProfileData.profile?.scoreCapability.algae.processorScoring)}</span>
                                 <span className="profile_text">
                                     Coral: {Object.entries(robotProfileData.profile?.scoreCapability.coral || {})
-                                        .map(([level, value]) => value !== undefined ? `${level}: ${computeScore(value)}` : null)
-                                        .filter(Boolean)
+                                        .filter(([level, value]) => value !== undefined)
+                                        .map(([level, value]) => `${level}: ${computeScore(value)}`)
                                         .join(', ') || 'None'}
                                 </span>
-                                <span className="profile_text">Autonomous: {robotProfileData.profile?.scoreCapability.auto || 'N/A'}</span>
+                                <span className="profile_text">Autonomous: {computeScore(robotProfileData.profile?.scoreCapability.autoCapability)}</span>
                             </div>
                         </div>
                     </>

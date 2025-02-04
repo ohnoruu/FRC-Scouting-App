@@ -29,7 +29,7 @@ export default function CreateProfile() {
 
     const [scoreCapability, setScoreCapability] = useState({
         algae: {netScoring: null, processorScoring: null},
-        coral: {scoreL1: null, scoreL2: null, scoreL3: null, scoreL4: null},
+        coral: {L1: null, L2: null, L3: null, L4: null},
         auto: null
     });
 
