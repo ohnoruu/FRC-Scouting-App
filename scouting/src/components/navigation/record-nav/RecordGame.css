@@ -167,3 +167,15 @@
     flex: 1;
     overflow-x: auto;
 }
+
+#recordGame_coralDiv1 {
+    display:flex;
+  }
+  
+  #recordGame_coralDiv2 {
+    display:flex;
+  }
+  
+  #recordGame_algae {
+    display: flex;
+  }
