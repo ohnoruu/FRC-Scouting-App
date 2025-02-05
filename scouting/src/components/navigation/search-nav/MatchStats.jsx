@@ -46,27 +46,28 @@ export default function MatchStats() {
 
                             <span className="matchStats_headerText">Autonomous Scoring</span>
                             <span className="matchStats_headerText">Coral</span>
-                            <p className="matchStats_teamDescText">L1: {}</p>
-                            <p className="matchStats_teamDescText">L2: {}</p>
-                            <p className="matchStats_teamDescText">L3: {}</p>
-                            <p className="matchStats_teamDescText">L4: {}</p>
+                            <p className="matchStats_teamDescText">L1: {matchData.auto_L1_scores}</p>
+                            <p className="matchStats_teamDescText">L2: {matchData.auto_L2_scores}</p>
+                            <p className="matchStats_teamDescText">L3: {matchData.auto_L3_scores}</p>
+                            <p className="matchStats_teamDescText">L4: {matchData.auto_L4_scores}</p>
 
                             <span className="matchStats_headerText">Algae</span>
-                            <p className="matchStats_teamDescText">Net: {}</p>
-                            <p className="matchStats_teamDescText">Processor: {}</p>
+                            <p className="matchStats_teamDescText">Net: {matchData.auto_net}</p>
+                            <p className="matchStats_teamDescText">Processor: {matchData.auto_processor}</p>
 
                             <span className="matchStats_headerText">Teleop Scoring</span>
                             <span className="matchStats_headerText">Coral</span>
-                            <p className="matchStats_teamDescText">L1: {}</p>
-                            <p className="matchStats_teamDescText">L2: {}</p>
-                            <p className="matchStats_teamDescText">L3: {}</p>
-                            <p className="matchStats_teamDescText">L4: {}</p>
+                            <p className="matchStats_teamDescText">L1: {matchData.teleop_L1_scores}</p>
+                            <p className="matchStats_teamDescText">L2: {matchData.teleop_L2_scores}</p>
+                            <p className="matchStats_teamDescText">L3: {matchData.teleop_L3_scores}</p>
+                            <p className="matchStats_teamDescText">L4: {matchData.teleop_L4_scores}</p>
 
                             <span className="matchStats_headerText">Algae</span>
-                            <p className="matchStats_teamDescText">Net: {}</p>
-                            <p className="matchStats_teamDescText">Processor: {}</p>
+                            <p className="matchStats_teamDescText">Net: {matchData.teleop_net}</p>
+                            <p className="matchStats_teamDescText">Processor: {matchData.teleop_processor}</p>
 
-                            <p className="matchStats_teamDescText">Climbed: {}</p>
+                            <p className="matchStats_teamDescText">Climbed shallow cage: {matchData.shallow_climbed}</p>
+                            <p className="matchStats_teamDescText">Climbed deep cage: {matchData.deep_climbed}</p>
                             <p className="matchStats_teamDescText">Comments: {matchData.comment}</p>
                         </div>
                     </>
