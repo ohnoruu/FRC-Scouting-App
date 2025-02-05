@@ -22,15 +22,24 @@ export default function RecordGame() {
     const [matchType, setMatchType] = useState("Practice Match");
     const [matchNumber, setMatchNumber] = useState(null);
 
-    const [coopertition, setCoopertition] = useState(false);
-    const [highNote, setHighNote] = useState(false);
-    const [climbed, setClimbed] = useState(false);
-    const [trap, setTrap] = useState(false);
+    const [shallow_climbed, set_shallow_climbed] = useState(false);
+    const [deep_climbed, set_deep_climbed] = useState(false);
 
-    const [teleOpSpeaker, setTeleOpSpeaker] = useState(0);
-    const [teleOpAmp, setTeleOpAmp] = useState(0);
-    const [autoSpeaker, setAutoSpeaker] = useState(0);
-    const [autoAmp, setAutoAmp] = useState(0);
+    const [teleop_L1_scores, setteleop_L1_scores] = useState(0);
+    const [teleop_L2_scores, setteleop_L2_scores] = useState(0);
+    const [teleop_L3_scores, setteleop_L3_scores] = useState(0);
+    const [teleop_L4_scores, setteleop_L4_scores] = useState(0);
+
+    const [teleop_net, setteleop_net] = useState(0);
+    const [teleop_processor, setteleop_processor] = useState(0);
+
+    const [auto_L1_scores, setauto_L1_scores] = useState(0);
+    const [auto_L2_scores, setauto_L2_scores] = useState(0);
+    const [auto_L3_scores, setauto_L3_scores] = useState(0);
+    const [auto_L4_scores, setauto_L4_scores] = useState(0);
+
+    const [auto_net, setauto_net] = useState(0);
+    const [auto_processor, setauto_processor] = useState(0);
 
     const [comment, setComment] = useState('');
 
@@ -38,14 +47,21 @@ export default function RecordGame() {
         const matchData = {
             matchType,
             matchNumber: Number(matchNumber),
-            coopertition,
-            highNote,
-            climbed,
-            teleOpSpeaker,
-            teleOpAmp,
-            autoSpeaker,
-            autoAmp,
-            comment, 
+            shallow_climbed,
+            deep_climbed,
+            teleop_L1_scores,
+            teleop_L2_scores,
+            teleop_L3_scores,
+            teleop_L4_scores,
+            teleop_net,
+            teleop_processor, 
+            auto_L1_scores,
+            auto_L2_scores,
+            auto_L3_scores,
+            auto_L4_scores,
+            auto_net,
+            auto_processor,
+            comment
         };
 
         try {
@@ -80,39 +96,98 @@ export default function RecordGame() {
                         </select>
                         <input value={matchNumber} className="recordGame_matchNumber" placeholder="Match Number" type="number" onChange={e => setMatchNumber(e.target.value)} />
                     </div>
-                    <div className="recordGame_checkboxes">
-                        <CheckRecord checkboxTitle="Cooperition" stateValue={coopertition} changeState={setCoopertition} />
-                        <CheckRecord checkboxTitle="High Note" stateValue={highNote} changeState={setHighNote} />
-                        <CheckRecord checkboxTitle="Climbed" stateValue={climbed} changeState={setClimbed} />
-                        <CheckRecord checkboxTitle="Trap" stateValue={trap} changeState={setTrap} />
-                    </div>
-                    <p className="recordGame_marginTop30">Add +1 for each NOTE scored. Ex: robot puts 1 note in AMP</p>
-                    <div className="recordGame_marginTop30 recordGame_gap-20">
-                        <div>
-                            <span className="recordGame_headerText">Teleoperation</span>
-                            <div className="recordGame_row recordGame_space-between">
-                                <div className="recordGame_pointContainer">
-                                    <span>Speaker</span>
-                                    <Counter target={teleOpSpeaker} setTarget={setTeleOpSpeaker} className="recordGame_pointInput" />
-                                </div>
-                                <div className="recordGame_pointContainer">
-                                    <span>Amp</span>
-                                    <Counter target={teleOpAmp} setTarget={setTeleOpAmp} className="recordGame_pointInput" />
-                                </div>
-                            </div>
+                    
+
+
+                    
+
+                    <h1>Teleop</h1>
+                    <h2>Coral</h2>
+
+                    <div id = "recordGame_coralDiv1">      
+                        <div className = "recordGame_pointContainer">
+                            <h3>L1</h3>
+                                <Counter target={teleop_L1_scores} setTarget={setteleop_L1_scores} className="recordGame_pointInput"/>
                         </div>
-                        <span className="recordGame_headerText">Autonomous</span>
-                        <div className="recordGame_row recordGame_space-between">
-                            <div className="recordGame_pointContainer">
-                                <span>Speaker</span>
-                                <Counter target={autoSpeaker} setTarget={setAutoSpeaker} className="recordGame_pointInput" />
-                            </div>
-                            <div className="recordGame_pointContainer">
-                                <span>Amp</span>
-                                <Counter target={autoAmp} setTarget={setAutoAmp} className="recordGame_pointInput" />
-                            </div>
+
+                        <div className = "recordGame_pointContainer">
+                            <h3>L2</h3>
+                                <Counter target={teleop_L2_scores} setTarget={setteleop_L2_scores} className="recordGame_pointInput"/>
                         </div>
                     </div>
+
+                    <div id = "recordGame_coralDiv2">
+                        <div className = "recordGame_pointContainer">
+                            <h3>L3</h3>
+                                <Counter target={teleop_L3_scores} setTarget={setteleop_L3_scores} className="recordGame_pointInput"/>
+                        </div>
+
+                        <div className = "recordGame_pointContainer">
+                            <h3>L4</h3>
+                                <Counter target={teleop_L4_scores} setTarget={setteleop_L4_scores} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
+  
+                    <h2>Algae</h2>
+
+                    <div id = "recordGame_algae">
+                        <div className = "recordGame_pointContainer">
+                            <h3>Net</h3>
+                                <Counter target={teleop_net} setTarget={setteleop_net} className="recordGame_pointInput"/>
+                        </div>
+
+                        <div className = "recordGame_pointContainer">
+                            <h3>Processor</h3>
+                                <Counter target={teleop_processor} setTarget={setteleop_processor} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
+
+                    <h1>Automatic</h1>
+                    <h2>Coral</h2>
+
+                    <div id = "recordGame_coralDiv1">      
+                        <div className = "recordGame_pointContainer">
+                            <h3>L1</h3>
+                                <Counter target={auto_L1_scores} setTarget={setauto_L1_scores} className="recordGame_pointInput"/>
+                        </div>
+
+                        <div className = "recordGame_pointContainer">
+                            <h3>L2</h3>
+                                <Counter target={auto_L2_scores} setTarget={setauto_L2_scores} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
+
+                    <div id = "recordGame_coralDiv2">
+                        <div className = "recordGame_pointContainer">
+                            <h3>L3</h3>
+                                <Counter target={auto_L3_scores} setTarget={setauto_L3_scores} className="recordGame_pointInput"/>
+                        </div>
+
+                        <div className = "recordGame_pointContainer">
+                            <h3>L4</h3>
+                                <Counter target={auto_L4_scores} setTarget={setauto_L4_scores} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
+  
+                    <h2>Algae</h2>
+
+                    <div id = "recordGame_algae">
+                        <div className = "recordGame_pointContainer">
+                            <h3>Net</h3>
+                                <Counter target={auto_net} setTarget={setauto_net} className="recordGame_pointInput"/>
+                        </div>
+
+                        <div className = "recordGame_pointContainer">
+                            <h3>Processor</h3>
+                                <Counter target={auto_processor} setTarget={setauto_processor} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
+
+                    <CheckRecord checkboxTitle="Shallow Climbed" stateValue={shallow_climbed} changeState = {set_shallow_climbed}></CheckRecord>
+                    <CheckRecord checkboxTitle="Deep Climbed" stateValue={deep_climbed} changeState = {set_deep_climbed}></CheckRecord>
+
+
+
                     <div className="recordGame_marginTop20">
                         <span className="recordGame_headerText">Additional Comments</span>
                         <textarea value={comment} className="recordGame_detailInput" onChange={e => setComment(e.target.value)} />
