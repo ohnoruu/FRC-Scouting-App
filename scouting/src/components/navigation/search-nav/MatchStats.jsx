@@ -39,15 +39,34 @@ export default function MatchStats() {
                         </div>
 
                         <div className="matchStats_teamDesc">
+
+                            <span className="matchStats_headerText">Match Info</span>
                             <p className="matchStats_teamDescText">Match Number: {matchData.matchNumber}</p>
                             <p className="matchStats_teamDescText">Match Type: {matchData.matchType}</p>
-                            <p className="matchStats_teamDescText">Teleop Amp Count: {matchData.teleOpAmp}</p>
-                            <p className="matchStats_teamDescText">Teleop Speaker Count: {matchData.teleOpSpeaker}</p>
-                            <p className="matchStats_teamDescText">Autonomous Amp Count: {matchData.autoAmp}</p>
-                            <p className="matchStats_teamDescText">Autonomous Speaker Count: {matchData.autoSpeaker}</p>
-                            <p className="matchStats_teamDescText">Climbed: {matchData.climbed.toString()}</p>
-                            <p className="matchStats_teamDescText">Coopertition: {matchData.coopertition.toString()}</p>
-                            <p className="matchStats_teamDescText">High Note: {matchData.highNote.toString()}</p>
+
+                            <span className="matchStats_headerText">Autonomous Scoring</span>
+                            <span className="matchStats_headerText">Coral</span>
+                            <p className="matchStats_teamDescText">L1: {}</p>
+                            <p className="matchStats_teamDescText">L2: {}</p>
+                            <p className="matchStats_teamDescText">L3: {}</p>
+                            <p className="matchStats_teamDescText">L4: {}</p>
+
+                            <span className="matchStats_headerText">Algae</span>
+                            <p className="matchStats_teamDescText">Net: {}</p>
+                            <p className="matchStats_teamDescText">Processor: {}</p>
+
+                            <span className="matchStats_headerText">Teleop Scoring</span>
+                            <span className="matchStats_headerText">Coral</span>
+                            <p className="matchStats_teamDescText">L1: {}</p>
+                            <p className="matchStats_teamDescText">L2: {}</p>
+                            <p className="matchStats_teamDescText">L3: {}</p>
+                            <p className="matchStats_teamDescText">L4: {}</p>
+
+                            <span className="matchStats_headerText">Algae</span>
+                            <p className="matchStats_teamDescText">Net: {}</p>
+                            <p className="matchStats_teamDescText">Processor: {}</p>
+
+                            <p className="matchStats_teamDescText">Climbed: {}</p>
                             <p className="matchStats_teamDescText">Comments: {matchData.comment}</p>
                         </div>
                     </>
