@@ -183,8 +183,8 @@ export default function RecordGame() {
                         </div>
                     </div>
 
-                    <CheckRecord checkboxTitle="Shallow Climbed" stateValue={shallow_climbed} changeState = {set_shallow_climbed}></CheckRecord>
-                    <CheckRecord checkboxTitle="Deep Climbed" stateValue={deep_climbed} changeState = {set_deep_climbed}></CheckRecord>
+                    <CheckRecord checkboxTitle="Shallow Climbed" stateValue={shallow_climbed} changeState = {()=>set_shallow_climbed(prev=>!prev)}></CheckRecord>
+                    <CheckRecord checkboxTitle="Deep Climbed" stateValue={deep_climbed} changeState = {()=>set_deep_climbed(prev=>!prev)}></CheckRecord>
 
 
 
