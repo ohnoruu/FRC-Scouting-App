@@ -31,38 +31,34 @@ export default function MatchStats() {
                 {matchData && robotProfileData &&
                     <>
                         <div className="matchStats_teamMain">
-                            <div className="matchStats_teamNameNum">
-                                <span className="matchStats_header">{robotProfileData.profile.teamName}</span>
-                                <span className="matchStats_subHeader">{robotProfileData.profile.teamNumber}</span>
-                            </div>
-                            <img className="matchStats_image" src={require('../../../assets/interface-icons/filler-image.png')} alt="Robot" />
+                            <span className="matchStats_header">{robotProfileData.profile.teamName}</span>
+                            <span className="matchStats_subHeader">{robotProfileData.profile.teamNumber}</span>
                         </div>
 
                         <div className="matchStats_teamDesc">
-
                             <span className="matchStats_headerText">Match Info</span>
                             <p className="matchStats_teamDescText">Match Number: {matchData.matchNumber}</p>
                             <p className="matchStats_teamDescText">Match Type: {matchData.matchType}</p>
 
                             <span className="matchStats_headerText">Autonomous Scoring</span>
-                            <span className="matchStats_headerText">Coral</span>
+                            <span className="matchStats_headerText2">Coral</span>
                             <p className="matchStats_teamDescText">L1: {matchData.auto_L1_scores}</p>
                             <p className="matchStats_teamDescText">L2: {matchData.auto_L2_scores}</p>
                             <p className="matchStats_teamDescText">L3: {matchData.auto_L3_scores}</p>
                             <p className="matchStats_teamDescText">L4: {matchData.auto_L4_scores}</p>
 
-                            <span className="matchStats_headerText">Algae</span>
+                            <span className="matchStats_headerText2">Algae</span>
                             <p className="matchStats_teamDescText">Net: {matchData.auto_net}</p>
                             <p className="matchStats_teamDescText">Processor: {matchData.auto_processor}</p>
 
                             <span className="matchStats_headerText">Teleop Scoring</span>
-                            <span className="matchStats_headerText">Coral</span>
+                            <span className="matchStats_headerText2">Coral</span>
                             <p className="matchStats_teamDescText">L1: {matchData.teleop_L1_scores}</p>
                             <p className="matchStats_teamDescText">L2: {matchData.teleop_L2_scores}</p>
                             <p className="matchStats_teamDescText">L3: {matchData.teleop_L3_scores}</p>
                             <p className="matchStats_teamDescText">L4: {matchData.teleop_L4_scores}</p>
 
-                            <span className="matchStats_headerText">Algae</span>
+                            <span className="matchStats_headerText2">Algae</span>
                             <p className="matchStats_teamDescText">Net: {matchData.teleop_net}</p>
                             <p className="matchStats_teamDescText">Processor: {matchData.teleop_processor}</p>
 
