@@ -83,8 +83,8 @@ export default function RecordGame() {
                 <div className="recordGame_scrollView">
                     <div className="recordGame_row recordGame_space-between">
                         <div className="recordGame_column">
-                            <span className="recordGame_headerText">{robot.profile.teamName}</span>
-                            <span className="recordGame_subText">Team {robot.profile.teamNumber}</span>
+                            <span className="recordGame_header">{robot.profile.teamName}</span>
+                            <span className="recordGame_header">Team {robot.profile.teamNumber}</span>
                         </div>
                     </div>
                     <div className="recordGame_row recordGame_gap-10">
@@ -96,97 +96,96 @@ export default function RecordGame() {
                         </select>
                         <input value={matchNumber} className="recordGame_matchNumber" placeholder="Match Number" type="number" onChange={e => setMatchNumber(e.target.value)} />
                     </div>
-                    
 
-
-                    
-
-                    <h1>Teleop</h1>
-                    <h2>Coral</h2>
-
+                    <div className="recordGame_header-section">
+                        <span className="recordGame_headerText">Autonomous Period</span>
+                        <span className="recordGame_description">First 15 seconds of the game where the robot moves without driver control</span>
+                        <span className="recordGame_headerText2">Coral</span>
+                    </div>
                     <div id = "recordGame_coralDiv1">      
                         <div className = "recordGame_pointContainer">
-                            <h3>L1</h3>
-                                <Counter target={teleop_L1_scores} setTarget={setteleop_L1_scores} className="recordGame_pointInput"/>
-                        </div>
-
-                        <div className = "recordGame_pointContainer">
-                            <h3>L2</h3>
-                                <Counter target={teleop_L2_scores} setTarget={setteleop_L2_scores} className="recordGame_pointInput"/>
-                        </div>
-                    </div>
-
-                    <div id = "recordGame_coralDiv2">
-                        <div className = "recordGame_pointContainer">
-                            <h3>L3</h3>
-                                <Counter target={teleop_L3_scores} setTarget={setteleop_L3_scores} className="recordGame_pointInput"/>
-                        </div>
-
-                        <div className = "recordGame_pointContainer">
-                            <h3>L4</h3>
-                                <Counter target={teleop_L4_scores} setTarget={setteleop_L4_scores} className="recordGame_pointInput"/>
-                        </div>
-                    </div>
-  
-                    <h2>Algae</h2>
-
-                    <div id = "recordGame_algae">
-                        <div className = "recordGame_pointContainer">
-                            <h3>Net</h3>
-                                <Counter target={teleop_net} setTarget={setteleop_net} className="recordGame_pointInput"/>
-                        </div>
-
-                        <div className = "recordGame_pointContainer">
-                            <h3>Processor</h3>
-                                <Counter target={teleop_processor} setTarget={setteleop_processor} className="recordGame_pointInput"/>
-                        </div>
-                    </div>
-
-                    <h1>Automatic</h1>
-                    <h2>Coral</h2>
-
-                    <div id = "recordGame_coralDiv1">      
-                        <div className = "recordGame_pointContainer">
-                            <h3>L1</h3>
+                            <span className="recordGame_subtext">L1</span>
                                 <Counter target={auto_L1_scores} setTarget={setauto_L1_scores} className="recordGame_pointInput"/>
                         </div>
 
                         <div className = "recordGame_pointContainer">
-                            <h3>L2</h3>
+                            <span className="recordGame_subtext">L2</span>
                                 <Counter target={auto_L2_scores} setTarget={setauto_L2_scores} className="recordGame_pointInput"/>
                         </div>
                     </div>
 
                     <div id = "recordGame_coralDiv2">
                         <div className = "recordGame_pointContainer">
-                            <h3>L3</h3>
+                            <span className="recordGame_subtext">L3</span>
                                 <Counter target={auto_L3_scores} setTarget={setauto_L3_scores} className="recordGame_pointInput"/>
                         </div>
 
                         <div className = "recordGame_pointContainer">
-                            <h3>L4</h3>
+                            <span className="recordGame_subtext">L4</span>
                                 <Counter target={auto_L4_scores} setTarget={setauto_L4_scores} className="recordGame_pointInput"/>
                         </div>
                     </div>
   
-                    <h2>Algae</h2>
+                    <span className="recordGame_headerText2">Algae</span>
 
                     <div id = "recordGame_algae">
                         <div className = "recordGame_pointContainer">
-                            <h3>Net</h3>
+                            <span className="recordGame_subtext">Net</span>
                                 <Counter target={auto_net} setTarget={setauto_net} className="recordGame_pointInput"/>
                         </div>
 
                         <div className = "recordGame_pointContainer">
-                            <h3>Processor</h3>
+                            <span className="recordGame_subtext">Processor</span>
                                 <Counter target={auto_processor} setTarget={setauto_processor} className="recordGame_pointInput"/>
                         </div>
                     </div>
+                    
+                    <div className="recordGame_header-section">
+                        <span className="recordGame_headerText">Teleop Period</span>
+                        <span className="recordGame_description">Remaining period of the game where drivers control the robot</span>
+                        <span className="recordGame_headerText2">Coral</span>
+                    </div>
+                    <div id = "recordGame_coralDiv1">      
+                        <div className = "recordGame_pointContainer">
+                            <span className="recordGame_subtext">L1</span>
+                                <Counter target={teleop_L1_scores} setTarget={setteleop_L1_scores} className="recordGame_pointInput"/>
+                        </div>
 
-                    <CheckRecord checkboxTitle="Shallow Climbed" stateValue={shallow_climbed} changeState = {()=>set_shallow_climbed(prev=>!prev)}></CheckRecord>
-                    <CheckRecord checkboxTitle="Deep Climbed" stateValue={deep_climbed} changeState = {()=>set_deep_climbed(prev=>!prev)}></CheckRecord>
+                        <div className = "recordGame_pointContainer">
+                            <span className="recordGame_subtext">L2</span>
+                                <Counter target={teleop_L2_scores} setTarget={setteleop_L2_scores} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
 
+                    <div id = "recordGame_coralDiv2">
+                        <div className = "recordGame_pointContainer">
+                            <span className="recordGame_subtext">L3</span>
+                                <Counter target={teleop_L3_scores} setTarget={setteleop_L3_scores} className="recordGame_pointInput"/>
+                        </div>
 
+                        <div className = "recordGame_pointContainer">
+                            <span className="recordGame_subtext">L4</span>
+                                <Counter target={teleop_L4_scores} setTarget={setteleop_L4_scores} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
+  
+                    <span className="recordGame_headerText2">Algae</span>
+                    <div id = "recordGame_algae">
+                        <div className = "recordGame_pointContainer">
+                            <span className="recordGame_subtext">Net</span>
+                                <Counter target={teleop_net} setTarget={setteleop_net} className="recordGame_pointInput"/>
+                        </div>
+
+                        <div className = "recordGame_pointContainer">
+                            <span className="recordGame_subtext">Processor</span>
+                                <Counter target={teleop_processor} setTarget={setteleop_processor} className="recordGame_pointInput"/>
+                        </div>
+                    </div>
+
+                    <div className="recordGame_checkbox-section">
+                        <CheckRecord className="recordGame_checkbox" checkboxTitle="Climbed shallow cage" stateValue={shallow_climbed} changeState = {()=>set_shallow_climbed(prev=>!prev)}></CheckRecord>
+                        <CheckRecord className="recordGame_checkbox" checkboxTitle="Climbed deep cage" stateValue={deep_climbed} changeState = {()=>set_deep_climbed(prev=>!prev)}></CheckRecord>
+                    </div>
 
                     <div className="recordGame_marginTop20">
                         <span className="recordGame_headerText">Additional Comments</span>

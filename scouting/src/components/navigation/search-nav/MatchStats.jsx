@@ -31,8 +31,8 @@ export default function MatchStats() {
                 {matchData && robotProfileData &&
                     <>
                         <div className="matchStats_teamMain">
-                            <span className="matchStats_header">{robotProfileData.profile.teamName}</span>
-                            <span className="matchStats_subHeader">{robotProfileData.profile.teamNumber}</span>
+                            <span>{robotProfileData.profile.teamName}</span>
+                            <span>{robotProfileData.profile.teamNumber}</span>
                         </div>
 
                         <div className="matchStats_teamDesc">

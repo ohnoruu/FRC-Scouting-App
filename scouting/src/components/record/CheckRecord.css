@@ -1,14 +1,15 @@
 .checkbox-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  
-  .subText {
-    font-size: 15px;
-    color: #616161;
-  }
-  
-  .checkbox {
-    accent-color: #E1584B;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
+.subText {
+  font-size: 16px;
+  color: #616161;
+}
+
+.checkbox {
+  accent-color: #E1584B;
+}

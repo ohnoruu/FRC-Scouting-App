@@ -48,7 +48,7 @@ export default function Profile() {
                         <div className="profile_teamMain">
                             <div className="profile_teamSubMain">
                                 <span className="profile_header">{robotProfileData.profile?.teamName}</span>
-                                <span className="profile_subText">{robotProfileData.profile?.teamNumber}</span>
+                                <span className="profile_header">{robotProfileData.profile?.teamNumber}</span>
                             </div>
 
                             <img className="profile_image" src={require('../../../assets/interface-icons/filler-image.png')} alt="Robot" />
