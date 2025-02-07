@@ -5,7 +5,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
+}
+
+.createProfile_text{
+    color: #616161;
 }
 
 .topPiece {
@@ -14,6 +17,7 @@
     background-color: #E1584B;
 }
 
+
 .createProfile_middlePiece {
     width: 90%;
     min-height: 100%;
@@ -21,6 +25,7 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
 
 .createProfile_header {
     width: 100%;
@@ -32,15 +37,34 @@
     margin-bottom: 20px;
 }
 
+.createProfile_header2{
+    color: #616161;
+    width: 100%;
+    max-height: 27px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: underline;
+}
+
+
 .createProfile_headerText {
     font-size: 17px;
     color: #616161;
     margin-right: 50%;
 }
 
+
 .createProfile_subText {
     font-size: 15px;
     color: #616161;
+}
+
+.createProfile_checklist{
+    font-size: 16px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
 
 .createProfile_submitButton {
@@ -53,15 +77,18 @@
     align-items: center;
 }
 
+
 .createProfile_submitButtonText {
     color: white;
     font-size: 17px;
 }
 
+
 .inputContainer {
     width: 75%;
     min-height: 30%;
 }
+
 
 .bigInput {
     width: 100%;
@@ -73,6 +100,7 @@
     border-radius: 10px;
 }
 
+
 .smallInput {
     width: 48%;
     font-size: 15px;
@@ -82,6 +110,7 @@
     border: 2px solid gray;
     border-radius: 10px;
 }
+
 
 .createProfile_dropdown {
     width: 100%;
@@ -93,6 +122,7 @@
     color: white;
     font-size: 15px;
 }
+
 
 .createProfile_detailInput {
     width: 80%;
@@ -107,26 +137,32 @@
     resize: none;
 }
 
+
 .createProfile_row {
     display: flex;
     flex-direction: row;
 }
 
+
 .space-between {
     justify-content: space-between;
 }
+
 
 .align-center {
     align-items: center;
 }
 
+
 .marginTop10 {
     margin-top: 10px;
 }
 
+
 .marginTop20 {
     margin-top: 20px;
 }
+
 
 .createProfile_scrollView {
     overflow-y: auto;

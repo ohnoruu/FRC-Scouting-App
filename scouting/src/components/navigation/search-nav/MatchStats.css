@@ -1,0 +1,42 @@
+.matchStats_container{
+    height: 100vh;
+    color: #616161;
+}
+
+.matchStats_buttonPiece {
+    font-size: 24px;
+    cursor: pointer;
+    color: #616161;
+    margin: 3vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.matchStats_teamMain{
+    display: flex;
+    flex-direction: column;
+    padding-left: 5vw;
+    gap: 1vh;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 2vh;
+}
+
+.matchStats_headerText{
+    font-weight: bold;
+}
+
+.matchStats_headerText2{
+    text-decoration: underline;
+}
+
+.matchStats_teamDesc{
+    padding-left: 5vw;
+    display: flex; 
+    flex-direction: column;
+}
+
+.matchStats_teamDescText{
+    margin: 0;
+    margin-bottom: 1vh;
+}

@@ -20,8 +20,7 @@ export default function StatGlimpse({ name, teamNumber, drivebase, intake, isLoa
           <>
             <span className="statGlimpse_headerSmaller">{name} ({teamNumber})</span>
             <div className="statGlimpse_stats">
-              <span className="statGlimpse_text">Intake: {intake} </span>
-              <span className="statGlimpse_text"> | Drivebase: {drivebase}</span>
+              <span className="statGlimpse_text"> Drivebase: {drivebase}</span>
             </div>
           </>
         )}

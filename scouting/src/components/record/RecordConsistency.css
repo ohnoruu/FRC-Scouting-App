@@ -1,0 +1,24 @@
+.recordConsistency_container{
+    margin-bottom: 2vh;
+    color: #616161;
+}
+
+.recordConsistency_description{
+    text-decoration: underline;
+    
+}
+
+.recordConsistency_columns{
+    display: flex;
+    margin-top: 2vh;
+    flex-direction: columns;
+    align-self: center;
+    justify-self: center;
+}
+.recordConsistency_attribute{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
