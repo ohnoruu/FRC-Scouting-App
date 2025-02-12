@@ -23,11 +23,11 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./beach-blitz-2024-prototype  # Adjust this to your subdirectory
+      working-directory: ./scouting  # Adjust this to your subdirectory
 
     - name: Build the project
       run: CI=false npm run build  # Set CI=false to prevent treating warnings as errors
-      working-directory: ./beach-blitz-2024-prototype  # Adjust this to your subdirectory
+      working-directory: ./scouting  # Adjust this to your subdirectory
 
     - name: Deploy to Firebase Hosting
       uses: FirebaseExtended/action-hosting-deploy@v0
@@ -35,4 +35,4 @@ jobs:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
         firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEAM8521_SCOUTING_WEBAPP }}
         projectId: team8521-scouting-webapp  # Replace with your Firebase project ID
-        entryPoint: ./beach-blitz-2024-prototype 
+        entryPoint: ./scouting
