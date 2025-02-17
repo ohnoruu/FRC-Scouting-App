@@ -103,8 +103,6 @@
 }
 
 .recordGame_pointContainer {
-    width: 49%;
-    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -113,6 +111,11 @@
     padding: 5px;
     border-radius: 5px;
     gap: 1vh;
+
+    /* Make it responsive */
+    width: 90%; /* 90% of the parent container */
+    min-width: 5vw;
+    box-sizing: border-box; /* Ensure padding is included in width */
 
 }
 

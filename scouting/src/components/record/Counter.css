@@ -4,15 +4,24 @@
     justify-content: center;
     align-items: center;
     gap: 2px;
+
+    /* Make sure it wraps on smaller screens */
+    flex-wrap: wrap;
+    max-width: 100%; /* Adjust width based on parent or viewport */
+    box-sizing: border-box;
 }
 
 .counter-input {
     text-align: center;
-    max-width: 15vh;
+    width: 100%; /* Takes up full available width */
+    max-width: 15vh; /* Limit max width to prevent overflow */
     margin-right: 1vh;
     margin-left: 1vh;
+    padding: 5px; /* Add padding for better touch interaction on small screens */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 .counter-icon { 
     font-size: 24px;
+    cursor: pointer;
 }
