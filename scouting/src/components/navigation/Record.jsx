@@ -9,6 +9,7 @@ export default function Record() {
     <Routes>
       <Route path="/" element={<SelectProfile />} />
       <Route path="create-profile" element={<CreateProfile />} />
+      <Route path="edit-profile/:profileId" element={<CreateProfile />} /> 
       <Route path="record-game/:teamNumber" element={<RecordGame />} />
     </Routes>
   );
