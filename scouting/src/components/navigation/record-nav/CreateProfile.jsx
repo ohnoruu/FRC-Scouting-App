@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import ReefscapeChecklist from '../../record/ReefscapeChecklist';
@@ -8,13 +8,14 @@ import './CreateProfile.css';
 
 export default function CreateProfile() {
     const navigate = useNavigate();
-    const { teamNumber } = useParams(); //get profile ID from URL if editing
-    const isEditing = !!teamNumber; //Determining if editing mode
+    const location = useLocation();
+    const { teamNumber: initialTeamNumber } = useParams(); //get profile ID from URL if editing
+    const isEditing = location.state?.isEditing; //Determining if editing mode
     const [loading, setLoading] = useState(isEditing); // Set loading to true if editing
 
     //variables
     const [teamName, setTeamName] = useState('');
-    const [teamNumberState, setTeamNumber] = useState(''); // Define teamNumber state
+    const [teamNumberState, setTeamNumberState] = useState(initialTeamNumber || ''); // Initialize teamNumberState with teamNumber if it exists
     const [drivebase, setDrivebase] = useState('');
     const drivebaseSelection = [
         { label: 'Mecanum', value: 'Mecanum' },
@@ -44,13 +45,13 @@ export default function CreateProfile() {
     const [additionalDetails, setAdditionalDetails] = useState('');
 
     useEffect(() => {
-        console.log("Team number", teamNumber);
+        console.log("Team number", initialTeamNumber);
         if (isEditing) {
-            axios.get(`https://cyberlions-web-server-1028328227.us-central1.run.app/getRobot/${teamNumber}`)
+            axios.get(`https://cyberlions-web-server-1028328227.us-central1.run.app/getRobot/${initialTeamNumber}`)
                 .then(response => {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
-                    setTeamNumber(profile.teamNumber ? profile.teamNumber.toString() : '');
+                    setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
                     setDrivebase(profile.drivebase || '');
                     setIntakeData(profile.intakeData || {
                         algae: { ground: false, claw: false, wheel: false, other: '' },
@@ -71,7 +72,7 @@ export default function CreateProfile() {
                     setLoading(false);
                 });
         }
-    }, [isEditing, teamNumber]);
+    }, [isEditing, initialTeamNumber]);
 
     //data manipulation functions
     const updateIntake = (type, key, value) => {
@@ -116,7 +117,7 @@ export default function CreateProfile() {
         try {
             if (isEditing) {
                 // PUT request to update existing profile
-                await axios.put(`https://cyberlions-web-server-1028328227.us-central1.run.app/updateProfile/${teamNumber}`, profileData);
+                await axios.put(`https://cyberlions-web-server-1028328227.us-central1.run.app/updateProfile/${initialTeamNumber}`, profileData);
             } else {
                 // POST request to create a new profile
                 await axios.post('https://cyberlions-web-server-1028328227.us-central1.run.app/addProfile', profileData);
@@ -159,7 +160,7 @@ export default function CreateProfile() {
                                     className="smallInput"
                                     placeholder="Team Number"
                                     type="number"
-                                    onChange={e => setTeamNumber(e.target.value)}
+                                    onChange={e => setTeamNumberState(e.target.value)}
                                 />
                             </div>
                             <div className="marginTop10">

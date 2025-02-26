@@ -8,7 +8,7 @@ export default function DisplayProfile({ profileData }) {
     const navigate = useNavigate();
 
     return (
-        <div className="displayProfile_container" onClick={() => navigate(`/navigator/record/record-game/${profileData.profile.teamNumber}`, { state: { robot: profileData } })}>
+        <div className="displayProfile_container" onClick={() => navigate(`/navigator/record/record-game/${profileData.profile.teamNumber}`, { state: { robot: profileData, isEditing: false} })}>
             <div className="displayProfile_teamSelection">
                 <span className="displayProfile_teamName">{profileData.profile.teamName}</span>
                 <span>{profileData.profile.teamNumber}</span>
@@ -16,7 +16,7 @@ export default function DisplayProfile({ profileData }) {
             <div className="displayProfile_editSelection"
                 onClick={(e) => {
                     e.stopPropagation(); // Prevent navigation when clicking edit
-                    navigate(`/navigator/record/edit-profile/${profileData.profile.teamNumber}`, { state: { robot: profileData } });
+                    navigate(`/navigator/record/edit-profile/${profileData.profile.teamNumber}`, { state: { robot: profileData, isEditing: true } });
                 }}
             >
                 <FaEdit className="displayProfile_edit-icon"/>
