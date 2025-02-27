@@ -9,7 +9,6 @@ export default function DisplayProfile({ profileData }) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate loading delay (replace with actual fetch if needed)
         axios.get(`https://cyberlions-web-server-1028328220227.us-central1.run.app/getRobot/${profileData.profile.teamNumber}`)
             .then(() => setIsLoading(false))
             .catch(() => setIsLoading(false));
@@ -21,19 +20,22 @@ export default function DisplayProfile({ profileData }) {
                 <span className="displayProfile_teamName">{profileData.profile.teamName}</span>
                 <span>{profileData.profile.teamNumber}</span>
             </div>
-            <div className="displayProfile_editSelection"
-                onClick={(e) => {
-                    e.stopPropagation(); // Prevent navigation when clicking edit
-                    navigate(`/navigator/record/edit-profile/${profileData.profile.teamNumber}`, { state: { robot: profileData, isEditing: true } });
-                }}
-            >
-                <FaEdit className="displayProfile_edit-icon"/>
-                {isLoading ? (
+
+            {isLoading ? (
+                <div className="displayProfile_editSelection loading">
                     <span>Loading editing feature...</span>
-                ) : (
+                </div>
+            ) : (
+                <div className="displayProfile_editSelection"
+                    onClick={(e) => {
+                        e.stopPropagation(); // Prevent navigation when clicking edit
+                        navigate(`/navigator/record/edit-profile/${profileData.profile.teamNumber}`, { state: { robot: profileData, isEditing: true } });
+                    }}
+                >
+                    <FaEdit className="displayProfile_edit-icon"/>
                     <span>Edit Profile</span>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 }
