@@ -12,6 +12,7 @@ export default function CreateProfile() {
     const { teamNumber: initialTeamNumber } = useParams(); //get profile ID from URL if editing
     const isEditing = location.state?.isEditing; //Determining if editing mode
     const [loading, setLoading] = useState(isEditing); // Set loading to true if editing
+    const [matches, setMatches] = useState([]); 
 
     //variables
     const [teamName, setTeamName] = useState('');
@@ -44,8 +45,6 @@ export default function CreateProfile() {
     const [autoDetails, setAutoDetails] = useState('');
     const [additionalDetails, setAdditionalDetails] = useState('');
 
-    const [matches, setMatches] = useState([]);
-
     useEffect(() => {
         console.log("Team number", initialTeamNumber);
         if (isEditing) {
@@ -67,7 +66,7 @@ export default function CreateProfile() {
                     setClimbing(profile.climbing || { shallow: false, deep: false });
                     setAutoDetails(profile.autoDetails || '');
                     setAdditionalDetails(profile.additionalDetails || '');
-                    setMatches(response.data.matches || []); // Store existing matches
+                    setMatches(response.data.matches || []); // Fetching and setting matches here
                     setLoading(false);
                 })
                 .catch(error => {
@@ -109,14 +108,14 @@ export default function CreateProfile() {
                 teamNumber: Number(teamNumberState),
                 drivebase,
                 intakeData,
-                scoreCapability, //includes algae, coral, and autonomous consistency
+                scoreCapability,
                 climbing,
                 autoDetails,
                 additionalDetails,
             },
-            matches: [],
+            matchData: matches, // Pass the matches array here
         };
-
+    
         try {
             if (isEditing) {
                 // PUT request to update existing profile
