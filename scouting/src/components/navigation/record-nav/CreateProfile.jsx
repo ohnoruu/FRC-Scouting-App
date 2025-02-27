@@ -66,7 +66,14 @@ export default function CreateProfile() {
                     setClimbing(profile.climbing || { shallow: false, deep: false });
                     setAutoDetails(profile.autoDetails || '');
                     setAdditionalDetails(profile.additionalDetails || '');
-                    setMatches(response.data.matches || []); // Fetching and setting matches here
+    
+                    // Check if matches exist and set it
+                    if (response.data.matches && response.data.matches.length > 0) {
+                        setMatches(response.data.matches); // Set matches from API response
+                    } else {
+                        setMatches([]); // No matches, set empty array
+                    }
+    
                     setLoading(false);
                 })
                 .catch(error => {
@@ -75,7 +82,7 @@ export default function CreateProfile() {
                 });
         }
     }, [isEditing, initialTeamNumber]);
-
+    
     //data manipulation functions
     const updateIntake = (type, key, value) => {
         setIntakeData(prevState => ({
