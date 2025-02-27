@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa'
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 import ReefscapeChecklist from '../../record/ReefscapeChecklist';
 import RecordConsistency from '../../record/RecordConsistency';
 import './CreateProfile.css';
 
-
 export default function CreateProfile() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { teamNumber: initialTeamNumber } = useParams(); //get profile ID from URL if editing
+    const isEditing = location.state?.isEditing; //Determining if editing mode
+    const [loading, setLoading] = useState(isEditing); // Set loading to true if editing
 
     //variables
     const [teamName, setTeamName] = useState('');
-    const [teamNumber, setTeamNumber] = useState('');
+    const [teamNumberState, setTeamNumberState] = useState(initialTeamNumber || ''); // Initialize teamNumberState with teamNumber if it exists
     const [drivebase, setDrivebase] = useState('');
     const drivebaseSelection = [
         { label: 'Mecanum', value: 'Mecanum' },
@@ -23,13 +26,13 @@ export default function CreateProfile() {
     ];
 
     const [intakeData, setIntakeData] = useState({
-        algae: {ground: false, claw: false, wheel: false, other: ''},
-        coral: {ground: false, claw: false, wheel: false, other: ''}
+        algae: { ground: false, claw: false, wheel: false, other: '' },
+        coral: { ground: false, claw: false, wheel: false, other: '' }
     });
 
     const [scoreCapability, setScoreCapability] = useState({
-        algae: {netScoring: null, processorScoring: null},
-        coral: {L1: null, L2: null, L3: null, L4: null},
+        algae: { netScoring: null, processorScoring: null },
+        coral: { L1: null, L2: null, L3: null, L4: null },
         auto: null
     });
 
@@ -38,14 +41,44 @@ export default function CreateProfile() {
         deep: false
     });
 
-    const [autoDetails, setAutoDetails] = useState('')
+    const [autoDetails, setAutoDetails] = useState('');
     const [additionalDetails, setAdditionalDetails] = useState('');
+
+    useEffect(() => {
+        console.log("Team number", initialTeamNumber);
+        if (isEditing) {
+            axios.get(`https://cyberlions-web-server-1028328220227.us-central1.run.app/getRobot/${initialTeamNumber}`)
+                .then(response => {
+                    const profile = response.data.profile;
+                    setTeamName(profile.teamName || '');
+                    setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
+                    setDrivebase(profile.drivebase || '');
+                    setIntakeData(profile.intakeData || {
+                        algae: { ground: false, claw: false, wheel: false, other: '' },
+                        coral: { ground: false, claw: false, wheel: false, other: '' }
+                    });
+                    setScoreCapability(profile.scoreCapability || {
+                        algae: { netScoring: null, processorScoring: null },
+                        coral: { L1: null, L2: null, L3: null, L4: null },
+                        auto: null
+                    });
+                    setClimbing(profile.climbing || { shallow: false, deep: false });
+                    setAutoDetails(profile.autoDetails || '');
+                    setAdditionalDetails(profile.additionalDetails || '');
+                    setLoading(false); // Mark loading as false once data is set
+                })
+                .catch(error => {
+                    console.error("Error fetching profile: ", error);
+                    setLoading(false);
+                });
+        }
+    }, [isEditing, initialTeamNumber]);
 
     //data manipulation functions
     const updateIntake = (type, key, value) => {
         setIntakeData(prevState => ({
             ...prevState,
-            [type]: {...prevState[type], [key]: value} 
+            [type]: { ...prevState[type], [key]: value }
         }));
     };
 
@@ -64,15 +97,15 @@ export default function CreateProfile() {
             ...prev,
             [key]: !prev[key] //toggle between true/false
         }));
-    }
+    };
 
     const submitProfile = async () => {
         const profileData = {
             profile: {
                 teamName,
-                teamNumber: Number(teamNumber),
+                teamNumber: Number(teamNumberState),
                 drivebase,
-                intakeData, 
+                intakeData,
                 scoreCapability, //includes algae, coral, and autonomous consistency
                 climbing,
                 autoDetails,
@@ -82,14 +115,22 @@ export default function CreateProfile() {
         };
 
         try {
-            await axios.post('https://cyberlions-web-server-1028328220227.us-central1.run.app/addProfile', profileData);
+            if (isEditing) {
+                // PUT request to update existing profile
+                await axios.put(`https://cyberlions-web-server-1028328220227.us-central1.run.app/updateProfile/${initialTeamNumber}`, profileData);
+            } else {
+                // POST request to create a new profile
+                await axios.post('https://cyberlions-web-server-1028328220227.us-central1.run.app/addProfile', profileData);
+            }
         } catch (error) {
-            console.error('Error making a POST request:', error);
+            console.error('Error submitting profile:', error);
         }
-
-
         navigate(-1);
     };
+
+    if (loading) {
+        return <div className="loadingMessage">Loading profile</div>;
+    }
 
     return (
         <div className="createProfile_container">
@@ -97,38 +138,38 @@ export default function CreateProfile() {
             <div className="createProfile_middlePiece">
                 <div className="createProfile_header">
                     <FaArrowLeft className="chevron-left" onClick={() => navigate(-1)} />
-                    <span className="createProfile_headerText">Create Robot Profile</span>
+                    <span className="createProfile_headerText">
+                        {isEditing ? 'Edit Robot Profile' : 'Create Robot Profile'}
+                    </span>
                 </div>
                 <div className="createProfile_scrollView">
                     <span className="createProfile_headerText">General Information</span>
                     <div className="createProfile_row">
                         <div className="inputContainer">
                             <div>
-                                <input 
-                                    value={teamName} 
-                                    className="bigInput" 
-                                    placeholder="Team Name" 
-                                    onChange={e => setTeamName(e.target.value)} 
+                                <input
+                                    value={teamName}
+                                    className="bigInput"
+                                    placeholder="Team Name"
+                                    onChange={e => setTeamName(e.target.value)}
                                 />
                             </div>
                             <div className="row space-between">
-                                <input 
-                                    value={teamNumber} 
-                                    className="smallInput" 
-                                    placeholder="Team Number" 
-                                    type="number" 
-                                    onChange={e => setTeamNumber(e.target.value)} 
+                                <input
+                                    value={teamNumberState}
+                                    className="smallInput"
+                                    placeholder="Team Number"
+                                    type="number"
+                                    onChange={e => setTeamNumberState(e.target.value)}
                                 />
                             </div>
                             <div className="marginTop10">
-
-
                                 <span className="createProfile_headerText">Drivebase</span>
-                                <select 
-                                    className="createProfile_dropdown" 
-                                    value={drivebase} 
+                                <select
+                                    className="createProfile_dropdown"
+                                    value={drivebase}
                                     onChange={(e) => setDrivebase(e.target.value)}
-                                    >
+                                >
                                     <option value="" disabled>Drivebase</option>
                                     {drivebaseSelection.map(option => (
                                         <option key={option.value} value={option.value}>{option.label}</option>
@@ -138,39 +179,35 @@ export default function CreateProfile() {
                                 {drivebase === 'Other' && <input className="bigInput" placeholder="Other Drivebase" onChange={e => setDrivebase(e.target.value)} />}
                                 <div className="createProfile_intakeSection">
                                     <span className="createProfile_headerText">Intake</span>
-                                    <ReefscapeChecklist 
+                                    <ReefscapeChecklist
                                         headerText="Algae"
                                         intakeState={intakeData.algae}
                                         updateIntake={(key, value) => updateIntake('algae', key, value)}
                                     />
-                                    <ReefscapeChecklist 
+                                    <ReefscapeChecklist
                                         headerText="Coral"
                                         intakeState={intakeData.coral}
                                         updateIntake={(key, value) => updateIntake('coral', key, value)}
                                     />
                                 </div>
                                 <div className="createProfile_capabilitiesSection">
-
-
                                     <div className="createProfile_algaeCapabilities">
                                         <span className="createProfile_headerText">Algae</span>
-                                        <RecordConsistency 
+                                        <RecordConsistency
                                             description="Scores into net"
                                             value={scoreCapability.algae.netScoring}
                                             onChange={value => updateScoreCapability('algae', 'netScoring', value)}
                                         />
-                                        <RecordConsistency 
+                                        <RecordConsistency
                                             description="Scores into processor"
                                             value={scoreCapability.algae.processorScoring}
                                             onChange={value => updateScoreCapability('algae', 'processorScoring', value)}
                                         />
                                     </div>
-
-
                                     <div className="createProfile_coralCapabilities">
                                         <span className="createProfile_headerText">Coral</span>
                                         {["L1", "L2", "L3", "L4"].map(level => (
-                                            <RecordConsistency 
+                                            <RecordConsistency
                                                 key={level}
                                                 description={`Scores ${level.toUpperCase()}`}
                                                 value={scoreCapability.coral[level]}
@@ -178,12 +215,10 @@ export default function CreateProfile() {
                                             />
                                         ))}
                                     </div>
-
-
                                     <div className="createProfile_climbingCapabilities">
                                         <span className="createProfile_headerText">Climbing</span>
                                         <div className="createProfile_checklist">
-                                            <input 
+                                            <input
                                                 type="checkbox"
                                                 checked={climbing.shallow}
                                                 onChange={() => updateClimbing('shallow')}
@@ -191,7 +226,7 @@ export default function CreateProfile() {
                                             <span className="createProfile_text">Can climb shallow cage</span>
                                         </div>
                                         <div className="createProfile_checklist">
-                                            <input 
+                                            <input
                                                 type="checkbox"
                                                 checked={climbing.deep}
                                                 onChange={() => updateClimbing('deep')}
@@ -199,17 +234,15 @@ export default function CreateProfile() {
                                             <span className="createProfile_text">Can climb deep cage</span>
                                         </div>
                                     </div>
-
-
                                     <div className="createProfile_autoCapabilities">
                                         <span className="createProfile_headerText">Autonomous</span>
-                                        <RecordConsistency 
+                                        <RecordConsistency
                                             description="Auto Capability"
                                             value={scoreCapability.autoCapability}
-                                            onChange={(value) => setScoreCapability(prev => ({...prev, autoCapability: value}))}
+                                            onChange={(value) => setScoreCapability(prev => ({ ...prev, autoCapability: value }))}
                                         />
                                         <span className="createProfile_header2">Auto Details</span>
-                                        <input 
+                                        <input
                                             type="text"
                                             className="createProfile_detailInput"
                                             placeholder="Record auto cycles, etc.."
@@ -222,9 +255,9 @@ export default function CreateProfile() {
                     </div>
                     <div className="marginTop20">
                         <span className="createProfile_headerText">Additional Details</span>
-                        <textarea 
-                            value={additionalDetails} 
-                            className="createProfile_detailInput" 
+                        <textarea
+                            value={additionalDetails}
+                            className="createProfile_detailInput"
                             onChange={e => setAdditionalDetails(e.target.value)} />
                     </div>
                     <button className="createProfile_submitButton" onClick={submitProfile}>
