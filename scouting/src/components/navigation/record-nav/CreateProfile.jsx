@@ -68,11 +68,11 @@ export default function CreateProfile() {
                     setAdditionalDetails(profile.additionalDetails || '');
     
                     // Check if matches exist and set it
-                    if (response.data.matches && Array.isArray(response.data.matches) && response.data.matches.length > 0) {
-                        setMatches(response.data.matches); // Set matches from API response
-                    } else if (response.data.matches === null) {
-                        // Matches are null
-                        setMatches([]); //set default state
+                    if (Array.isArray(response.data.matches) && response.data.matches.length > 0) {
+                        setMatches(prevMatches => [
+                            ...prevMatches, 
+                            ...response.data.matches // Append the fetched matches to the previous ones
+                        ]);
                     }
     
                     setLoading(false);
@@ -83,6 +83,7 @@ export default function CreateProfile() {
                 });
         }
     }, [isEditing, initialTeamNumber]);
+    
 
     //data manipulation functions
     const updateIntake = (type, key, value) => {
