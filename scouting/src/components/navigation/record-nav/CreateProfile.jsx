@@ -44,6 +44,8 @@ export default function CreateProfile() {
     const [autoDetails, setAutoDetails] = useState('');
     const [additionalDetails, setAdditionalDetails] = useState('');
 
+    const [matches, setMatches] = useState([]);
+
     useEffect(() => {
         console.log("Team number", initialTeamNumber);
         if (isEditing) {
@@ -65,7 +67,8 @@ export default function CreateProfile() {
                     setClimbing(profile.climbing || { shallow: false, deep: false });
                     setAutoDetails(profile.autoDetails || '');
                     setAdditionalDetails(profile.additionalDetails || '');
-                    setLoading(false); // Mark loading as false once data is set
+                    setMatches(response.data.matches || []); // Store existing matches
+                    setLoading(false);
                 })
                 .catch(error => {
                     console.error("Error fetching profile: ", error);
