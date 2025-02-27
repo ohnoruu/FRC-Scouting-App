@@ -47,7 +47,7 @@ export default function CreateProfile() {
     useEffect(() => {
         console.log("Team number", initialTeamNumber);
         if (isEditing) {
-            axios.get(`https://cyberlions-web-server-1028328227.us-central1.run.app/getRobot/${initialTeamNumber}`)
+            axios.get(`https://cyberlions-web-server-1028328220227.us-central1.run.app/getRobot/${initialTeamNumber}`)
                 .then(response => {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
@@ -117,10 +117,10 @@ export default function CreateProfile() {
         try {
             if (isEditing) {
                 // PUT request to update existing profile
-                await axios.put(`https://cyberlions-web-server-1028328227.us-central1.run.app/updateProfile/${initialTeamNumber}`, profileData);
+                await axios.put(`https://cyberlions-web-server-1028328220227.us-central1.run.app/updateProfile/${initialTeamNumber}`, profileData);
             } else {
                 // POST request to create a new profile
-                await axios.post('https://cyberlions-web-server-1028328227.us-central1.run.app/addProfile', profileData);
+                await axios.post('https://cyberlions-web-server-1028328220227.us-central1.run.app/addProfile', profileData);
             }
         } catch (error) {
             console.error('Error submitting profile:', error);
