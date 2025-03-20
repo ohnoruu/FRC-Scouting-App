@@ -57,7 +57,15 @@ export default function Home() {
             <div className="home_scoutingDataGlimpses">
               {robotList?.map((robot) => (
                 <button key={robot.profile.teamNumber} className="home_statGlimpseButton" onClick = {()=> handleProfileNavigation(robot.profile.teamNumber)}>
-                  <StatGlimpse name={robot.profile.teamName} teamNumber={robot.profile.teamNumber} drivebase={robot.profile.drivebase} intake={robot.profile.intake} />
+                  <StatGlimpse 
+                    name={robot.profile.teamName} 
+                    teamNumber={robot.profile.teamNumber} 
+                    playstyle={[
+                      robot.profile?.playstyle?.algae && "Algae Scorer",
+                      robot.profile?.playstyle?.coral && "Coral Scorer",
+                      robot.profile?.playstyle?.defense && "Defender"
+                    ].filter(Boolean).join(", ") || "None"}
+                  />
                 </button>
               ))}
             </div>

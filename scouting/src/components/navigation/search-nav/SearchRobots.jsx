@@ -61,12 +61,15 @@ export default function SearchRobots() {
                     onClick={() => handleProfileNavigation(robot.profile.teamNumber)}
                     className="searchRobots_pressable"
                   >
-                    <StatGlimpse
-                      name={robot.profile?.teamName}
-                      teamNumber={robot.profile?.teamNumber}
-                      drivebase={robot.profile?.drivebase}
-                      intake={robot.profile?.intake}
-                    />
+                    <StatGlimpse 
+                    name={robot.profile.teamName} 
+                    teamNumber={robot.profile.teamNumber} 
+                    playstyle={[
+                      robot.profile?.playstyle?.algae && "Algae Scorer",
+                      robot.profile?.playstyle?.coral && "Coral Scorer",
+                      robot.profile?.playstyle?.defense && "Defender"
+                    ].filter(Boolean).join(", ") || "None"}
+                  />
                   </div>
                 ))}
               </Suspense>

@@ -57,6 +57,12 @@ export default function Profile() {
                         <div className="profile_robotDetails">
                             <span className="profile_header">General Details</span>
                             <span className="profile_text">Drivebase: {robotProfileData.profile?.drivebase}</span>
+                            <span className="profile_text">Playstyles: {[
+                                    robotProfileData.profile?.playstyle?.algae && "Algae Scorer",
+                                    robotProfileData.profile?.playstyle?.coral && "Coral Scorer", 
+                                    robotProfileData.profile?.playstyle?.defense && "Defender"
+                                ].filter(Boolean).join(", " ) || "None"}
+                            </span>
                             <span className="profile_text">Autonomous Details: {robotProfileData.profile?.autoDetails || 'N/A' /*retest this, post request didnt go through first time*/ }</span>  
                             <span className="profile_text">Climbing Capabilities: 
                                 {robotProfileData.profile?.climbing?.shallow && ' Can climb shallow cage'} 

@@ -12,10 +12,16 @@ export default function CreateProfile() {
     const { teamNumber: initialTeamNumber } = useParams(); //get profile ID from URL if editing
     const isEditing = location.state?.isEditing; //Determining if editing mode
     const [loading, setLoading] = useState(isEditing); // Set loading to true if editing
+    const [matches, setMatches] = useState([]); 
 
     //variables
     const [teamName, setTeamName] = useState('');
     const [teamNumberState, setTeamNumberState] = useState(initialTeamNumber || ''); // Initialize teamNumberState with teamNumber if it exists
+    const [playstyle, setPlaystyle] = useState({
+        algae: false, 
+        coral: false,
+        defense: false,
+    });
     const [drivebase, setDrivebase] = useState('');
     const drivebaseSelection = [
         { label: 'Mecanum', value: 'Mecanum' },
@@ -52,6 +58,7 @@ export default function CreateProfile() {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
                     setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
+                    setPlaystyle(profile.playstyle || {algae: false, coral: false, defense: false})
                     setDrivebase(profile.drivebase || '');
                     setIntakeData(profile.intakeData || {
                         algae: { ground: false, claw: false, wheel: false, other: '' },
@@ -65,7 +72,16 @@ export default function CreateProfile() {
                     setClimbing(profile.climbing || { shallow: false, deep: false });
                     setAutoDetails(profile.autoDetails || '');
                     setAdditionalDetails(profile.additionalDetails || '');
-                    setLoading(false); // Mark loading as false once data is set
+    
+                    // Check if matches exist and set it
+                    if (Array.isArray(response.data.matches) && response.data.matches.length > 0) {
+                        setMatches(prevMatches => [
+                            ...prevMatches, 
+                            ...response.data.matches // Append the fetched matches to the previous ones
+                        ]);
+                    }
+    
+                    setLoading(false);
                 })
                 .catch(error => {
                     console.error("Error fetching profile: ", error);
@@ -73,8 +89,17 @@ export default function CreateProfile() {
                 });
         }
     }, [isEditing, initialTeamNumber]);
+    
 
     //data manipulation functions
+
+    const updatePlaystyle = (key) => {
+        setPlaystyle(prev => ({
+            ...prev, 
+            [key]: !prev[key]
+        }));
+    };
+
     const updateIntake = (type, key, value) => {
         setIntakeData(prevState => ({
             ...prevState,
@@ -104,16 +129,17 @@ export default function CreateProfile() {
             profile: {
                 teamName,
                 teamNumber: Number(teamNumberState),
+                playstyle,
                 drivebase,
                 intakeData,
-                scoreCapability, //includes algae, coral, and autonomous consistency
+                scoreCapability,
                 climbing,
                 autoDetails,
                 additionalDetails,
             },
-            matches: [],
+            matchData: Array.isArray(matches) ? matches : [], // Ensure matches is an array
         };
-
+    
         try {
             if (isEditing) {
                 // PUT request to update existing profile
@@ -163,7 +189,34 @@ export default function CreateProfile() {
                                     onChange={e => setTeamNumberState(e.target.value)}
                                 />
                             </div>
+                            
                             <div className="marginTop10">
+                                <span className="createProfile_headerText">Playstyles</span>
+                                <div className="createProfile_checklist">
+                                    <input
+                                        type="checkbox"
+                                        checked={playstyle.algae}
+                                        onChange={() => updatePlaystyle('algae')}
+                                    />
+                                    <span className="createProfile_text">Algae Scorer</span>
+                                </div>
+                                <div className="createProfile_checklist">
+                                    <input
+                                        type="checkbox"
+                                        checked={playstyle.coral}
+                                        onChange={() => updatePlaystyle('coral')}
+                                    />
+                                    <span className="createProfile_text">Coral Scorer</span>
+                                </div>
+                                <div className="createProfile_checklist">
+                                    <input
+                                        type="checkbox"
+                                        checked={playstyle.defense}
+                                        onChange={() => updatePlaystyle('defense')}
+                                    />
+                                    <span className="createProfile_text">Defender</span>
+                                </div>
+
                                 <span className="createProfile_headerText">Drivebase</span>
                                 <select
                                     className="createProfile_dropdown"
@@ -175,8 +228,8 @@ export default function CreateProfile() {
                                         <option key={option.value} value={option.value}>{option.label}</option>
                                     ))}
                                 </select>
-
                                 {drivebase === 'Other' && <input className="bigInput" placeholder="Other Drivebase" onChange={e => setDrivebase(e.target.value)} />}
+                                
                                 <div className="createProfile_intakeSection">
                                     <span className="createProfile_headerText">Intake</span>
                                     <ReefscapeChecklist
