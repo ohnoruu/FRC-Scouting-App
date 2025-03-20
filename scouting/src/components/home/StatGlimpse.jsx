@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import fillerImage from '../../assets/interface-icons/filler-image.png';
 import './StatGlimpse.css';
 
-export default function StatGlimpse({ name, teamNumber, drivebase, intake, isLoading }) {
+export default function StatGlimpse({ name, teamNumber, playstyle, isLoading }) {
   const [greyBoxWidth, setGreyBoxWidth] = useState(0);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function StatGlimpse({ name, teamNumber, drivebase, intake, isLoa
           <>
             <span className="statGlimpse_headerSmaller">{name} ({teamNumber})</span>
             <div className="statGlimpse_stats">
-              <span className="statGlimpse_text"> Drivebase: {drivebase}</span>
+              <span className="statGlimpse_text"> Playstyles: {playstyle}</span>
             </div>
           </>
         )}

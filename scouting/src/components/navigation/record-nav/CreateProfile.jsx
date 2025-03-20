@@ -17,6 +17,11 @@ export default function CreateProfile() {
     //variables
     const [teamName, setTeamName] = useState('');
     const [teamNumberState, setTeamNumberState] = useState(initialTeamNumber || ''); // Initialize teamNumberState with teamNumber if it exists
+    const [playstyle, setPlaystyle] = useState({
+        algae: false, 
+        coral: false,
+        defense: false,
+    });
     const [drivebase, setDrivebase] = useState('');
     const drivebaseSelection = [
         { label: 'Mecanum', value: 'Mecanum' },
@@ -53,6 +58,7 @@ export default function CreateProfile() {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
                     setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
+                    setPlaystyle(profile.playstyle || {algae: false, coral: false, defense: false})
                     setDrivebase(profile.drivebase || '');
                     setIntakeData(profile.intakeData || {
                         algae: { ground: false, claw: false, wheel: false, other: '' },
@@ -86,6 +92,14 @@ export default function CreateProfile() {
     
 
     //data manipulation functions
+
+    const updatePlaystyle = (key) => {
+        setPlaystyle(prev => ({
+            ...prev, 
+            [key]: !prev[key]
+        }));
+    };
+
     const updateIntake = (type, key, value) => {
         setIntakeData(prevState => ({
             ...prevState,
@@ -115,6 +129,7 @@ export default function CreateProfile() {
             profile: {
                 teamName,
                 teamNumber: Number(teamNumberState),
+                playstyle,
                 drivebase,
                 intakeData,
                 scoreCapability,
@@ -174,7 +189,34 @@ export default function CreateProfile() {
                                     onChange={e => setTeamNumberState(e.target.value)}
                                 />
                             </div>
+                            
                             <div className="marginTop10">
+                                <span className="createProfile_headerText">Playstyles</span>
+                                <div className="createProfile_checklist">
+                                    <input
+                                        type="checkbox"
+                                        checked={playstyle.algae}
+                                        onChange={() => updatePlaystyle('algae')}
+                                    />
+                                    <span className="createProfile_text">Algae Scorer</span>
+                                </div>
+                                <div className="createProfile_checklist">
+                                    <input
+                                        type="checkbox"
+                                        checked={playstyle.coral}
+                                        onChange={() => updatePlaystyle('coral')}
+                                    />
+                                    <span className="createProfile_text">Coral Scorer</span>
+                                </div>
+                                <div className="createProfile_checklist">
+                                    <input
+                                        type="checkbox"
+                                        checked={playstyle.defense}
+                                        onChange={() => updatePlaystyle('defense')}
+                                    />
+                                    <span className="createProfile_text">Defender</span>
+                                </div>
+
                                 <span className="createProfile_headerText">Drivebase</span>
                                 <select
                                     className="createProfile_dropdown"
@@ -186,8 +228,8 @@ export default function CreateProfile() {
                                         <option key={option.value} value={option.value}>{option.label}</option>
                                     ))}
                                 </select>
-
                                 {drivebase === 'Other' && <input className="bigInput" placeholder="Other Drivebase" onChange={e => setDrivebase(e.target.value)} />}
+                                
                                 <div className="createProfile_intakeSection">
                                     <span className="createProfile_headerText">Intake</span>
                                     <ReefscapeChecklist
