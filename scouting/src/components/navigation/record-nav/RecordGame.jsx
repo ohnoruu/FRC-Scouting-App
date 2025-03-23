@@ -89,7 +89,7 @@ export default function RecordGame() {
         teleop_processor * 6 + 
         teleop_net * 4;
 
-        const climbedScore = 0;
+        let climbedScore = 0;
         if (parked){
             climbedScore += 2;
         } else if (shallow_climbed){
@@ -102,23 +102,12 @@ export default function RecordGame() {
     }
 
     const submitMatch = async () => {
+        const computedScore = computeScore();
+
         const matchData = {
             matchType,
             matchNumber: Number(matchNumber),
-            shallow_climbed,
-            deep_climbed,
-            teleop_L1_scores,
-            teleop_L1_misses,
-            teleop_L2_scores,
-            teleop_L2_misses,
-            teleop_L3_scores,
-            teleop_L3_misses,
-            teleop_L4_scores,
-            teleop_L4_misses,
-            teleop_net,
-            teleop_net_misses,
-            teleop_processor, 
-            teleop_processor_misses,
+            leave_auto,
             auto_L1_scores,
             auto_L1_misses,
             auto_L2_scores,
@@ -131,7 +120,23 @@ export default function RecordGame() {
             auto_net_misses,
             auto_processor,
             auto_processor_misses,
-            comment
+            teleop_L1_scores,
+            teleop_L1_misses,
+            teleop_L2_scores,
+            teleop_L2_misses,
+            teleop_L3_scores,
+            teleop_L3_misses,
+            teleop_L4_scores,
+            teleop_L4_misses,
+            teleop_net,
+            teleop_net_misses,
+            teleop_processor, 
+            teleop_processor_misses,
+            parked,
+            shallow_climbed,
+            deep_climbed,
+            comment,
+            score: computedScore
         };
 
         try {
@@ -289,34 +294,48 @@ export default function RecordGame() {
                     </div>
 
                     <div className="recordGame_checkbox-section">
-                        <CheckRecord 
-                            className="recordGame_checkbox" 
-                            checkboxTitle="Parked" stateValue={parked} 
-                            changeState = {()=> {
+                    <CheckRecord 
+                        className="recordGame_checkbox" 
+                        checkboxTitle="Parked" 
+                        stateValue={parked} 
+                        changeState={() => {
+                            if (parked) {
+                                set_parked(false); // Uncheck if already checked
+                            } else {
                                 set_parked(true);
                                 set_shallow_climbed(false);
                                 set_deep_climbed(false);
-                            }}
-                        />
-                        <CheckRecord 
-                            className="recordGame_checkbox" 
-                            checkboxTitle="Climbed shallow cage" 
-                            stateValue={shallow_climbed} 
-                            changeState = {()=>{
+                            }
+                        }}
+                    />
+                    <CheckRecord 
+                        className="recordGame_checkbox" 
+                        checkboxTitle="Climbed shallow cage" 
+                        stateValue={shallow_climbed} 
+                        changeState={() => {
+                            if (shallow_climbed) {
+                                set_shallow_climbed(false); // Uncheck if already checked
+                            } else {
                                 set_parked(false);
                                 set_shallow_climbed(true);
                                 set_deep_climbed(false);
-                            }}
-                        />
-                        <CheckRecord 
+                            }
+                        }}
+                    />
+                    <CheckRecord 
                         className="recordGame_checkbox" 
                         checkboxTitle="Climbed deep cage" 
                         stateValue={deep_climbed} 
-                        changeState = {()=>{
-                            set_parked(false);
-                            set_shallow_climbed(false);
-                            set_deep_climbed(true);
-                        }}/>
+                        changeState={() => {
+                            if (deep_climbed) {
+                                set_deep_climbed(false); // Uncheck if already checked
+                            } else {
+                                set_parked(false);
+                                set_shallow_climbed(false);
+                                set_deep_climbed(true);
+                            }
+                        }}
+                    />
                     </div>
 
                     <div className="recordGame_marginTop20">

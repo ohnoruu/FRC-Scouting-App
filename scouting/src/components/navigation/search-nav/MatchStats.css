@@ -24,6 +24,7 @@
 
 .matchStats_headerText{
     font-weight: bold;
+    font-size: 18px;
 }
 
 .matchStats_headerText2{
@@ -39,4 +40,10 @@
 .matchStats_teamDescText{
     margin: 0;
     margin-bottom: 1vh;
+}
+
+.matchStats_caption{
+    margin: 0;
+    margin-bottom: 1vh;
+    font-size: 12px;
 }
