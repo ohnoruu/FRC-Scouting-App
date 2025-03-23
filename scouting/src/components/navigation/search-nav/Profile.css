@@ -35,7 +35,6 @@
 .profile_teamMain {
   display: flex;
   flex-direction: row;
-  gap: 20px;
   justify-content: space-between;
   max-height: 150px;
 }
@@ -54,7 +53,6 @@
 
 .profile_robotDetails {
   align-items: left;
-  gap: 1vh;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -90,6 +88,7 @@
 }
 
 .profile_text {
+  margin-bottom: 0.5vh;
   width: 100%;
 }
 
@@ -100,4 +99,5 @@
 .profile_header {
   font-size: 18px;
   font-weight: bold;
+  margin-bottom: 1vh;
 }
