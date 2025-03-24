@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import StatGlimpse from '../home/StatGlimpse';
 import informationIcon from '../../assets/interface-icons/info.png';
 import axios from 'axios';
+import cyberlion from '../../assets/images/logo-sticker.png';
 import './Home.css';
 
 export default function Home() {
@@ -38,16 +39,14 @@ export default function Home() {
               <span className="home_header">Get Started Scouting</span>
 
               <div className="home_important">
-                <div className="home_importantHero">
-                  <img className="home_importantIconImage" alt="important icon" src={informationIcon} />
-                  <span className="home_headerSmaller">Important</span>
+                <div className="home_importantText">
+                  <div className="home_importantHero">
+                    <span className="home_headerSmaller">Welcome</span>
+                  </div>
+                  <span className="home_importantText">Scouting is the process of recording data for strategy, so take note!</span>
+                  <span className="home_importantText">Start recording data by pressing the (+) icon!</span>
                 </div>
-
-                <span className="home_importantText">Scouting is the process of recording data for strategy, so take note!</span>
-
-                <button onClick={manageCloseInfo} className="home_hyperlinkButton">
-                  <span className="home_hyperlink">Let's Get Going!</span>
-                </button>
+                <img className="home_cyberlion" src={cyberlion} alt="Cyberlion" />
               </div>
             </div>
           )}

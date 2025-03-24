@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PasswordPrompt.css';
+import funny from '../../../assets/images/myhonestreaction.jpg';
 
 export default function PasswordPrompt() {
     const navigate = useNavigate();
     const [passValue, setPassValue] = useState('');
+    const [wrongPassword, setWrongPassword] = useState(false);
 
     const submitPassword = () => {
         // will hide password in the backend later
-        if (passValue === 'cyberlions8521') {
+        if (passValue === '8521GreatTap') {
             navigate('/navigator/settings/settings-panel');
+        } else {
+            setWrongPassword(true);
         }
     };
 
@@ -19,9 +23,6 @@ export default function PasswordPrompt() {
 
             <div className="passwordPrompt_container">
                 <span className="passwordPrompt_title">Settings Panel</span>
-
-                <span className="passwordPrompt_header">Admin Access Only</span>
-
                 <div className="passwordPrompt_inputs">
                     <input
                         className="inputText inputBox"
@@ -35,6 +36,9 @@ export default function PasswordPrompt() {
                         <span className="passwordPrompt_submitText">Submit</span>
                     </button>
                 </div>
+                {wrongPassword && (
+                        <img className="passwordPrompt_funny fade-in" src={funny} alt="Wrong Password" />
+                    )}
             </div>
         </>
     );

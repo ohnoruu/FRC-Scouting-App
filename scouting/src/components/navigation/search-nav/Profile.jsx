@@ -104,6 +104,7 @@ export default function Profile() {
                             <div className="profile_matches">
                                 <span className="profile_text"> Match Number: {match.matchNumber} </span>
                                 <span className="profile_text"> Match Type: {match.matchType} </span>
+                                <span className="profile_text"> Raw Score: {match.score}</span>
                             </div>
 
                         </div>

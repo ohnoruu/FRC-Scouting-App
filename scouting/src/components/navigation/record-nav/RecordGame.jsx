@@ -19,29 +19,12 @@ export default function RecordGame() {
         { label: 'Semifinals', value: 'Semifinals' },
     ];
 
+    //General Info
     const [matchType, setMatchType] = useState("Practice Match");
     const [matchNumber, setMatchNumber] = useState(null);
 
-    const [shallow_climbed, set_shallow_climbed] = useState(false);
-    const [deep_climbed, set_deep_climbed] = useState(false);
-
-    const [teleop_L1_scores, setteleop_L1_scores] = useState(0);
-    const [teleop_L1_misses, setteleop_L1_misses] = useState(0);
-
-    const [teleop_L2_scores, setteleop_L2_scores] = useState(0);
-    const [teleop_L2_misses, setteleop_L2_misses] = useState(0);
-
-    const [teleop_L3_scores, setteleop_L3_scores] = useState(0);
-    const [teleop_L3_misses, setteleop_L3_misses] = useState(0);
-
-    const [teleop_L4_scores, setteleop_L4_scores] = useState(0);
-    const [teleop_L4_misses, setteleop_L4_misses] = useState(0);
-
-    const [teleop_net, setteleop_net] = useState(0);
-    const [teleop_net_misses, setteleop_net_misses] = useState(0);
-
-    const [teleop_processor, setteleop_processor] = useState(0);
-    const [teleop_processor_misses, setteleop_processor_misses] = useState(0);
+    //Autonomous Period
+    const [leave_auto, setLeave_auto] = useState(false);
 
     const [auto_L1_scores, setauto_L1_scores] = useState(0);
     const [auto_L1_misses, setauto_L1_misses] = useState(0);
@@ -61,26 +44,70 @@ export default function RecordGame() {
     const [auto_processor, setauto_processor] = useState(0);
     const [auto_processor_misses, setauto_processor_misses] = useState(0);
 
+    const [teleop_L1_scores, setteleop_L1_scores] = useState(0);
+    const [teleop_L1_misses, setteleop_L1_misses] = useState(0);
+
+    const [teleop_L2_scores, setteleop_L2_scores] = useState(0);
+    const [teleop_L2_misses, setteleop_L2_misses] = useState(0);
+
+    const [teleop_L3_scores, setteleop_L3_scores] = useState(0);
+    const [teleop_L3_misses, setteleop_L3_misses] = useState(0);
+
+    const [teleop_L4_scores, setteleop_L4_scores] = useState(0);
+    const [teleop_L4_misses, setteleop_L4_misses] = useState(0);
+
+    const [teleop_net, setteleop_net] = useState(0);
+    const [teleop_net_misses, setteleop_net_misses] = useState(0);
+
+    const [teleop_processor, setteleop_processor] = useState(0);
+    const [teleop_processor_misses, setteleop_processor_misses] = useState(0);
+
+    const [parked, set_parked] = useState(false);
+    const [shallow_climbed, set_shallow_climbed] = useState(false);
+    const [deep_climbed, set_deep_climbed] = useState(false);
+
     const [comment, setComment] = useState('');
 
+    const [score, setScore] = useState(0);
+
+    const computeScore = () => {
+        const autoScore = 
+        auto_L1_scores * 3 + 
+        auto_L2_scores * 4 + 
+        auto_L3_scores * 6 + 
+        auto_L4_scores * 7 + 
+
+        auto_processor * 6 + 
+        auto_net * 4;
+
+        const teleopScore = 
+        teleop_L1_scores * 2 + 
+        teleop_L2_scores * 3 + 
+        teleop_L3_scores * 4 + 
+        teleop_L4_scores * 5 + 
+
+        teleop_processor * 6 + 
+        teleop_net * 4;
+
+        let climbedScore = 0;
+        if (parked){
+            climbedScore += 2;
+        } else if (shallow_climbed){
+            climbedScore += 6;
+        } else if (deep_climbed){
+            climbedScore += 12;
+        }
+        
+        return(autoScore + teleopScore + climbedScore);
+    }
+
     const submitMatch = async () => {
+        const computedScore = computeScore();
+
         const matchData = {
             matchType,
             matchNumber: Number(matchNumber),
-            shallow_climbed,
-            deep_climbed,
-            teleop_L1_scores,
-            teleop_L1_misses,
-            teleop_L2_scores,
-            teleop_L2_misses,
-            teleop_L3_scores,
-            teleop_L3_misses,
-            teleop_L4_scores,
-            teleop_L4_misses,
-            teleop_net,
-            teleop_net_misses,
-            teleop_processor, 
-            teleop_processor_misses,
+            leave_auto,
             auto_L1_scores,
             auto_L1_misses,
             auto_L2_scores,
@@ -93,7 +120,23 @@ export default function RecordGame() {
             auto_net_misses,
             auto_processor,
             auto_processor_misses,
-            comment
+            teleop_L1_scores,
+            teleop_L1_misses,
+            teleop_L2_scores,
+            teleop_L2_misses,
+            teleop_L3_scores,
+            teleop_L3_misses,
+            teleop_L4_scores,
+            teleop_L4_misses,
+            teleop_net,
+            teleop_net_misses,
+            teleop_processor, 
+            teleop_processor_misses,
+            parked,
+            shallow_climbed,
+            deep_climbed,
+            comment,
+            score: computedScore
         };
 
         try {
@@ -132,6 +175,7 @@ export default function RecordGame() {
                     <div className="recordGame_header-section">
                         <span className="recordGame_headerText">Autonomous Period</span>
                         <span className="recordGame_description">First 15 seconds of the game where the robot moves without driver control</span>
+                        <CheckRecord className="recordGame_checkbox" checkboxTitle="Left Starting Line" stateValue={leave_auto} changeState={() => setLeave_auto(!leave_auto)} />
                         <span className="recordGame_headerText2">Coral</span>
                     </div>
                     <div id = "recordGame_coralDiv1">      
@@ -250,8 +294,48 @@ export default function RecordGame() {
                     </div>
 
                     <div className="recordGame_checkbox-section">
-                        <CheckRecord className="recordGame_checkbox" checkboxTitle="Climbed shallow cage" stateValue={shallow_climbed} changeState = {()=>set_shallow_climbed(prev=>!prev)}></CheckRecord>
-                        <CheckRecord className="recordGame_checkbox" checkboxTitle="Climbed deep cage" stateValue={deep_climbed} changeState = {()=>set_deep_climbed(prev=>!prev)}></CheckRecord>
+                    <CheckRecord 
+                        className="recordGame_checkbox" 
+                        checkboxTitle="Parked" 
+                        stateValue={parked} 
+                        changeState={() => {
+                            if (parked) {
+                                set_parked(false); // Uncheck if already checked
+                            } else {
+                                set_parked(true);
+                                set_shallow_climbed(false);
+                                set_deep_climbed(false);
+                            }
+                        }}
+                    />
+                    <CheckRecord 
+                        className="recordGame_checkbox" 
+                        checkboxTitle="Climbed shallow cage" 
+                        stateValue={shallow_climbed} 
+                        changeState={() => {
+                            if (shallow_climbed) {
+                                set_shallow_climbed(false); // Uncheck if already checked
+                            } else {
+                                set_parked(false);
+                                set_shallow_climbed(true);
+                                set_deep_climbed(false);
+                            }
+                        }}
+                    />
+                    <CheckRecord 
+                        className="recordGame_checkbox" 
+                        checkboxTitle="Climbed deep cage" 
+                        stateValue={deep_climbed} 
+                        changeState={() => {
+                            if (deep_climbed) {
+                                set_deep_climbed(false); // Uncheck if already checked
+                            } else {
+                                set_parked(false);
+                                set_shallow_climbed(false);
+                                set_deep_climbed(true);
+                            }
+                        }}
+                    />
                     </div>
 
                     <div className="recordGame_marginTop20">

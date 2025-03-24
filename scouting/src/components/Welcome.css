@@ -1,9 +1,10 @@
 .welcome_container {
     background-color: white;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -11,11 +12,6 @@
     width: 100%;
     height: 7.5%;
     background-color: #E1584B;
-}
-
-.welcome_mainContent {
-    height: 65%;
-    max-width: 90%;
 }
 
 .welcome_mainContentText {
@@ -55,7 +51,9 @@
     height: 30%;
     width: 100%;
     overflow: hidden;
-    position: relative;
+    position: relative; 
+    display: flex;
+    align-items: flex-end; 
 }
 
 .welcome_floor {
@@ -78,13 +76,16 @@
 .welcome_credits {
     display: flex;
     flex-direction: row;
-    position: absolute;
-    top: 70%;
-    left: 15%;
-    z-index: 4;
     align-items: center;
-    gap: 10px;
     justify-content: center;
+    gap: 10px;
+    position: absolute; 
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    padding: 10px; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 4; 
 }
 
 .welcome_creditsText {

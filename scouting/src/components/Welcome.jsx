@@ -33,7 +33,7 @@ export default function Launch({ navigation }) {
                 <img className="welcome_robbie" alt="Robbie" src={robbie} />
 
                 <div className="welcome_credits">
-                    <span className="welcome_creditsText">Robo Scouts was made for</span>
+                    <span className="welcome_creditsText">Scouting 8521 was made for</span>
                     <img className="welcome_FIRSTlogo" alt="FIRST logo" src={FIRSTlogo} />
                 </div>
             </div>

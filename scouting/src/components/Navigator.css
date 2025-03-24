@@ -12,6 +12,19 @@
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
+  z-index: 1000;
+}
+
+.tabBar.hidden {
+  opacity: 0;
+  display: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tabBar.visible {
+  opacity: 1;
+  display: flex;
+  transition: opacity 0.3s ease-in-out;
 }
   
 .tabLink {
@@ -25,9 +38,24 @@
 
 .icon {
   font-size: 25px;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.tabContent {
-  flex: 1;
-  padding-bottom: 60px;
+/*Navigation Transitions*/
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1; 
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
