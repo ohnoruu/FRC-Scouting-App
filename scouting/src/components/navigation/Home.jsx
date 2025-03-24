@@ -44,6 +44,7 @@ export default function Home() {
                     <span className="home_headerSmaller">Welcome</span>
                   </div>
                   <span className="home_importantText">Scouting is the process of recording data for strategy, so take note!</span>
+                  <span className="home_importantText">Start recording data by pressing the (+) icon!</span>
                 </div>
                 <img className="home_cyberlion" src={cyberlion} alt="Cyberlion" />
               </div>

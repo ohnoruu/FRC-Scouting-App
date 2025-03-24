@@ -16,11 +16,15 @@
 }
 
 .tabBar.hidden {
-  transform: translate(100%);
+  opacity: 0;
+  display: none;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .tabBar.visible {
-  transform: translate(0);
+  opacity: 1;
+  display: flex;
+  transition: opacity 0.3s ease-in-out;
 }
   
 .tabLink {

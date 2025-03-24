@@ -10,7 +10,7 @@ export default function PasswordPrompt() {
 
     const submitPassword = () => {
         // will hide password in the backend later
-        if (passValue === 'cyberlions8521') {
+        if (passValue === '8521GreatTap') {
             navigate('/navigator/settings/settings-panel');
         } else {
             setWrongPassword(true);
@@ -23,9 +23,6 @@ export default function PasswordPrompt() {
 
             <div className="passwordPrompt_container">
                 <span className="passwordPrompt_title">Settings Panel</span>
-
-                <span className="passwordPrompt_header">Admin Access Only</span>
-
                 <div className="passwordPrompt_inputs">
                     <input
                         className="inputText inputBox"

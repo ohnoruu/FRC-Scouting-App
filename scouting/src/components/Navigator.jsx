@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, Routes, Route } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import IonIcon from '@reacticons/ionicons';
@@ -9,12 +9,22 @@ import Settings from './navigation/Settings.jsx';
 import './Navigator.css';
 
 export default function Navigator() {
+    const [showNav, setShowNav] = useState(true);
     const location = useLocation(); // Get the current route location
+
+    useEffect(() => {
+        const hiddenRoutes = ['/navigator/search/match-stats'];
+        if (hiddenRoutes.includes(location.pathname)){
+            setShowNav(false);
+        } else {
+            setShowNav(true);
+        }
+    }, [location.pathname]);
 
     return (
         <div className="tabNavigator">
             {/* Static Navbar */}
-            <nav className="tabBar">
+            <nav className={`tabBar ${showNav ? 'visible' : 'hidden'}`}>
                 <NavLink
                     to="/navigator/home"
                     className={({ isActive }) => (isActive ? 'activeTab' : 'tabLink')}
