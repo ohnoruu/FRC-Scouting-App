@@ -46,7 +46,7 @@ export default function SearchRobots() {
           <IonIcon name="search-outline" className="searchIcon"/>
           <input
             className="searchbar"
-            placeholder={'Search'}
+            placeholder={'Search by Team Name or Number'}
             value={searchQuery}
             onChange={handleSearchChange}
           />
