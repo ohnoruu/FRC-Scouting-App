@@ -16,7 +16,7 @@ export default function RecordGame() {
         { label: 'Practice Match', value: 'Practice Match' },
         { label: 'Qualification Match', value: 'Qualification Match' },
         { label: 'Playoff Match', value: 'Playoff Match' },
-        { label: 'Semifinals', value: 'Semifinals' },
+        { label: 'Finals', value: 'Finals' },
     ];
 
     //General Info
