@@ -46,7 +46,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   flex-grow: 1;
-  height: 70vh;
+  max-height: 60vh;
 }
 
 .profileSelection {
