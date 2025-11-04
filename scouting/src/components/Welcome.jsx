@@ -19,8 +19,8 @@ export default function Launch({ navigation }) {
             <div className="welcome_mainContent">
 
                 <div className="welcome_mainContentText">
-                    <span className="welcome_heroText">Welcome!</span>
-                    <span className="welcome_infoText">Record data about other teams, such as their drivebase, win/loss ratio, and more!</span>
+                    <span className="welcome_heroText">Welcome to Scouting 8521!</span>
+                    <span className="welcome_infoText">This is the scouting application for FRC Team 8521 CyberLions. Here, you can record data of other FRC robots by creating robot profiles for each team. For match scouting, click on an existing robot profile to start recording data.</span>
 
                     <div className="welcome_continueButton" onClick={navigateToMain}>
                         Get Started

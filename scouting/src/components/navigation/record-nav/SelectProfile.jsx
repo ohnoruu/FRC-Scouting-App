@@ -42,7 +42,8 @@ export default function SelectProfile() {
     <div className="selectProfile_container">
       <div className="topPiece" />
       <div className="selectProfile_middlePiece">
-        <span className="selectProfile_header">Select Robot to Scout</span>
+        <span className="selectProfile_header">Select a Profile to Scout Matches.</span>
+        <span className="selectProfile_subheader"> For Pit Scouting, edit an existing robot profile or add a new one by clicking the "Create New Robot Profile" button below.</span>
         <div className="selectProfile_searchSection">
           <IonIcon name="search-outline" className="searchIcon"/>
           <input 

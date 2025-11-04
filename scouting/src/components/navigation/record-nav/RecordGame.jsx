@@ -174,7 +174,7 @@ export default function RecordGame() {
 
                     <div className="recordGame_header-section">
                         <span className="recordGame_headerText">Autonomous Period</span>
-                        <span className="recordGame_description">First 15 seconds of the game where the robot moves without driver control</span>
+                        <span className="recordGame_description">First 15 seconds of the game where the robot moves without driver control.</span>
                         <CheckRecord className="recordGame_checkbox" checkboxTitle="Left Starting Line" stateValue={leave_auto} changeState={() => setLeave_auto(!leave_auto)} />
                         <span className="recordGame_headerText2">Coral</span>
                     </div>
@@ -292,12 +292,12 @@ export default function RecordGame() {
                                 <Counter target={teleop_processor_misses} setTarget={setteleop_processor_misses} className="recordGame_pointInput"/>
                         </div>
                     </div>
-
+                
                     <div className="recordGame_checkbox-section">
-                    <CheckRecord 
-                        className="recordGame_checkbox" 
-                        checkboxTitle="Parked" 
-                        stateValue={parked} 
+                    <CheckRecord
+                        className="recordGame_checkbox"
+                        checkboxTitle="Parked (robot drives to barge but does not climb)"
+                        stateValue={parked}
                         changeState={() => {
                             if (parked) {
                                 set_parked(false); // Uncheck if already checked
