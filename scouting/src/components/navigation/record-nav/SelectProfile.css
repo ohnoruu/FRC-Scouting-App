@@ -31,6 +31,13 @@
   font-size: 17px;
 }
 
+.selectProfile_subheader {
+  width: 100%;
+  min-height: 4vh;
+  color: #616161;
+  font-size: 14px;
+}
+
 .selectProfile_searchSection {
   margin-top: 2vh;
   width: 100%;

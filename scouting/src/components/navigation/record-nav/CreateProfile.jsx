@@ -191,33 +191,37 @@ export default function CreateProfile() {
                             </div>
                             
                             <div className="marginTop10">
-                                <span className="createProfile_headerText">Playstyles</span>
-                                <div className="createProfile_checklist">
-                                    <input
-                                        type="checkbox"
-                                        checked={playstyle.algae}
-                                        onChange={() => updatePlaystyle('algae')}
-                                    />
-                                    <span className="createProfile_text">Algae Scorer</span>
-                                </div>
-                                <div className="createProfile_checklist">
-                                    <input
-                                        type="checkbox"
-                                        checked={playstyle.coral}
-                                        onChange={() => updatePlaystyle('coral')}
-                                    />
-                                    <span className="createProfile_text">Coral Scorer</span>
-                                </div>
-                                <div className="createProfile_checklist">
-                                    <input
-                                        type="checkbox"
-                                        checked={playstyle.defense}
-                                        onChange={() => updatePlaystyle('defense')}
-                                    />
-                                    <span className="createProfile_text">Defender</span>
+                                <div className="marginTop10">
+                                    <span className="createProfile_headerText">Playstyles: </span>
+                                    <span className="createProfile_description">What roles can the robot play during a match? Some robots may be flexible and can play multiple roles.</span>
+                                    <div className="createProfile_checklist">
+                                        <input
+                                            type="checkbox"
+                                            checked={playstyle.algae}
+                                            onChange={() => updatePlaystyle('algae')}
+                                        />
+                                        <span className="createProfile_text">Algae Scorer</span>
+                                    </div>
+                                    <div className="createProfile_checklist">
+                                        <input
+                                            type="checkbox"
+                                            checked={playstyle.coral}
+                                            onChange={() => updatePlaystyle('coral')}
+                                        />
+                                        <span className="createProfile_text">Coral Scorer</span>
+                                    </div>
+                                    <div className="createProfile_checklist">
+                                        <input
+                                            type="checkbox"
+                                            checked={playstyle.defense}
+                                            onChange={() => updatePlaystyle('defense')}
+                                        />
+                                        <span className="createProfile_text">Defender</span>
+                                    </div>
                                 </div>
 
-                                <span className="createProfile_headerText">Drivebase</span>
+                                <span className="createProfile_headerText">Drivebase: </span>
+                                <span className="createProfile_description">Select the type of drivebase the robot uses (e.g., Swerve Drive, Tank Drive).</span>
                                 <select
                                     className="createProfile_dropdown"
                                     value={drivebase}
@@ -231,7 +235,8 @@ export default function CreateProfile() {
                                 {drivebase === 'Other' && <input className="bigInput" placeholder="Other Drivebase" onChange={e => setDrivebase(e.target.value)} />}
                                 
                                 <div className="createProfile_intakeSection">
-                                    <span className="createProfile_headerText">Intake</span>
+                                    <span className="createProfile_headerText">Intake: </span>
+                                    <span className="createProfile_description">How does the robot pick up coral and algae, if they can at all? If there are specific details, describe them in 'Other'.</span>
                                     <ReefscapeChecklist
                                         headerText="Algae"
                                         intakeState={intakeData.algae}
@@ -245,7 +250,8 @@ export default function CreateProfile() {
                                 </div>
                                 <div className="createProfile_capabilitiesSection">
                                     <div className="createProfile_algaeCapabilities">
-                                        <span className="createProfile_headerText">Algae</span>
+                                        <span className="createProfile_headerText">Algae Capabilities: </span>
+                                        <span className="createProfile_description">Where is the robot able to score algae, and how consistently while doing so?</span>
                                         <RecordConsistency
                                             description="Scores into net"
                                             value={scoreCapability.algae.netScoring}
@@ -258,7 +264,8 @@ export default function CreateProfile() {
                                         />
                                     </div>
                                     <div className="createProfile_coralCapabilities">
-                                        <span className="createProfile_headerText">Coral</span>
+                                        <span className="createProfile_headerText">Coral Capabilities: </span>
+                                        <span className="createProfile_description">At which levels can the robot score coral, and how consistently while doing so?</span>
                                         {["L1", "L2", "L3", "L4"].map(level => (
                                             <RecordConsistency
                                                 key={level}
@@ -269,7 +276,8 @@ export default function CreateProfile() {
                                         ))}
                                     </div>
                                     <div className="createProfile_climbingCapabilities">
-                                        <span className="createProfile_headerText">Climbing</span>
+                                        <span className="createProfile_headerText">Climbing: </span>
+                                        <span className="createProfile_description">Can the robot climb/hang on the cage at the end of the game, and on what level?</span>
                                         <div className="createProfile_checklist">
                                             <input
                                                 type="checkbox"
@@ -288,17 +296,18 @@ export default function CreateProfile() {
                                         </div>
                                     </div>
                                     <div className="createProfile_autoCapabilities">
-                                        <span className="createProfile_headerText">Autonomous</span>
+                                        <span className="createProfile_headerText">Autonomous: </span>
+                                        <span className="createProfile_description">Does the robot have a consistent autonomous cycle? What does it do during autonomous (describe in 'Autonomous Details')?</span>
                                         <RecordConsistency
                                             description="Auto Capability"
                                             value={scoreCapability.autoCapability}
                                             onChange={(value) => setScoreCapability(prev => ({ ...prev, autoCapability: value }))}
                                         />
-                                        <span className="createProfile_header2">Auto Details</span>
+                                        <span className="createProfile_header2">Autonomous Details</span>
                                         <input
                                             type="text"
                                             className="createProfile_detailInput"
-                                            placeholder="Record auto cycles, etc.."
+                                            placeholder="Record auto cycles (taxi, 2pc, etc..)"
                                             onChange={e => setAutoDetails(e.target.value)}
                                         />
                                     </div>
@@ -308,6 +317,7 @@ export default function CreateProfile() {
                     </div>
                     <div className="marginTop20">
                         <span className="createProfile_headerText">Additional Details</span>
+                        <span className="createProfile_description">Are there any other details that might benefit drive team that wasn't included in prior sections (e.g., issues with the robot, new drivers)?</span>
                         <textarea
                             value={additionalDetails}
                             className="createProfile_detailInput"
