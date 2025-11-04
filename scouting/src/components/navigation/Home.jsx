@@ -18,7 +18,7 @@ export default function Home() {
   useEffect(() => {
     axios.get('https://cyberlions-web-server-1028328220227.us-central1.run.app/robotList') 
       .then((response) => {
-        alterRobotList(response.data);
+        alterRobotList(response.data.slice().reverse());
       })
       .catch((error) => {
         console.error("Error making POST Request: Home, robotList: ", error);
@@ -41,10 +41,11 @@ export default function Home() {
               <div className="home_important">
                 <div className="home_importantText">
                   <div className="home_importantHero">
-                    <span className="home_headerSmaller">Welcome</span>
+                    <span className="home_headerSmaller">Welcome!</span>
                   </div>
-                  <span className="home_importantText">Scouting is the process of recording data for strategy, so take note!</span>
-                  <span className="home_importantText">Start recording data by pressing the (+) icon!</span>
+                  <span className="home_importantText">This is the homepage, where you can view the most recent scouting data.</span>
+                  <span className="home_importantText">For recording data, visit the Record page (+ icon).</span>
+                  <span className="home_importantText">To view and search for existing data, visit the Search page (magnifying glass icon).</span>
                 </div>
                 <img className="home_cyberlion" src={cyberlion} alt="Cyberlion" />
               </div>
