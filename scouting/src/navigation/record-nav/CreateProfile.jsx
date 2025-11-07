@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
-import ReefscapeChecklist from '../../record/ReefscapeChecklist';
-import RecordConsistency from '../../record/RecordConsistency';
+import ReefscapeChecklist from '../../components/record/ReefscapeChecklist';
+import RecordConsistency from '../../components/record/RecordConsistency';
 import './CreateProfile.css';
 
 export default function CreateProfile() {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
+import fillerImg from '../../assets/interface-icons/filler-image.png';
 import axios from 'axios';
 import './Profile.css';
 
@@ -51,7 +52,7 @@ export default function Profile() {
                                 <span className="profile_header">{robotProfileData.profile?.teamNumber}</span>
                             </div>
 
-                            <img className="profile_image" src={require('../../../assets/interface-icons/filler-image.png')} alt="Robot" />
+                            <img className="profile_image" src={fillerImg} alt="Robot" />
                         </div>
 
                         <div className="profile_robotDetails">

@@ -1,13 +1,14 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DeleteRobotSkeleton from '../../settings/DeleteRobotSkeleton';
+import DeleteRobotSkeleton from '../../components/settings/DeleteRobotSkeleton';
 import { FaArrowLeft } from 'react-icons/fa';
+import fillerImg from '../../assets/interface-icons/filler-image.png'
 import axios from 'axios';
 import './DeleteRobot.css';
 
 export default function DeleteRobot() {
   const navigate = useNavigate();
-  const tImg = require('../../../assets/interface-icons/filler-image.png'); // template image
+  const tImg = fillerImg; // template image
   const [robotList, setRobotList] = useState([]);
 
   useEffect(() => {

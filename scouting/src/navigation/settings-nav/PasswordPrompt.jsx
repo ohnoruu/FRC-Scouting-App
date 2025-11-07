@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PasswordPrompt.css';
-import funny from '../../../assets/images/myhonestreaction.jpg';
+import funny from '../../assets/images/myhonestreaction.jpg';
 
 export default function PasswordPrompt() {
     const navigate = useNavigate();

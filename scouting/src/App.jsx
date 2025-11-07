@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Launch from './components/Launch.jsx';
-import Welcome from './components/Welcome.jsx';
-import Navigator from './components/Navigator.jsx';
+import Launch from './Launch';
+import Welcome from './Welcome';
+import Navigator from './Navigator';
 
 export default function App() {
     return (

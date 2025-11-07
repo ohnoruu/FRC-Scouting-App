@@ -1,8 +1,8 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IonIcon from '@reacticons/ionicons';
-import SelectProfileSkeleton from '../../record/SelectProfileSkeleton';
-import DisplayProfile from '../../record/DisplayProfile';
+import SelectProfileSkeleton from '../../components/record/SelectProfileSkeleton';
+import DisplayProfile from '../../components/record/DisplayProfile';
 import axios from 'axios';
 import './SelectProfile.css';
 

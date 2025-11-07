@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IonIcon from '@reacticons/ionicons';
-import SearchRobotsSkeleton from '../../search/SearchRobotsSkeleton.jsx';
-import StatGlimpse from '../../home/StatGlimpse.jsx';
+import SearchRobotsSkeleton from '../../components/search/SearchRobotsSkeleton.jsx';
+import StatGlimpse from '../../components/home/StatGlimpse.jsx';
 import axios from 'axios';
 import './SearchRobots.css';
 

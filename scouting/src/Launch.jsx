@@ -1,5 +1,5 @@
-import robbie from '../assets/images/robbie-transparent.png';
-import logo from '../assets/images/logo.png';
+import robbie from './assets/images/robbie-transparent.png';
+import logo from './assets/images/logo-sticker.png';
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

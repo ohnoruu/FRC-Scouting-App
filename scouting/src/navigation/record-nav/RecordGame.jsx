@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { FaArrowLeft } from 'react-icons/fa';
-import Counter from '../../record/Counter.jsx';
-import CheckRecord from '../../record/CheckRecord.jsx';
+import Counter from '../../components/record/Counter.jsx';
+import CheckRecord from '../../components/record/CheckRecord.jsx';
 import './RecordGame.css';
 
 export default function RecordGame() {
