@@ -22,32 +22,32 @@ export default function Navigator() {
     }, [location.pathname]);
 
     return (
-        <div className="tabNavigator">
+        <div className="nav-container">
             {/* Static Navbar */}
-            <nav className={`tabBar ${showNav ? 'visible' : 'hidden'}`}>
+            <nav className={`nav-tabBar ${showNav ? 'visible' : 'hidden'}`}>
                 <NavLink
                     to="/navigator/home"
-                    className={({ isActive }) => (isActive ? 'activeTab' : 'tabLink')}
+                    className={({ isActive }) => (isActive ? 'activeTab' : 'nav-tabLink')}
                 >
                     <IonIcon name="home-outline" className="icon" />
                 </NavLink>
                 <NavLink
                     to="/navigator/search"
-                    className={({ isActive }) => (isActive ? 'activeTab' : 'tabLink')}
+                    className={({ isActive }) => (isActive ? 'nav-activeTab' : 'nav-tabLink')}
                 >
-                    <IonIcon name="search-outline" className="icon" />
+                    <IonIcon name="search-outline" className="nav-icon" />
                 </NavLink>
                 <NavLink
                     to="/navigator/record"
-                    className={({ isActive }) => (isActive ? 'activeTab' : 'tabLink')}
+                    className={({ isActive }) => (isActive ? 'nav-activeTab' : 'nav-tabLink')}
                 >
-                    <IonIcon name="add-circle-outline" className="icon" />
+                    <IonIcon name="add-circle-outline" className="nav-icon" />
                 </NavLink>
                 <NavLink
                     to="/navigator/settings"
-                    className={({ isActive }) => (isActive ? 'activeTab' : 'tabLink')}
+                    className={({ isActive }) => (isActive ? 'nav-activeTab' : 'nav-tabLink')}
                 >
-                    <IonIcon name="settings-outline" className="icon" />
+                    <IonIcon name="settings-outline" className="nav-icon" />
                 </NavLink>
             </nav>
 

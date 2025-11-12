@@ -1,102 +1,42 @@
 .welcome_container {
-    background-color: white;
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
 }
 
 .welcome_topPiece {
     width: 100%;
     height: 7.5%;
-    background-color: #E1584B;
+    background-color: var(--primary-color-2);
 }
 
-.welcome_mainContentText {
+.welcome_mainContent {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 30px;
-    gap: 60px;
-}
-
-.welcome_heroText {
-    font-size: 40px;
-    font-weight: bold;
-    color: black;
-}
-
-.welcome_infoText {
-    font-size: 25px;
-    color: black;
-    max-width: 90%;
-    text-align: center;
-}
-
-.welcome_continueButton {
-    border-radius: 2px;
-    background-color: #E1584B;
-    border: 1px solid black;
-    width: 150px;
-    font-size: 20px;
-    padding: 15px 40px;
-    color: white;
-    cursor: pointer;
-    text-align: center;
-}
-
-.welcome_mainContentImage {
-    height: 30%;
-    width: 100%;
-    overflow: hidden;
-    position: relative; 
-    display: flex;
-    align-items: flex-end; 
-}
-
-.welcome_floor {
-    position: absolute;
-    width: 100%;
-    height: 90%;
-    z-index: 1;
-    bottom: 0;
-}
-
-.welcome_robbie {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    z-index: 3;
-    right: 0;
-    top: -15px;
-}
-
-.welcome_credits {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 10px;
-    position: absolute; 
-    bottom: 0; 
-    left: 0;
-    width: 100%;
-    padding: 10px; 
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 4; 
+    flex-grow: 1;
+    text-align: center;
+    padding: 0 20px;
 }
 
-.welcome_creditsText {
-    font-size: 20px;
-    z-index: 4;
-    font-weight: bold;
+.welcome_button {
+    background-color: var(--primary-color-1);
     color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.welcome_FIRSTlogo {
-    width: 35px;
-    height: 30px;
-    z-index: 4;
+.welcome-button:hover {
+    background-color: var(--primary-color-2);
+}
+
+.welcome_logo {
+    height: 15rem;
 }

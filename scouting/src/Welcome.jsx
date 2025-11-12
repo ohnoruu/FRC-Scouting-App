@@ -1,11 +1,11 @@
-import robbie from './assets/images/robbie-transparent.png';
-import FIRSTlogo from './assets/images/FIRST.png';
-import floor from './assets/images/floor.png';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import { Button } from 'react-bootstrap';
 import './Welcome.css';
 
-export default function Launch({ navigation }) {
+import Logo from './assets/images/cyberlions-logo.png';
+import FIRSTlogo from './assets/images/FIRST.png';
+
+export default function Launch() {
     const navigate = useNavigate();
     
     let navigateToMain = () => {
@@ -17,25 +17,15 @@ export default function Launch({ navigation }) {
             <div className="welcome_topPiece" />
 
             <div className="welcome_mainContent">
-
-                <div className="welcome_mainContentText">
-                    <span className="welcome_heroText">Welcome to Scouting 8521!</span>
-                    <span className="welcome_infoText">This is the scouting application for FRC Team 8521 CyberLions. Here, you can record data of other FRC robots by creating robot profiles for each team. For match scouting, click on an existing robot profile to start recording data.</span>
-
-                    <div className="welcome_continueButton" onClick={navigateToMain}>
-                        Get Started
-                    </div>
+                <h1>Welcome to Scouting 8521!</h1>
+                <div className="welcome_image">
+                    <img className="welcome_logo" alt="CyberLions logo" src={Logo} />
                 </div>
-            </div>
+                <p>This is the scouting application for FRC Team 8521 CyberLions. Here, you can record data of other FRC robots by creating robot profiles for each team. For match scouting, click on an existing robot profile to start recording data.</p>
 
-            <div className="welcome_mainContentImage">
-                <img className="welcome_floor" alt="background" src={floor} />
-                <img className="welcome_robbie" alt="Robbie" src={robbie} />
-
-                <div className="welcome_credits">
-                    <span className="welcome_creditsText">Scouting 8521 was made for</span>
-                    <img className="welcome_FIRSTlogo" alt="FIRST logo" src={FIRSTlogo} />
-                </div>
+                <Button variant="primary" className="welcome_button" onClick={navigateToMain}>
+                    Continue to App
+                </Button>
             </div>
         </div>
     );

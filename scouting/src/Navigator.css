@@ -1,12 +1,12 @@
-.tabNavigator {
+.nav-container {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
   
-.tabBar {
+.nav-tabBar {
   position: fixed;
-  background-color: #E1584B;
+  background-color: var(--primary-color-2);
   bottom: 0;
   width: 100%;
   display: flex;
@@ -15,47 +15,28 @@
   z-index: 1000;
 }
 
-.tabBar.hidden {
+.nav-tabBar.hidden {
   opacity: 0;
   display: none;
   transition: opacity 0.3s ease-in-out;
 }
 
-.tabBar.visible {
+.nav-tabBar.visible {
   opacity: 1;
   display: flex;
   transition: opacity 0.3s ease-in-out;
 }
   
-.tabLink {
-  color: black;
+.nav-tabLink {
+  color: var(--primary-color-1);
   text-decoration: none;
 }
 
-.activeTab {
-  color: white;
+.nav-activeTab {
+  color: var(--primary-color-3);
 }
 
-.icon {
+.nav-icon {
   font-size: 25px;
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-/*Navigation Transitions*/
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  opacity: 1; 
-  transition: opacity 0.3s ease-in-out;
-}
-
-.fade-exit {
-  opacity: 1; 
-}
-
-.fade-exit-active {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
 }

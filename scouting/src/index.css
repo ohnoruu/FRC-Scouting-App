@@ -1,4 +1,6 @@
+/* Global Styles */
 html, body {
+  position: relative;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -11,7 +13,80 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --primary-color-1: #1C1C1C;
+  --primary-color-2: #dd2323;
+  --primary-color-3: #ffffff;
+
+  --secondary-color-1: #e9ebee;
+
+  --hyperlink-color: #7DA2FF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font-size: 1.2rem;
+  color: var(--primary-color-1);
+  line-height: 2.4rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color-1);
+}
+
+a {
+  color: var(--primary-color-3);
+  text-decoration: underline;
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+  font-weight: 400;
+  transition: 0.5s;
+}
+
+li {
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+  font-weight: 400;
+  color: var(--primary-color-1);
+}
+
+a:hover {
+  color: var(--hyperlink-color);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Utility Classes */
+
+.no-bullets {
+  list-style-type: none;
+}
+
+/* Animations */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1; 
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }

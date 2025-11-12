@@ -7,71 +7,11 @@ import cyberlion from '../assets/images/logo-sticker.png';
 import './Home.css';
 
 export default function Home() {
-  const navigate = useNavigate();
-  const [robotList, alterRobotList] = useState();
-  const [closeInfo, setCloseInfo] = useState(false);
-
-  const handleProfileNavigation = (teamNumber) => {
-    navigate(`/navigator/search/profile/${teamNumber}`);
-  }
-
-  useEffect(() => {
-    axios.get('https://cyberlions-web-server-1028328220227.us-central1.run.app/robotList') 
-      .then((response) => {
-        alterRobotList(response.data.slice().reverse());
-      })
-      .catch((error) => {
-        console.error("Error making POST Request: Home, robotList: ", error);
-      });
-  }, []);
-
-  const manageCloseInfo = () => {
-    setCloseInfo(true);
-  };
 
   return (
     <>
       <div className="home_container">
-        <div className="home_topPiece" />
-        <div className="home_middlePiece">
-          {!closeInfo && (
-            <div className="home_getStarted">
-              <span className="home_header">Get Started Scouting</span>
-
-              <div className="home_important">
-                <div className="home_importantText">
-                  <div className="home_importantHero">
-                    <span className="home_headerSmaller">Welcome!</span>
-                  </div>
-                  <span className="home_importantText">This is the homepage, where you can view the most recent scouting data.</span>
-                  <span className="home_importantText">For recording data, visit the Record page (+ icon).</span>
-                  <span className="home_importantText">To view and search for existing data, visit the Search page (magnifying glass icon).</span>
-                </div>
-                <img className="home_cyberlion" src={cyberlion} alt="Cyberlion" />
-              </div>
-            </div>
-          )}
-
-          <div className="home_viewScoutingData">
-            <span className="home_header">View Scouting Data</span>
-            <div className="home_scoutingDataGlimpses">
-              {robotList?.map((robot) => (
-                <button key={robot.profile.teamNumber} className="home_statGlimpseButton" onClick = {()=> handleProfileNavigation(robot.profile.teamNumber)}>
-                  <StatGlimpse 
-                    name={robot.profile.teamName} 
-                    teamNumber={robot.profile.teamNumber} 
-                    playstyle={[
-                      robot.profile?.playstyle?.algae && "Algae Scorer",
-                      robot.profile?.playstyle?.coral && "Coral Scorer",
-                      robot.profile?.playstyle?.defense && "Defender"
-                    ].filter(Boolean).join(", ") || "None"}
-                  />
-                </button>
-              ))}
-            </div>
-            <span className="home_text2">For more information of all teams, click on the search icon</span>
-          </div>
-        </div>
+        <div className="home_topPiece"/>
       </div>
     </>
   );
