@@ -14,7 +14,7 @@ export default function Launch() {
 
     return (
         <div className="welcome_container">
-            <div className="welcome_topPiece" />
+            <div className="topPiece" />
 
             <div className="welcome_mainContent">
                 <h1>Welcome to Scouting 8521!</h1>

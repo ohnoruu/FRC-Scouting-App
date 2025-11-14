@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import './SearchRobotsSkeleton.css';
-import StatGlimpse from '../home/StatGlimpse.jsx';
+import StatGlimpse from '../StatGlimpse.jsx';
 
 export default function SearchRobotsSkeleton() {
     return (

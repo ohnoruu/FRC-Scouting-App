@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import IonIcon from '@reacticons/ionicons';
 import SearchRobotsSkeleton from '../../components/search/SearchRobotsSkeleton.jsx';
-import StatGlimpse from '../../components/home/StatGlimpse.jsx';
+import StatGlimpse from '../../components/StatGlimpse.jsx';
 import axios from 'axios';
 import './SearchRobots.css';
 
@@ -38,45 +39,41 @@ export default function SearchRobots() {
   };
 
   return (
-    <div className="searchRobots_container">
-      <div className="searchRobots_topPiece" />
-      <div className="searchRobots_middlePiece">
-        <span className="searchRobots_header">Get Started Scouting</span>
-        <div className="searchSection">
-          <IonIcon name="search-outline" className="searchIcon"/>
+    <>
+    <Container className="searchRobots_container" fluid="md">
+      <h1>Search for a Robot Profile</h1>
+      <div className="searchRobots_searchBarContainer">
+        <IonIcon name="search-outline" className="searchIcon"/>
           <input
             className="searchbar"
             placeholder={'Search by Team Name or Number'}
             value={searchQuery}
             onChange={handleSearchChange}
           />
-        </div>
-        <div className="searchRobots_viewScoutingData">
-          <div className="searchRobots_scrollView">
-            <div className="scoutingDataGlimpses">
-              <Suspense fallback={<SearchRobotsSkeleton />}>
-                {filteredData?.map((robot) => (
-                  <div
-                    key={robot.profile.teamNumber}
-                    onClick={() => handleProfileNavigation(robot.profile.teamNumber)}
-                    className="searchRobots_pressable"
-                  >
-                    <StatGlimpse 
-                    name={robot.profile.teamName} 
-                    teamNumber={robot.profile.teamNumber} 
-                    playstyle={[
-                      robot.profile?.playstyle?.algae && "Algae Scorer",
-                      robot.profile?.playstyle?.coral && "Coral Scorer",
-                      robot.profile?.playstyle?.defense && "Defender"
-                    ].filter(Boolean).join(", ") || "None"}
-                  />
-                  </div>
-                ))}
-              </Suspense>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
+
+      <div className="searchRobots_scrollView">
+        <Suspense fallback={<SearchRobotsSkeleton />}>
+          {filteredData?.map((robot) => (
+            <div
+              key={robot.profile.teamNumber}
+              onClick={() => handleProfileNavigation(robot.profile.teamNumber)}
+              className="searchRobots_pressable"
+            >
+              <StatGlimpse 
+              name={robot.profile.teamName} 
+              teamNumber={robot.profile.teamNumber} 
+              playstyle={[
+                robot.profile?.playstyle?.algae && "Algae Scorer",
+                robot.profile?.playstyle?.coral && "Coral Scorer",
+                robot.profile?.playstyle?.defense && "Defender"
+              ].filter(Boolean).join(", ") || "None"}
+            />
+            </div>
+          ))}
+        </Suspense>
+      </div>
+    </Container>
+    </>
   );
 }

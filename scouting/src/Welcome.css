@@ -6,13 +6,9 @@
     align-items: center;
 }
 
-.welcome_topPiece {
-    width: 100%;
-    height: 7.5%;
-    background-color: var(--primary-color-2);
-}
-
 .welcome_mainContent {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,10 +19,10 @@
 }
 
 .welcome_button {
-    background-color: var(--primary-color-1);
+    background-color: var(--primary-color-2);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 1rem 2rem;
     font-size: 1.2rem;
     border-radius: 5px;
     cursor: pointer;

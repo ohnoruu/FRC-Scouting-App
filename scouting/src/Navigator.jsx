@@ -9,27 +9,18 @@ import Settings from './navigation/Settings.jsx';
 import './Navigator.css';
 
 export default function Navigator() {
-    const [showNav, setShowNav] = useState(true);
     const location = useLocation(); // Get the current route location
-
-    useEffect(() => {
-        const hiddenRoutes = ['/navigator/search/match-stats'];
-        if (hiddenRoutes.includes(location.pathname)){
-            setShowNav(false);
-        } else {
-            setShowNav(true);
-        }
-    }, [location.pathname]);
 
     return (
         <div className="nav-container">
+            <div className="topPiece" />
             {/* Static Navbar */}
-            <nav className={`nav-tabBar ${showNav ? 'visible' : 'hidden'}`}>
+            <nav className="nav-tabBar">
                 <NavLink
                     to="/navigator/home"
                     className={({ isActive }) => (isActive ? 'activeTab' : 'nav-tabLink')}
                 >
-                    <IonIcon name="home-outline" className="icon" />
+                    <IonIcon name="home-outline" className="nav-icon" />
                 </NavLink>
                 <NavLink
                     to="/navigator/search"

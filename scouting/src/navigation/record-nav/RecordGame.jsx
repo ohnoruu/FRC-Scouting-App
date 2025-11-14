@@ -150,7 +150,7 @@ export default function RecordGame() {
 
     return (
         <div className="recordGame_container">
-            <div className="recordGame_topPiece" />
+            <div className="topPiece" />
             <div className="recordGame_middlePiece">
                 <div className="recordGame_header">
                     <FaArrowLeft className = "recordGame_return-icon" onClick = {() => navigate(-1)} />

@@ -39,33 +39,7 @@ export default function SelectProfile() {
   }
  
   return (
-    <div className="selectProfile_container">
-      <div className="topPiece" />
-      <div className="selectProfile_middlePiece">
-        <span className="selectProfile_header">Select a Profile to Scout Matches.</span>
-        <span className="selectProfile_subheader"> For Pit Scouting, edit an existing robot profile or add a new one by clicking the "Create New Robot Profile" button below.</span>
-        <div className="selectProfile_searchSection">
-          <IonIcon name="search-outline" className="searchIcon"/>
-          <input 
-            className="searchbar"
-            placeholder={'Search by Team Name or Number'}
-            value={searchQuery}
-            onChange={handleSearchChange}
-          />
-        </div>
-        <div className="viewSelection">
-          <Suspense fallback={<SelectProfileSkeleton />}>
-            {filteredData?.map((robot) => (
-              <div className = "profileSelection" key={'recording:' + robot.profile.teamNumber}>
-                <DisplayProfile profileData={robot} />
-              </div>
-            ))}
-          </Suspense>
-        </div>
-        <button className="createButton" onClick={handleNavigate}>
-          <span className="createButtonText">Create New Robot Profile</span>
-        </button>
-      </div>
-    </div>
+    <>
+    </>
   );
 }

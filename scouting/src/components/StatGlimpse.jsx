@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import fillerImage from '../../assets/interface-icons/filler-image.png';
+import fillerImage from '../assets/interface-icons/filler-image.png';
 import './StatGlimpse.css';
 
 export default function StatGlimpse({ name, teamNumber, playstyle, isLoading }) {
@@ -15,7 +15,7 @@ export default function StatGlimpse({ name, teamNumber, playstyle, isLoading }) 
     <div className="statGlimpse_scoutingDataGlimpsePiece">
       <div className="statGlimpse_metadata">
         {isLoading ? (
-          <div className="statGlimpse_greyBox" style={{ width: greyBoxWidth }} />
+          <div className="statGlimpse_greyBox"/>
         ) : (
           <>
             <span className="statGlimpse_headerSmaller">{name} ({teamNumber})</span>
