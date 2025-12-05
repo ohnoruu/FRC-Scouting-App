@@ -3,6 +3,19 @@
   flex-direction: column;
 }
 
+.searchRobots_header {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.searchIcon {
+  font-size: 24px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  color: var(--primary-color-1);
+}
+
 .searchRobots_searchBarContainer {
   width: 90%;
   margin: 20px auto;
@@ -13,6 +26,6 @@
   width: 100%;
   padding: 10px 40px;
   font-size: 16px;
-  border: 2px solid var(--primary-color-2);
+  border: 2px solid var(--primary-color-3);
   border-radius: 5px;
 }

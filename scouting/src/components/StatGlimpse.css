@@ -1,36 +1,44 @@
-.statGlimpse_headerSmaller {
-    color: var(--secondary-color-1);
-    font-size: 14px;
-  }
-  
-  .statGlimpse_text {
-    color: var(--secondary-color-1);
-    font-size: 12px;
-  }
-  
-  .statGlimpse_scoutingDataGlimpsePiece {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 3px solid var(--primary-color-2);
-  }
-  
-  .statGlimpse_metadata {
-    gap: 10px;
-    max-width: 60%;
-    flex-wrap: wrap;
-  }
-  
-  .statGlimpse_fillerImage {
-    width: 120px;
-    height: 100%;
-  }
-  
-  .statGlimpse_greyBox {
-    height: 0;
-    background-color: var(--secondary-color-1);
-    transition: width 0.3s ease;
-  }
+.statglimpse-card {
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  min-height: 20vh;
+  margin: 2rem;
+  padding: 1rem;
+}
+
+.statglimpse-card:hover {
+
+}
+
+.statglimpse-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding-right: 1rem;
+  color: var(--primary-color-1);
+}
+
+.statglimpse-header {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.statglimpse-description {
+  font-size: 0.9rem;
+  color: var(--primary-color-1);
+}
+
+.statglimpse-image {
+  height: 5rem;
+  max-height: 5rem;
+  width: auto;
+  object-fit: cover;
+  /* keep the image from shrinking so it stays consistent */
+  flex: 0 0 auto;
+  /* push image to the right when available */
+  margin-left: auto;
+  border-radius: 8px;
+  align-self: center;
+}

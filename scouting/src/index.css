@@ -7,7 +7,7 @@ html, body {
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'consolas', 'monaco', 'lucida console', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -58,6 +58,7 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-size: 1.5rem;
   color: var(--primary-color-3);
   font-weight: 500;
 }
