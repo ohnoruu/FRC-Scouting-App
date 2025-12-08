@@ -1,38 +1,13 @@
-.displayProfile_container{
-    width: 100%;
-    min-height: 70px;
-    background-color: white;
+.displayProfile_card {
+    border: none;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    border: 2.5px solid lightgrey;
-    padding: 0 10px;
-    margin-bottom: 10px;
-    gap: 2.5px;
-    color: #616161;
+    min-height: 20vh;
+    margin: 2rem;
+    padding: 1rem;
 }
 
 .displayProfile_teamSelection {
-    padding: 0 10px;
-    margin-bottom: 10px;
-    gap: 2.5px;
-    cursor: pointer;
-
-}
-
-.displayProfile_teamName{
-    margin-right: 5px;
-}
-
-.displayProfile_editSelection{
-    display: flex;
-    flex-direction: row;
-    background-color: #cccccc;
-    cursor: pointer;
-    gap: 1vw;
-}
-
-.displayProfile_edit-icon{
-    font-size: 18px;
-    margin-left: 1vw;
+    margin-bottom: 1rem;
 }

@@ -1,6 +1,6 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import IonIcon from '@reacticons/ionicons';
+import { Container, Button } from 'react-bootstrap';
 import SelectProfileSkeleton from '../../components/record/SelectProfileSkeleton';
 import DisplayProfile from '../../components/record/DisplayProfile';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import './SelectProfile.css';
 
 export default function SelectProfile() {
   const navigate = useNavigate();
+  const [genData, setGenData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]); 
 
@@ -40,6 +41,31 @@ export default function SelectProfile() {
  
   return (
     <>
+      <Container className="selectProfile_container" fluid="md">
+        <h1 style={{ marginTop: '2rem', textAlign: 'center' }}>Select a Robot Profile to Scout Matches</h1>
+        <p style={{textAlign: 'center'}}>For Pit Scouting, edit an existing robot profile or add a new one by clicking "Create New Profile"</p>
+        
+        <div className="selectProfile_searchContainer">
+          <input
+            className="searchbar"
+            placeholder="Search by Team Name or Number"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </div>
+
+        <div className="selectProfile_scrollview">
+          <Suspense fallback={<SelectProfileSkeleton/>}>
+            {filteredData?.map((robot) => (
+              <div className="selectProfile_profileCard" key={'recording:' + robot.profile.teamNumber}>
+                <DisplayProfile profileData={robot}/>
+              </div>
+            ))}
+          </Suspense>
+        </div>
+
+        <Button variant="primary" onClick={handleNavigate}>Create New Profile</Button>
+      </Container>
     </>
   );
 }
