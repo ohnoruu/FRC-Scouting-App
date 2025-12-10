@@ -29,3 +29,8 @@
   border: 2px solid var(--primary-color-3);
   border-radius: 5px;
 }
+
+.searchRobots_scrollView {
+  height: 60vh;
+  overflow-y: auto;
+}
