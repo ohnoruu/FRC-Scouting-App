@@ -16,28 +16,48 @@ export default function SelectProfile() {
     navigate('/navigator/record/create-profile');
   };
 
-  const [profileData, setProfileData] = useState();
-
   useEffect(() => {
     axios.get('https://cyberlions-web-server-1028328220227.us-central1.run.app/robotList')
       .then((response) => {
-        setProfileData(response.data);
-        setFilteredData(response.data);
+        setGenData(response.data);
+        // if no active query, show all immediately
+        if (!searchQuery.trim()) setFilteredData(response.data);
       })
       .catch((error) => {
-        console.error("Error making POST Request:", error);
+        console.error("Error making GET Request:", error);
       });
   }, []);
 
   const handleSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
-    const filtered = profileData?.filter(robot =>
-      robot.profile.teamName.toLowerCase().includes(query) ||
-      robot.profile.teamNumber.toString().includes(query)
-    );
-    setFilteredData(filtered);
+    setSearchQuery(e.target.value);
   }
+
+  useEffect(() => {
+    const raw = searchQuery;
+    const q = raw.trim().toLowerCase();
+
+    if (!q) {
+      setFilteredData(genData);
+      return;
+    }
+
+    const digitsOnly = q.replace(/\D/g, '');
+    const treatAsPureNumber = digitsOnly.length > 0 && digitsOnly === q.replace(/\s/g, '');
+
+    const filtered = genData.filter((robot) => {
+      const teamName = robot?.profile?.teamName?.toString().toLowerCase() || '';
+      const teamNumberStr = robot?.profile?.teamNumber != null
+        ? robot.profile.teamNumber.toString()
+        : '';
+
+      if (treatAsPureNumber) {
+        return teamNumberStr.includes(digitsOnly) || teamName.includes(q);
+      }
+      return teamName.includes(q) || teamNumberStr.includes(q);
+    });
+
+    setFilteredData(filtered);
+  }, [searchQuery, genData]);
  
   return (
     <>
@@ -56,8 +76,11 @@ export default function SelectProfile() {
 
         <div className="selectProfile_scrollview">
           <Suspense fallback={<SelectProfileSkeleton/>}>
-            {filteredData?.map((robot) => (
-              <div className="selectProfile_profileCard" key={'recording:' + robot.profile.teamNumber}>
+            {filteredData?.map((robot, idx) => (
+              <div 
+                className="selectProfile_profileCard" 
+                key={`${robot.profile.teamNumber || 'unk'}-${robot.profile.teamName || 'noname'}-${idx}`}
+              >
                 <DisplayProfile profileData={robot}/>
               </div>
             ))}

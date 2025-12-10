@@ -1,27 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './DisplayProfile.css';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
-import axios from 'axios';
 
 export default function DisplayProfile({ profileData }) {
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        axios.get(`https://cyberlions-web-server-1028328220227.us-central1.run.app/getRobot/${profileData.profile.teamNumber}`)
-            .then(() => setIsLoading(false))
-            .catch(() => setIsLoading(false));
-    }, [profileData.profile.teamNumber]);
-
-    if (isLoading) {
-        return (
-            <div className="displayProfile_loading">
-                <span>Loading profile...</span>
-            </div>
-        );
-    }
 
     return (
         <Card 
