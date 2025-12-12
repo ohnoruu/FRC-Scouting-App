@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Image, Tab, Tabs, ListGroup, Card } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
+import MatchPreview from '../../components/search/MatchPreview.jsx'
 import fillerImg from '../../assets/interface-icons/filler-image.png';
 import axios from 'axios';
 import './Profile.css';
@@ -85,11 +86,12 @@ export default function Profile() {
                                 </ListGroup.Item>
                                 <ListGroup.Item>Algae Intake: {Object.entries(robotProfileData.profile?.intakeData.algae || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.algae?.other ? ` (${robotProfileData.profile.intakeData.algae.other})` : '' || ''}</ListGroup.Item>
                                 <ListGroup.Item>Coral Intake: {Object.entries(robotProfileData.profile?.intakeData.coral || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.coral?.other ? ` (${robotProfileData.profile.intakeData.coral.other})` : '' || ''}</ListGroup.Item>
+                                <ListGroup.Item>Reported Cycle Time:</ListGroup.Item>
                             </ListGroup>
                         </div>
 
                         <div className="profile_section">
-                            <h2>Scoring</h2>
+                            <h2>Scoring Capabilities</h2>
                             <ListGroup>
                                 
                             </ListGroup>
@@ -98,10 +100,42 @@ export default function Profile() {
                                 <ListGroup.Item>Algae (Net) - {computeScore(robotProfileData.profile?.scoreCapability.algae.netScoring)}</ListGroup.Item>
                                 <ListGroup.Item>Algae (Processor) - {computeScore(robotProfileData.profile?.scoreCapability.algae.processorScoring)}</ListGroup.Item>
                             </ListGroup>
+                            <p>Coral</p>
+                            <ListGroup>
+                                <ListGroup.Item>
+                                        {Object.entries(robotProfileData.profile?.scoreCapability.coral || {})
+                                        .filter(([level, value]) => value !== undefined)
+                                        .map(([level, value]) => `${level}: ${computeScore(value)}`)
+                                        .join(', ') || 'None'}
+                                </ListGroup.Item>
+                            </ListGroup>
+                            <p>Autonomous</p>
+                            <ListGroup>
+                                <ListGroup.Item>{computeScore(robotProfileData.profile?.scoreCapability.autoCapability)}</ListGroup.Item>
+                            </ListGroup>
+                            
+                            <p>Average Raw Score</p>
+                            <ListGroup>
+                                <ListGroup.Item>Autonomous:</ListGroup.Item>
+                                <ListGroup.Item>Teleop:</ListGroup.Item>
+                                <ListGroup.Item>Total:</ListGroup.Item>
+                            </ListGroup>
                         </div>
                     </Tab>
                     <Tab eventKey="match" title="Matches">
+                        <div className="profile_section">
+                            <div className="profile_matchSection">
+                                <h2>Match History</h2>
+                                {robotProfileData?.matches?.map((match) => (
+                                    <div key={`${robotProfileData.profile?.teamName} match ${match.matchNumber}`}
+                                        onClick={() => navigate('/navigator/search/match-stats', { state: { teamNumber: robotProfileData.profile?.teamNumber, matchData: match } })}>
 
+                                        <MatchPreview matchData={match} />
+
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </Tab>
                     <Tab eventKey="photos" title="Photos">
 
