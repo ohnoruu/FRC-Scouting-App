@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Container, ListGroup, Overlay, Tooltip, Table } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaInfoCircle } from 'react-icons/fa';
 import axios from 'axios';
 import './MatchStats.css';
 
 export default function MatchStats() {
     const navigate = useNavigate();
     const location = useLocation();
+
+    // tooltip control
+    const [showTooltip, setShowTooltip] = useState(false);
+    const infoRef = useRef(null);
+
     const { teamNumber, matchData } = location.state || {};
 
     const [robotProfileData, setRobotProfileData] = useState();
@@ -24,54 +30,48 @@ export default function MatchStats() {
     }, [teamNumber]);
 
     return (
-        <>
-            <div className="matchStats_topPiece" />
-            <div className="matchStats_container">
-                    <FaArrowLeft className="matchStats_buttonPiece" onClick = {() => navigate(-1)}/>
-                {matchData && robotProfileData &&
-                    <>
-                        <div className="matchStats_teamMain">
-                            <span>{robotProfileData.profile.teamName}</span>
-                            <span>{robotProfileData.profile.teamNumber}</span>
-                        </div>
+        <Container className="matchStats_container" fluid="md">
+            <FaArrowLeft onClick={() => navigate(-1)} className="matchStats_backButton"/>
+                {matchData && robotProfileData && 
+                <>
+                    <div className="matchStats_header">
+                        <h1>{robotProfileData.profile?.teamName}</h1>
+                        <h2>Team {robotProfileData.profile?.teamNumber}</h2>
+                    </div>
 
-                        <div className="matchStats_teamDesc">
-                            <span className="matchStats_headerText">Match Info</span>
-                            <p className="matchStats_teamDescText">Match Number: {matchData.matchNumber}</p>
-                            <p className="matchStats_teamDescText">Match Type: {matchData.matchType}</p>
-                            <p className="matchStats_teamDescText">Raw Score: {matchData.score}</p>
-                            <p className="matchStats_caption">Number of points the singular team scored, without penalty or coopertition bonus</p>
-
-                            <span className="matchStats_headerText">Autonomous Scoring</span>
-                            <span className="matchStats_teamDescText">Left Starting Line: {matchData.leave_auto.toString()}</span>
-                            <span className="matchStats_headerText2">Coral</span>
-                            <p className="matchStats_teamDescText">L1: {matchData.auto_L1_scores} scored, {matchData.auto_L1_misses} missed</p>
-                            <p className="matchStats_teamDescText">L2: {matchData.auto_L2_scores} scored, {matchData.auto_L2_misses} missed</p>
-                            <p className="matchStats_teamDescText">L3: {matchData.auto_L3_scores} scored, {matchData.auto_L3_misses} missed</p>
-                            <p className="matchStats_teamDescText">L4: {matchData.auto_L4_scores} scored, {matchData.auto_L4_misses} missed</p>
-
-                            <span className="matchStats_headerText2">Algae</span>
-                            <p className="matchStats_teamDescText">Net: {matchData.auto_net} scored, {matchData.auto_net_misses} missed</p>
-                            <p className="matchStats_teamDescText">Processor: {matchData.auto_processor} scored, {matchData.auto_processor_misses} missed</p>
-
-                            <span className="matchStats_headerText">Teleop Scoring</span>
-                            <span className="matchStats_headerText2">Coral</span>
-                            <p className="matchStats_teamDescText">L1: {matchData.teleop_L1_scores} scored, {matchData.teleop_L1_misses} missed</p>
-                            <p className="matchStats_teamDescText">L2: {matchData.teleop_L2_scores} scored, {matchData.teleop_L2_misses} missed</p>
-                            <p className="matchStats_teamDescText">L3: {matchData.teleop_L3_scores} scored, {matchData.teleop_L3_misses} missed</p>
-                            <p className="matchStats_teamDescText">L4: {matchData.teleop_L4_scores} scored, {matchData.teleop_L4_misses} missed</p>
-
-                            <span className="matchStats_headerText2">Algae</span>
-                            <p className="matchStats_teamDescText">Net: {matchData.teleop_net} scored, {matchData.teleop_net_misses} missed</p>
-                            <p className="matchStats_teamDescText">Processor: {matchData.auto_processor} scored, {matchData.auto_processor_misses} missed</p>
-                            <p className="matchStats_teamDescText">Parked at barge: {matchData.parked.toString()}</p>
-                            <p className="matchStats_teamDescText">Climbed shallow cage: {matchData.shallow_climbed.toString()}</p>
-                            <p className="matchStats_teamDescText">Climbed deep cage: {matchData.deep_climbed.toString()}</p>
-                            <p className="matchStats_teamDescText">Comments: {matchData.comment}</p>
-                        </div>
-                    </>
+                    <div className="matchStats_matchInfo">
+                        <h2>Match {matchData.matchNumber} Stats</h2>
+                        <ListGroup>
+                            <ListGroup.Item><strong>Match Type: </strong> {matchData.matchType}</ListGroup.Item>
+                            <ListGroup.Item className="position-relative">
+                                <strong>Raw Score: </strong> {matchData.score}
+                                <span ref={infoRef} className="d-inline-block">
+                                    <FaInfoCircle
+                                        className="matchStats_infoIcon"
+                                        tabIndex={0}
+                                        aria-label="Raw Score Info"
+                                        onClick={() => setShowTooltip((s) => !s)}
+                                        onMouseEnter={() => setShowTooltip(true)}
+                                        onMouseLeave={() => setShowTooltip(false)}
+                                    />
+                                </span>
+                                <Overlay
+                                    target={infoRef.current}
+                                    show={showTooltip}
+                                    placement="right"
+                                    container={document.body}
+                                    containerPadding={8}
+                                >
+                                    <Tooltip id="raw-score-tooltip">
+                                        The raw score is calculated based on the scoring actions performed by the singular robot during the match, without any adjustments or penalties.
+                                    </Tooltip>
+                                </Overlay>
+                            </ListGroup.Item>
+                        </ListGroup>
+                        
+                    </div>
+                </>
                 }
-            </div>
-        </>
+        </Container>
     );
 }

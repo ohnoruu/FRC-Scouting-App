@@ -67,26 +67,26 @@ export default function Profile() {
                         <div className="profile_section">
                             <h2>Robot Details</h2>
                             <ListGroup>
-                                <ListGroup.Item>Drivebase: {robotProfileData.profile?.drivebase}</ListGroup.Item>
-                                <ListGroup.Item>Weight:</ListGroup.Item>
-                                <ListGroup.Item>Height:</ListGroup.Item>
+                                <ListGroup.Item><strong>Drivebase:</strong> {robotProfileData.profile?.drivebase}</ListGroup.Item>
+                                <ListGroup.Item><strong>Weight:</strong> {robotProfileData.profile?.weight}</ListGroup.Item>
+                                <ListGroup.Item><strong>Height:</strong> {robotProfileData.profile?.height}</ListGroup.Item>
                                 <ListGroup.Item>
-                                    Playstyles: {[
+                                    <strong>Playstyles:</strong> {[
                                         robotProfileData.profile?.playstyle?.algae && "Algae Scorer",
                                         robotProfileData.profile?.playstyle?.coral && "Coral Scorer", 
                                         robotProfileData.profile?.playstyle?.defense && "Defender"
                                     ].filter(Boolean).join(", " ) || "None"}
                                 </ListGroup.Item>
-                                <ListGroup.Item>Autonomous Details: {robotProfileData.profile?.autoDetails || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item>Climbing:
+                                <ListGroup.Item><strong>Autonomous Details:</strong> {robotProfileData.profile?.autoDetails || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Climbing: </strong>
                                     {robotProfileData.profile?.climbing?.shallow && ' Can climb shallow cage'} 
                                     {robotProfileData.profile?.climbing?.shallow && robotProfileData.profile?.climbing?.deep ? ' and ' : ''}
                                     {robotProfileData.profile?.climbing?.deep && 'Can climb deep cage'}
                                     {!robotProfileData.profile?.climbing?.shallow && !robotProfileData.profile?.climbing?.deep && 'None'}
                                 </ListGroup.Item>
-                                <ListGroup.Item>Algae Intake: {Object.entries(robotProfileData.profile?.intakeData.algae || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.algae?.other ? ` (${robotProfileData.profile.intakeData.algae.other})` : '' || ''}</ListGroup.Item>
-                                <ListGroup.Item>Coral Intake: {Object.entries(robotProfileData.profile?.intakeData.coral || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.coral?.other ? ` (${robotProfileData.profile.intakeData.coral.other})` : '' || ''}</ListGroup.Item>
-                                <ListGroup.Item>Reported Cycle Time:</ListGroup.Item>
+                                <ListGroup.Item><strong>Algae Intake:</strong> {Object.entries(robotProfileData.profile?.intakeData.algae || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.algae?.other ? ` (${robotProfileData.profile.intakeData.algae.other})` : '' || ''}</ListGroup.Item>
+                                <ListGroup.Item><strong>Coral Intake:</strong> {Object.entries(robotProfileData.profile?.intakeData.coral || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.coral?.other ? ` (${robotProfileData.profile.intakeData.coral.other})` : '' || ''}</ListGroup.Item>
+                                <ListGroup.Item><strong>Reported Cycle Time:</strong></ListGroup.Item>
                             </ListGroup>
                         </div>
 
@@ -97,8 +97,8 @@ export default function Profile() {
                             </ListGroup>
                             <p>Algae</p>
                             <ListGroup>
-                                <ListGroup.Item>Algae (Net) - {computeScore(robotProfileData.profile?.scoreCapability.algae.netScoring)}</ListGroup.Item>
-                                <ListGroup.Item>Algae (Processor) - {computeScore(robotProfileData.profile?.scoreCapability.algae.processorScoring)}</ListGroup.Item>
+                                <ListGroup.Item><strong>Algae (Net):</strong> {computeScore(robotProfileData.profile?.scoreCapability.algae.netScoring)}</ListGroup.Item>
+                                <ListGroup.Item><strong>Algae (Processor):</strong> {computeScore(robotProfileData.profile?.scoreCapability.algae.processorScoring)}</ListGroup.Item>
                             </ListGroup>
                             <p>Coral</p>
                             <ListGroup>
@@ -116,16 +116,16 @@ export default function Profile() {
                             
                             <p>Average Raw Score</p>
                             <ListGroup>
-                                <ListGroup.Item>Autonomous:</ListGroup.Item>
-                                <ListGroup.Item>Teleop:</ListGroup.Item>
-                                <ListGroup.Item>Total:</ListGroup.Item>
+                                <ListGroup.Item><strong>Autonomous:</strong></ListGroup.Item>
+                                <ListGroup.Item><strong>Teleop:</strong></ListGroup.Item>
+                                <ListGroup.Item><strong>Total:</strong></ListGroup.Item>
                             </ListGroup>
                         </div>
                     </Tab>
                     <Tab eventKey="match" title="Matches">
                         <div className="profile_section">
+                            <h2>Match History</h2>
                             <div className="profile_matchSection">
-                                <h2>Match History</h2>
                                 {robotProfileData?.matches?.map((match) => (
                                     <div key={`${robotProfileData.profile?.teamName} match ${match.matchNumber}`}
                                         onClick={() => navigate('/navigator/search/match-stats', { state: { teamNumber: robotProfileData.profile?.teamNumber, matchData: match } })}>
