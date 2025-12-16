@@ -21,13 +21,6 @@
   height: auto;
 }
 
-.profile_section {
-  margin-top: 2rem;
-  border: 2px solid var(--primary-color-2);
-  border-radius: 10px;
-  padding: 1rem;
-}
-
 .profile_matchSection {
   overflow-y: auto;
   max-height: 20rem;

@@ -64,7 +64,7 @@ export default function Profile() {
                     className="mb-3"
                 >
                     <Tab eventKey="robot" title="Robot">
-                        <div className="profile_section">
+                        <div className="section">
                             <h2>Robot Details</h2>
                             <ListGroup>
                                 <ListGroup.Item><strong>Drivebase:</strong> {robotProfileData.profile?.drivebase}</ListGroup.Item>
@@ -90,7 +90,7 @@ export default function Profile() {
                             </ListGroup>
                         </div>
 
-                        <div className="profile_section">
+                        <div className="section">
                             <h2>Scoring Capabilities</h2>
                             <ListGroup>
                                 
@@ -123,7 +123,7 @@ export default function Profile() {
                         </div>
                     </Tab>
                     <Tab eventKey="match" title="Matches">
-                        <div className="profile_section">
+                        <div className="section">
                             <h2>Match History</h2>
                             <div className="profile_matchSection">
                                 {robotProfileData?.matches?.map((match) => (

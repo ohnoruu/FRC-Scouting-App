@@ -40,7 +40,7 @@ export default function MatchStats() {
                     </div>
 
                     <div className="matchStats_matchInfo">
-                        <h2>Match {matchData.matchNumber} Stats</h2>
+                        <h2>Match {matchData.matchNumber} Details</h2>
                         <ListGroup>
                             <ListGroup.Item><strong>Match Type: </strong> {matchData.matchType}</ListGroup.Item>
                             <ListGroup.Item className="position-relative">
@@ -67,8 +67,160 @@ export default function MatchStats() {
                                     </Tooltip>
                                 </Overlay>
                             </ListGroup.Item>
+                            <ListGroup.Item><strong>Comments: </strong>{matchData.comment || "None"}</ListGroup.Item>
                         </ListGroup>
-                        
+
+
+                        <div className="section">
+                            <h2>Autonomous</h2>
+                            <ListGroup>
+                                <ListGroup.Item><strong>Left Starting Line: </strong>{matchData.leave_auto.toString()}</ListGroup.Item>
+                            </ListGroup>
+
+                            <p style={{marginTop: '1rem'}}>Coral</p>
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Scored</th>
+                                        <th>Missed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>L1</td>
+                                        <td>{matchData.auto_L1_scores}</td>
+                                        <td>{matchData.auto_L1_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L2</td>
+                                        <td>{matchData.auto_L2_scores}</td>
+                                        <td>{matchData.auto_L2_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L3</td>
+                                        <td>{matchData.auto_L3_scores}</td>
+                                        <td>{matchData.auto_L3_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L4</td>
+                                        <td>{matchData.auto_L4_scores}</td>
+                                        <td>{matchData.auto_L4_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>{matchData.auto_L1_scores + matchData.auto_L2_scores + matchData.auto_L3_scores + matchData.auto_L4_scores}</td>
+                                        <td>{matchData.auto_L1_misses + matchData.auto_L2_misses + matchData.auto_L3_misses + matchData.auto_L4_misses}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+
+                            <p>Algae</p>
+                            <Table striped border hover>
+                                <thead>
+                                    <tr>
+                                        <th>Scoring Location</th>
+                                        <th>Scored</th>
+                                        <th>Missed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Net</td>
+                                        <td>{matchData.auto_net}</td>
+                                        <td>{matchData.auto_net_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Processor</td>
+                                        <td>{matchData.auto_processor}</td>
+                                        <td>{matchData.auto_processor_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>{matchData.auto_net + matchData.auto_processor}</td>
+                                        <td>{matchData.auto_net_misses + matchData.auto_processor_misses}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </div>
+
+                        <div className="section">
+                            <h2>Teleop</h2>
+                            <p style={{marginTop: '1rem'}}>Coral</p>
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Scored</th>
+                                        <th>Missed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>L1</td>
+                                        <td>{matchData.teleop_L1_scores}</td>
+                                        <td>{matchData.teleop_L1_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L2</td>
+                                        <td>{matchData.teleop_L2_scores}</td>
+                                        <td>{matchData.teleop_L2_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L3</td>
+                                        <td>{matchData.teleop_L3_scores}</td>
+                                        <td>{matchData.teleop_L3_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>L4</td>
+                                        <td>{matchData.teleop_L4_scores}</td>
+                                        <td>{matchData.teleop_L4_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>{matchData.teleop_L1_scores + matchData.teleop_L2_scores + matchData.teleop_L3_scores + matchData.teleop_L4_scores}</td>
+                                        <td>{matchData.teleop_L1_misses + matchData.teleop_L2_misses + matchData.teleop_L3_misses + matchData.teleop_L4_misses}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+
+                            <p>Algae</p>
+                            <Table striped border hover>
+                                <thead>
+                                    <tr>
+                                        <th>Scoring Location</th>
+                                        <th>Scored</th>
+                                        <th>Missed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Net</td>
+                                        <td>{matchData.teleop_net}</td>
+                                        <td>{matchData.teleop_net_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Processor</td>
+                                        <td>{matchData.teleop_processor}</td>
+                                        <td>{matchData.teleop_processor_misses}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>{matchData.teleop_net + matchData.teleop_processor}</td>
+                                        <td>{matchData.teleop_net_misses + matchData.teleop_processor_misses}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </div>
+
+                        <div className="section">
+                            <h2>Endgame</h2>
+                            <ListGroup>
+                                <ListGroup.Item><strong>Parked: </strong>{matchData.parked.toString()}</ListGroup.Item>
+                                <ListGroup.Item><strong>Climbed shallow cage: </strong>{matchData.shallow_climbed.toString()}</ListGroup.Item>
+                                <ListGroup.Item><strong>Climbed deep cage: </strong>{matchData.deep_climbed.toString()}</ListGroup.Item>
+                            </ListGroup>
+                        </div>
                     </div>
                 </>
                 }
