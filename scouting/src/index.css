@@ -17,7 +17,7 @@ html, body {
   --primary-color-2: #df3838;
   --primary-color-3: #ffffff;
 
-  --secondary-color-1: #e9ebee;
+  --secondary-color-1: #a7aaaf;
   --hyperlink-color: #7DA2FF;
 
   --topbar-height: 7.5vh;
@@ -96,6 +96,12 @@ code {
   border: 2px solid var(--primary-color-2);
   border-radius: 10px;
   padding: 1rem;
+}
+
+/* Bootstrap Modifications */
+/* Form */ 
+.form-check-white {
+  color: var(--primary-color-3);
 }
 
 /* Utility Classes */

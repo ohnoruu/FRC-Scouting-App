@@ -63,7 +63,7 @@ export default function SelectProfile() {
     <>
       <Container className="selectProfile_container" fluid="md">
         <h1 style={{ marginTop: '2rem', textAlign: 'center' }}>Select a Robot Profile to Scout Matches</h1>
-        <p style={{textAlign: 'center', fontSize: '0.8rem'}}>For Pit Scouting, edit an existing robot profile or add a new one by clicking "Create New Profile" below</p>
+        <p style={{textAlign: 'center', fontSize: '0.8rem', color: 'var(--secondary-color-1)'}}>For Pit Scouting, edit an existing robot profile or add a new one by clicking "Create New Profile" below</p>
         
         <div className="selectProfile_searchContainer">
           <input
