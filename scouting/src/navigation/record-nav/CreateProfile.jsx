@@ -201,6 +201,34 @@ export default function CreateProfile() {
             </div>
 
             <div className="section">
+                <h2>Dimensions</h2>
+                <p className="createProfile_caption">"What are the dimensions and weight of the robot?"</p>
+                <Form>
+                    <FloatingLabel
+                        controlId="heightInput"
+                        label="Height (inches)"
+                        className="mb-3"
+                    >
+                        <Form.Control type="number" placeholder="Enter height"/>
+                    </FloatingLabel>
+                    <FloatingLabel
+                        controlId="extendedHeightInput"
+                        label="Height when extended (inches)"
+                        className="mb-3"
+                    >
+                        <Form.Control type="number" placeholder="Enter extended height"/>
+                    </FloatingLabel>
+                    <FloatingLabel
+                        controlId="weightInput"
+                        label="Weight (pounds)"
+                        className="mb-3"
+                    >
+                        <Form.Control type="number" placeholder="Enter weight"/>
+                    </FloatingLabel>
+                </Form>
+            </div>
+
+            <div className="section">
                 <h2>Roles</h2>
                 <p className="createProfile_caption">"What roles can the robot play during a match?"</p>
                 <Form>
@@ -230,6 +258,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Drivebase</h2>
+                <p className="createProfile_caption">"What type of drivebase does the robot use? What type of modules are on the drivebase?"</p>
                 <Form.Select 
                     aria-label="Drivebase Selection" 
                     value={drivebase} 
@@ -245,16 +274,83 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h1>Intake</h1>
+                <p className="createProfile_caption">"How does the robot pick up game pieces?"</p>
                 <p>Algae Intake</p>
                 <Form>
                     <Form.Check
                         type="checkbox"
                         label="Source"
                         checked={intake.algae.source}
-                        onChange={() => updateIntake('source')}
+                        onChange={(e) => updateIntake('algae', 'source', e.target.checked)}
+                        className="form-check-white"
+                    />
+                    <Form.Check
+                        type="checkbox"
+                        label="Ground"
+                        checked={intake.algae.ground}
+                        onChange={(e) => updateIntake('algae', 'ground', e.target.checked)}
                         className="form-check-white"
                     />
                 </Form>
+                <p>Coral Intake</p>
+                <Form>
+                    <Form.Check
+                        type="checkbox"
+                        label="Source"
+                        checked={intake.coral.source}
+                        onChange={(e) => updateIntake('coral', 'source', e.target.checked)}
+                        className="form-check-white"
+                    />
+                    <Form.Check
+                        type="checkbox"
+                        label="Ground"
+                        checked={intake.coral.ground}
+                        onChange={(e) => updateIntake('coral', 'ground', e.target.checked)}
+                        className="form-check-white"
+                    />
+                </Form>
+            </div>
+
+            <div className="section">
+                <h1>Capability & Consistency</h1>
+                <p className="createProfile_caption">"What can the robot do during a match, and how consistently when doing so?"</p>
+                <p>Algae</p>
+                <RecordConsistency
+                    description="Scores algae into net"
+                    value={scoreCapability.algae.netScoring}
+                    onChange={(val) => updateScoreCapability('algae', 'netScoring', val)}
+                />
+                <RecordConsistency
+                    description="Scores algae into processor"
+                    value={scoreCapability.algae.processorScoring}
+                    onChange={(val) => updateScoreCapability('algae', 'processorScoring', val)}
+                />
+                <p>Coral</p>
+                <RecordConsistency
+                    description="Scores L1"
+                    value={scoreCapability.coral.L1}
+                    onChange={(val) => updateScoreCapability('coral', 'L1', val)}
+                />
+                <RecordConsistency
+                    description="Scores L2"
+                    value={scoreCapability.coral.L2}
+                    onChange={(val) => updateScoreCapability('coral', 'L2', val)}
+                />
+                <RecordConsistency
+                    description="Scores L3"
+                    value={scoreCapability.coral.L3}
+                    onChange={(val) => updateScoreCapability('coral', 'L3', val)}
+                />
+                <RecordConsistency
+                    description="Scores L4"
+                    value={scoreCapability.coral.L4}
+                    onChange={(val) => updateScoreCapability('coral', 'L4', val)}
+                />
+            </div>
+
+            <div className="section">
+                <h2>Climbing</h2>
+                <p className="createProfile_caption">"Can the robot climb?"</p>
             </div>
         </Container>
     );
