@@ -3,7 +3,8 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Container, Form, Button, Col, Row, FloatingLabel } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
-import ReefscapeChecklist from '../../components/record/ReefscapeChecklist';
+
+import IntakeCheck from '../../components/record/IntakeCheck';
 import RecordConsistency from '../../components/record/RecordConsistency';
 import './CreateProfile.css';
 
@@ -16,13 +17,17 @@ export default function CreateProfile() {
     const [matches, setMatches] = useState([]); 
 
     //variables
+
+    //REBUILT TO DO: update variables after kickoff
     const [teamName, setTeamName] = useState('');
     const [teamNumberState, setTeamNumberState] = useState(initialTeamNumber || ''); // Initialize teamNumberState with teamNumber if it exists
-    const [playstyle, setPlaystyle] = useState({
-        algae: false, 
-        coral: false,
-        defense: false,
-    });
+    
+    const [dimensions, setDimensions] = useState({
+        height: '',
+        extendedHeight: '',
+        weight: '',
+    })
+
     const [drivebase, setDrivebase] = useState('');
     const drivebaseSelection = [
         { label: 'swerve', value: 'swerve' },
@@ -32,23 +37,24 @@ export default function CreateProfile() {
         { label: 'other', value: 'other' },
     ];
 
+    const [playstyle, setPlaystyle] = useState({
+        defense: false,
+    });
+
     const [intake, setIntake] = useState({
-        algae: { ground: false, source: false },
-        coral: { ground: false, source: false }
+
     });
 
     const [scoreCapability, setScoreCapability] = useState({
-        algae: { netScoring: null, processorScoring: null },
-        coral: { L1: null, L2: null, L3: null, L4: null },
         auto: null
     });
 
     const [climbing, setClimbing] = useState({
-        shallow: false,
-        deep: false
+
     });
 
     const [autoDetails, setAutoDetails] = useState('');
+    //for auto capability, see scoreCapability
     const [additionalDetails, setAdditionalDetails] = useState('');
 
     useEffect(() => {
@@ -59,18 +65,14 @@ export default function CreateProfile() {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
                     setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
-                    setPlaystyle(profile.playstyle || {algae: false, coral: false, defense: false})
+                    setDimensions(profile.dimensions || { height: '', extendedHeight: '', weight: '' });
                     setDrivebase(profile.drivebase || '');
-                    setIntake(profile.intake || {
-                        algae: { ground: false, source: false },
-                        coral: { ground: false, source: false }
-                    });
+                    setPlaystyle(profile.playstyle || { defense: false });
+                    setIntake(profile.intake || {  });
                     setScoreCapability(profile.scoreCapability || {
-                        algae: { netScoring: null, processorScoring: null },
-                        coral: { L1: null, L2: null, L3: null, L4: null },
                         auto: null
                     });
-                    setClimbing(profile.climbing || { shallow: false, deep: false });
+                    setClimbing(profile.climbing || {  });
                     setAutoDetails(profile.autoDetails || '');
                     setAdditionalDetails(profile.additionalDetails || '');
     
@@ -130,8 +132,9 @@ export default function CreateProfile() {
             profile: {
                 teamName,
                 teamNumber: Number(teamNumberState),
-                playstyle,
+                dimensions,
                 drivebase,
+                playstyle,
                 intake,
                 scoreCapability,
                 climbing,
@@ -229,6 +232,23 @@ export default function CreateProfile() {
             </div>
 
             <div className="section">
+                <h2>Drivebase</h2>
+                <p className="createProfile_caption">"What type of drivebase does the robot use? What type of modules are on the drivebase?"</p>
+                <Form.Select 
+                    aria-label="Drivebase Selection" 
+                    value={drivebase} 
+                    onChange={(e) => setDrivebase(e.target.value)}>
+                    <option>Select Drivebase</option>
+                    <option value="swerve">Swerve</option>
+                    <option value="mechanum">Mechanum</option>
+                    <option value="tank">Tank</option>
+                    <option value="h-drive">H-Drive</option>
+                    <option value="other">Other</option>
+                </Form.Select>
+            </div>
+
+            
+            <div className="section">
                 <h2>Roles</h2>
                 <p className="createProfile_caption">"What roles can the robot play during a match?"</p>
                 <Form>
@@ -257,101 +277,75 @@ export default function CreateProfile() {
             </div>
 
             <div className="section">
-                <h2>Drivebase</h2>
-                <p className="createProfile_caption">"What type of drivebase does the robot use? What type of modules are on the drivebase?"</p>
-                <Form.Select 
-                    aria-label="Drivebase Selection" 
-                    value={drivebase} 
-                    onChange={(e) => setDrivebase(e.target.value)}>
-                    <option>Select Drivebase</option>
-                    <option value="swerve">Swerve</option>
-                    <option value="mechanum">Mechanum</option>
-                    <option value="tank">Tank</option>
-                    <option value="h-drive">H-Drive</option>
-                    <option value="other">Other</option>
-                </Form.Select>
-            </div>
-
-            <div className="section">
                 <h1>Intake</h1>
                 <p className="createProfile_caption">"How does the robot pick up game pieces?"</p>
-                <p>Algae Intake</p>
-                <Form>
-                    <Form.Check
-                        type="checkbox"
-                        label="Source"
-                        checked={intake.algae.source}
-                        onChange={(e) => updateIntake('algae', 'source', e.target.checked)}
-                        className="form-check-white"
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        label="Ground"
-                        checked={intake.algae.ground}
-                        onChange={(e) => updateIntake('algae', 'ground', e.target.checked)}
-                        className="form-check-white"
-                    />
-                </Form>
-                <p>Coral Intake</p>
-                <Form>
-                    <Form.Check
-                        type="checkbox"
-                        label="Source"
-                        checked={intake.coral.source}
-                        onChange={(e) => updateIntake('coral', 'source', e.target.checked)}
-                        className="form-check-white"
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        label="Ground"
-                        checked={intake.coral.ground}
-                        onChange={(e) => updateIntake('coral', 'ground', e.target.checked)}
-                        className="form-check-white"
-                    />
-                </Form>
+                <IntakeCheck
+                    description="Algae Intake"
+                    gamepiece="algae"
+                    value={intake}
+                    hasSource={false}
+                />
+                <IntakeCheck
+                    description="Coral Intake"
+                    gamepiece="coral"
+                    value={intake}
+                    hasSource={true}
+                />
             </div>
 
             <div className="section">
-                <h1>Capability & Consistency</h1>
-                <p className="createProfile_caption">"What can the robot do during a match, and how consistently when doing so?"</p>
-                <p>Algae</p>
-                <RecordConsistency
-                    description="Scores algae into net"
-                    value={scoreCapability.algae.netScoring}
-                    onChange={(val) => updateScoreCapability('algae', 'netScoring', val)}
-                />
-                <RecordConsistency
-                    description="Scores algae into processor"
-                    value={scoreCapability.algae.processorScoring}
-                    onChange={(val) => updateScoreCapability('algae', 'processorScoring', val)}
-                />
-                <p>Coral</p>
-                <RecordConsistency
-                    description="Scores L1"
-                    value={scoreCapability.coral.L1}
-                    onChange={(val) => updateScoreCapability('coral', 'L1', val)}
-                />
-                <RecordConsistency
-                    description="Scores L2"
-                    value={scoreCapability.coral.L2}
-                    onChange={(val) => updateScoreCapability('coral', 'L2', val)}
-                />
-                <RecordConsistency
-                    description="Scores L3"
-                    value={scoreCapability.coral.L3}
-                    onChange={(val) => updateScoreCapability('coral', 'L3', val)}
-                />
-                <RecordConsistency
-                    description="Scores L4"
-                    value={scoreCapability.coral.L4}
-                    onChange={(val) => updateScoreCapability('coral', 'L4', val)}
-                />
+                <h1>Scoring</h1>
+                <p className="createProfile_caption">"How does the robot score during a match, and how consistently when doing so?"</p>
             </div>
 
             <div className="section">
                 <h2>Climbing</h2>
-                <p className="createProfile_caption">"Can the robot climb?"</p>
+                <p className="createProfile_caption">"Where can the robot climb, and how consistently when doing so?"</p>
             </div>
+
+            <div className="section">
+                <h2>Autonomous</h2>
+                <p className="createProfile_caption">"What does the robot do during auto? Is the auto consistent/reliable?"</p>
+                <Form style={{ marginBottom: '1rem' }}>
+                    <Form.Group>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                value={autoDetails}
+                                onChange={(e) => setAutoDetails(e.target.value)}
+                                placeholder="Briefly describe auto cycle (e.g., 1 pc algae, 2 pc coral)"
+                            />
+                    </Form.Group>
+                </Form>
+                <RecordConsistency
+                    description="Autonomous Reliability"
+                    value={scoreCapability.auto}
+                    onChange={(value) => setScoreCapability(prev => ({ ...prev, auto: value }))}
+                />
+            </div>
+
+            <div className="section">
+                <h2>Additional Details/Comments</h2>
+                <Form>
+                    <Form.Group>
+                        <Form.Control
+                            as="textarea"
+                            rows={3}
+                            value={additionalDetails}
+                            onChange={(e) => setAdditionalDetails(e.target.value)}
+                            placeholder="Provide any other details that would benefit drive team (e.g., issues with robot, new drivers)"
+                        />
+                    </Form.Group>
+                </Form>
+            </div>
+
+            <Button
+                variant="primary"
+                onClick={submitProfile}
+                className="submitProfile_button"
+            >
+                { isEditing ? "Save Changes" : "Create Profile" }
+            </Button>
         </Container>
     );
 }

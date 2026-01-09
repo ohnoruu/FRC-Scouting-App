@@ -13,3 +13,9 @@
     font-size: 1.5rem;
     margin: 1rem 0;
 }
+
+.submitProfile_button {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    align-self: flex-end;
+}

@@ -1,0 +1,9 @@
+.intakeCheck-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.intakeCheck-container p {
+    font-size: 15px;
+    color: var(--primary-color-2);
+}
