@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams, useLocation, ScrollRestoration } from 'react-router-dom';
 import { Container, Form, Button, Col, Row, FloatingLabel } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 
 import IntakeCheck from '../../components/record/IntakeCheck';
 import RecordConsistency from '../../components/record/RecordConsistency';
+import ImageUpload from '../../components/record/ImageUpload';
 import './CreateProfile.css';
 
 export default function CreateProfile() {
@@ -16,46 +17,38 @@ export default function CreateProfile() {
     const [loading, setLoading] = useState(isEditing); // Set loading to true if editing
     const [matches, setMatches] = useState([]); 
 
-    //variables
-
-    //REBUILT TO DO: update variables after kickoff
+    //General Information
     const [teamName, setTeamName] = useState('');
     const [teamNumberState, setTeamNumberState] = useState(initialTeamNumber || ''); // Initialize teamNumberState with teamNumber if it exists
-    
     const [dimensions, setDimensions] = useState({
-        height: '',
-        extendedHeight: '',
-        weight: '',
+        height: null,
+        extendedHeight: null,
+        weight: null,
     })
-
     const [drivebase, setDrivebase] = useState('');
-    const drivebaseSelection = [
-        { label: 'swerve', value: 'swerve' },
-        { label: 'mechanum', value: 'mechanum' },
-        { label: 'tank', value: 'tank' },
-        { label: 'h-drive', value: 'h-drive' },
-        { label: 'other', value: 'other' },
-    ];
-
-    const [playstyle, setPlaystyle] = useState({
-        defense: false,
-    });
-
     const [intake, setIntake] = useState({
-
+        fuel: { ground: null, source: null }
     });
 
-    const [scoreCapability, setScoreCapability] = useState({
-        auto: null
+    //Scoring Data (recorded by consistency)
+    const [scoring, setScoring] = useState({
+        hub: null,
     });
-
     const [climbing, setClimbing] = useState({
-
+        lowRung: null,
+        midRung: null,
+        highRung: null
     });
 
+    //Autonomous
+    const [auto, setAuto] = useState(null);
     const [autoDetails, setAutoDetails] = useState('');
-    //for auto capability, see scoreCapability
+
+    //Additional Details
     const [additionalDetails, setAdditionalDetails] = useState('');
+
+    //Images
+    const [robotImage, setRobotImage] = useState(null);
 
     useEffect(() => {
         console.log("Team number", initialTeamNumber);
@@ -65,14 +58,13 @@ export default function CreateProfile() {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
                     setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
-                    setDimensions(profile.dimensions || { height: '', extendedHeight: '', weight: '' });
-                    setDrivebase(profile.drivebase || '');
-                    setPlaystyle(profile.playstyle || { defense: false });
-                    setIntake(profile.intake || {  });
-                    setScoreCapability(profile.scoreCapability || {
-                        auto: null
+                    setDimensions(profile.dimensions || { height: null, extendedHeight: null, weight: null });
+                    setDrivebase(profile.drivebase || '');                    setIntake(profile.intake || {  });
+                    setScoring(profile.scoring || {
+                        hub: null
                     });
-                    setClimbing(profile.climbing || {  });
+                    setClimbing(profile.climbing || { lowRung: null, midRung: null, highRung: null });
+                    setAuto(profile.auto || null);
                     setAutoDetails(profile.autoDetails || '');
                     setAdditionalDetails(profile.additionalDetails || '');
     
@@ -95,35 +87,10 @@ export default function CreateProfile() {
     
 
     //data manipulation functions
-
-    const updatePlaystyle = (key) => {
-        setPlaystyle(prev => ({
-            ...prev, 
-            [key]: !prev[key]
-        }));
-    };
-
     const updateIntake = (type, key, value) => {
         setIntake(prevState => ({
             ...prevState,
             [type]: { ...prevState[type], [key]: value }
-        }));
-    };
-
-    const updateScoreCapability = (type, key, value) => {
-        setScoreCapability(prev => ({
-            ...prev,
-            [type]: {
-                ...prev[type],
-                [key]: value
-            }
-        }));
-    };
-
-    const updateClimbing = (key) => {
-        setClimbing(prev => ({
-            ...prev,
-            [key]: !prev[key] //toggle between true/false
         }));
     };
 
@@ -134,9 +101,8 @@ export default function CreateProfile() {
                 teamNumber: Number(teamNumberState),
                 dimensions,
                 drivebase,
-                playstyle,
                 intake,
-                scoreCapability,
+                scoring,
                 climbing,
                 autoDetails,
                 additionalDetails,
@@ -247,60 +213,45 @@ export default function CreateProfile() {
                 </Form.Select>
             </div>
 
-            
-            <div className="section">
-                <h2>Roles</h2>
-                <p className="createProfile_caption">"What roles can the robot play during a match?"</p>
-                <Form>
-                    <Form.Check
-                        type="checkbox"
-                        label="Algae Scoring"
-                        checked={playstyle.algae}
-                        onChange={() => updatePlaystyle('algae')}
-                        className="form-check-white"
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        label="Coral Scoring"
-                        checked={playstyle.coral}
-                        onChange={() => updatePlaystyle('coral')}
-                        className="form-check-white"
-                    />
-                    <Form.Check
-                        type="checkbox"
-                        label="Defense"
-                        checked={playstyle.defense}
-                        onChange={() => updatePlaystyle('defense')}
-                        className="form-check-white"
-                    />
-                </Form>
-            </div>
-
             <div className="section">
                 <h1>Intake</h1>
                 <p className="createProfile_caption">"How does the robot pick up game pieces?"</p>
                 <IntakeCheck
-                    description="Algae Intake"
-                    gamepiece="algae"
-                    value={intake}
-                    hasSource={false}
-                />
-                <IntakeCheck
-                    description="Coral Intake"
-                    gamepiece="coral"
-                    value={intake}
+                    description="Fuel Intake"
+                    value={intake.fuel}
                     hasSource={true}
+                    onChange={(key, val) => updateIntake('fuel', key, val)}
                 />
             </div>
 
             <div className="section">
                 <h1>Scoring</h1>
                 <p className="createProfile_caption">"How does the robot score during a match, and how consistently when doing so?"</p>
+                <RecordConsistency
+                    description="Hub Scoring"
+                    value={scoring.hub}
+                    onChange={(val) => setScoring(prev => ({ ...prev, hub: val }))}
+                />
             </div>
 
             <div className="section">
                 <h2>Climbing</h2>
                 <p className="createProfile_caption">"Where can the robot climb, and how consistently when doing so?"</p>
+                <RecordConsistency
+                    description="Low Rung"
+                    value={climbing.lowRung}
+                    onChange={(val) => setClimbing(prev => ({ ...prev, lowRung: val }))}
+                />
+                <RecordConsistency
+                    description="Mid Rung"
+                    value={climbing.midRung}
+                    onChange={(val) => setClimbing(prev => ({ ...prev, midRung: val }))}
+                />
+                <RecordConsistency
+                    description="High Rung"
+                    value={climbing.highRung}
+                    onChange={(val) => setClimbing(prev => ({ ...prev, highRung: val }))}
+                />
             </div>
 
             <div className="section">
@@ -319,8 +270,8 @@ export default function CreateProfile() {
                 </Form>
                 <RecordConsistency
                     description="Autonomous Reliability"
-                    value={scoreCapability.auto}
-                    onChange={(value) => setScoreCapability(prev => ({ ...prev, auto: value }))}
+                    value={auto}
+                    onChange={(val) => setAuto(val)}
                 />
             </div>
 
@@ -337,6 +288,15 @@ export default function CreateProfile() {
                         />
                     </Form.Group>
                 </Form>
+            </div>
+
+            <div className="section">
+                <h2>Robot Photo</h2>
+                <p className="createProfile_caption">Politely ask the team to take a photo of their robot :)</p>
+                <ImageUpload
+                    value={robotImage}
+                    onChange={setRobotImage}
+                />
             </div>
 
             <Button

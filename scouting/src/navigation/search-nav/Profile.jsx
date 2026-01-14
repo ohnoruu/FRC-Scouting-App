@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Image, Tab, Tabs, ListGroup, Card } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
+import axios from 'axios';
+
 import MatchPreview from '../../components/search/MatchPreview.jsx'
 import fillerImg from '../../assets/interface-icons/filler-image.png';
-import axios from 'axios';
 import './Profile.css';
 
 export default function Profile() {
@@ -68,15 +69,10 @@ export default function Profile() {
                             <h2>Robot Details</h2>
                             <ListGroup>
                                 <ListGroup.Item><strong>Drivebase:</strong> {robotProfileData.profile?.drivebase}</ListGroup.Item>
-                                <ListGroup.Item><strong>Weight:</strong> {robotProfileData.profile?.weight}</ListGroup.Item>
-                                <ListGroup.Item><strong>Height:</strong> {robotProfileData.profile?.height}</ListGroup.Item>
-                                <ListGroup.Item>
-                                    <strong>Playstyles:</strong> {[
-                                        robotProfileData.profile?.playstyle?.algae && "Algae Scorer",
-                                        robotProfileData.profile?.playstyle?.coral && "Coral Scorer", 
-                                        robotProfileData.profile?.playstyle?.defense && "Defender"
-                                    ].filter(Boolean).join(", " ) || "None"}
-                                </ListGroup.Item>
+                                <ListGroup.Item><strong>Height:</strong> {robotProfileData.profile?.dimensions.height}</ListGroup.Item>
+                                <ListGroup.Item><strong>Extended Height:</strong> {robotProfileData.profile?.dimensions.extendedHeight}</ListGroup.Item>
+                                <ListGroup.Item><strong>Weight:</strong> {robotProfileData.profile?.dimensions.weight}</ListGroup.Item>
+
                                 <ListGroup.Item><strong>Autonomous Details:</strong> {robotProfileData.profile?.autoDetails || 'N/A'}</ListGroup.Item>
                                 <ListGroup.Item><strong>Climbing: </strong>
                                     {robotProfileData.profile?.climbing?.shallow && ' Can climb shallow cage'} 

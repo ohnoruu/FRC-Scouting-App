@@ -21,7 +21,7 @@ export default function IntakeCheck({ description, value, hasSource, onChange })
                     {hasSource ? (
                         <Form.Check
                             type="checkbox"
-                            label="Source"
+                            label="Outpost"
                             checked={value.source}
                             onChange={handleSourceChange}
                             className="form-check-white"

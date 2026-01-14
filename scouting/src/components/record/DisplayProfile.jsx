@@ -10,7 +10,7 @@ export default function DisplayProfile({ profileData }) {
     return (
         <Card 
             className="displayProfile_card"
-            onClick={() => navigate(`/navigator/record/record-game/${profileData.profile.teamNumber}`, { state: { robot: profileData, isEditing: false } })}
+            onClick={() => navigate(`/navigator/record/record-match/${profileData.profile.teamNumber}`, { state: { robot: profileData, isEditing: false } })}
         >
             <div className="displayProfile_teamSelection">
                 <Card.Title className="displayProfile_header">{profileData.profile.teamName}</Card.Title>
