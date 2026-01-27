@@ -1,0 +1,20 @@
+.multiImageUpload-imageGrid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.multiImageUpload-imageItem {
+    position: relative;
+}
+
+.multiImageUpload-image {
+    objectFit: cover;
+}
+
+.multiimageUpload-removeButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

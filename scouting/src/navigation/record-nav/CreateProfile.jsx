@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import IntakeCheck from '../../components/record/IntakeCheck';
 import RecordConsistency from '../../components/record/RecordConsistency';
-import ImageUpload from '../../components/record/ImageUpload';
+import MultiImageUpload from '../../components/record/MultiImageUpload';
 import './CreateProfile.css';
 
 export default function CreateProfile() {
@@ -48,7 +48,7 @@ export default function CreateProfile() {
     const [additionalDetails, setAdditionalDetails] = useState('');
 
     //Images
-    const [robotImage, setRobotImage] = useState(null);
+    const [robotImages, setRobotImages] = useState([]);
 
     useEffect(() => {
         console.log("Team number", initialTeamNumber);
@@ -60,6 +60,7 @@ export default function CreateProfile() {
                     setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
                     setDimensions(profile.dimensions || { height: null, extendedHeight: null, weight: null });
                     setDrivebase(profile.drivebase || '');                    setIntake(profile.intake || {  });
+                    setIntake(profile.intake || { fuel: { ground: null, source: null } });
                     setScoring(profile.scoring || {
                         hub: null
                     });
@@ -67,7 +68,7 @@ export default function CreateProfile() {
                     setAuto(profile.auto || null);
                     setAutoDetails(profile.autoDetails || '');
                     setAdditionalDetails(profile.additionalDetails || '');
-    
+                    setRobotImages(profile.robotImages || []);
                     // Check if matches exist and set it
                     if (Array.isArray(response.data.matches) && response.data.matches.length > 0) {
                         setMatches(prevMatches => [
@@ -104,8 +105,10 @@ export default function CreateProfile() {
                 intake,
                 scoring,
                 climbing,
+                auto,
                 autoDetails,
                 additionalDetails,
+                robotImages
             },
             matchData: Array.isArray(matches) ? matches : [], // Ensure matches is an array
         };
@@ -293,9 +296,10 @@ export default function CreateProfile() {
             <div className="section">
                 <h2>Robot Photo</h2>
                 <p className="createProfile_caption">Politely ask the team to take a photo of their robot :)</p>
-                <ImageUpload
-                    value={robotImage}
-                    onChange={setRobotImage}
+                <MultiImageUpload
+                    images={robotImages}
+                    onChange={setRobotImages}
+                    isEditing={isEditing}
                 />
             </div>
 

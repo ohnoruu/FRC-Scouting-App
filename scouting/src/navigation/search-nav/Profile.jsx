@@ -7,6 +7,7 @@ import axios from 'axios';
 import MatchPreview from '../../components/search/MatchPreview.jsx'
 import fillerImg from '../../assets/interface-icons/filler-image.png';
 import './Profile.css';
+import IntakeCheck from '../../components/record/IntakeCheck.jsx';
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ export default function Profile() {
                             <h2>Team {robotProfileData.profile?.teamNumber}</h2>
                         </div>
                         <Image
-                            src={fillerImg}
+                            src={robotProfileData.profile?.robotImage || fillerImg}
                             alt="Robot"
                             className="profile_img"
                             thumbnail
@@ -66,48 +67,35 @@ export default function Profile() {
                 >
                     <Tab eventKey="robot" title="Robot">
                         <div className="section">
-                            <h2>Robot Details</h2>
+                            <h2>Robot Overview</h2>
                             <ListGroup>
-                                <ListGroup.Item><strong>Drivebase:</strong> {robotProfileData.profile?.drivebase}</ListGroup.Item>
-                                <ListGroup.Item><strong>Height:</strong> {robotProfileData.profile?.dimensions.height}</ListGroup.Item>
-                                <ListGroup.Item><strong>Extended Height:</strong> {robotProfileData.profile?.dimensions.extendedHeight}</ListGroup.Item>
-                                <ListGroup.Item><strong>Weight:</strong> {robotProfileData.profile?.dimensions.weight}</ListGroup.Item>
-
+                                <ListGroup.Item><strong>Drivebase:</strong> {robotProfileData.profile?.drivebase || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Height:</strong> {robotProfileData.profile?.dimensions.height || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Extended Height:</strong> {robotProfileData.profile?.dimensions.extendedHeight || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Weight:</strong> {robotProfileData.profile?.dimensions.weight || 'N/A'}</ListGroup.Item>
                                 <ListGroup.Item><strong>Autonomous Details:</strong> {robotProfileData.profile?.autoDetails || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item><strong>Climbing: </strong>
-                                    {robotProfileData.profile?.climbing?.shallow && ' Can climb shallow cage'} 
-                                    {robotProfileData.profile?.climbing?.shallow && robotProfileData.profile?.climbing?.deep ? ' and ' : ''}
-                                    {robotProfileData.profile?.climbing?.deep && 'Can climb deep cage'}
-                                    {!robotProfileData.profile?.climbing?.shallow && !robotProfileData.profile?.climbing?.deep && 'None'}
+                                <ListGroup.Item><strong>Climbing:</strong>
+                                    Low Rung ({computeScore(robotProfileData.profile?.climbing.lowRung) || 'N/A'}), 
+                                    Mid Rung ({computeScore(robotProfileData.profile?.climbing.midRung) || 'N/A'}),
+                                    High Rung ({computeScore(robotProfileData.profile?.climbing.highRung) || 'N/A'})
                                 </ListGroup.Item>
-                                <ListGroup.Item><strong>Algae Intake:</strong> {Object.entries(robotProfileData.profile?.intakeData.algae || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.algae?.other ? ` (${robotProfileData.profile.intakeData.algae.other})` : '' || ''}</ListGroup.Item>
-                                <ListGroup.Item><strong>Coral Intake:</strong> {Object.entries(robotProfileData.profile?.intakeData.coral || {}).map(([key, value]) => value ? key : null).filter(Boolean).join(', ')}{robotProfileData.profile?.intakeData.coral?.other ? ` (${robotProfileData.profile.intakeData.coral.other})` : '' || ''}</ListGroup.Item>
-                                <ListGroup.Item><strong>Reported Cycle Time:</strong></ListGroup.Item>
+                                <ListGroup.Item><strong>Intake:</strong>
+                                    Fuel (Ground): {robotProfileData.profile?.intake.fuel.ground?.toString() || 'N/A'}, 
+                                    Fuel (Source): {robotProfileData.profile?.intake.fuel.source?.toString() || 'N/A'}
+                                </ListGroup.Item>
                             </ListGroup>
                         </div>
 
                         <div className="section">
                             <h2>Scoring Capabilities</h2>
                             <ListGroup>
-                                
+                                <p>Scoring Fuel</p>
+                                <ListGroup.Item><strong>Hub: </strong>{computeScore(robotProfileData.profile?.scoring.hub) || 'N/A'}</ListGroup.Item>
                             </ListGroup>
-                            <p>Algae</p>
-                            <ListGroup>
-                                <ListGroup.Item><strong>Algae (Net):</strong> {computeScore(robotProfileData.profile?.scoreCapability.algae.netScoring)}</ListGroup.Item>
-                                <ListGroup.Item><strong>Algae (Processor):</strong> {computeScore(robotProfileData.profile?.scoreCapability.algae.processorScoring)}</ListGroup.Item>
-                            </ListGroup>
-                            <p>Coral</p>
-                            <ListGroup>
-                                <ListGroup.Item>
-                                        {Object.entries(robotProfileData.profile?.scoreCapability.coral || {})
-                                        .filter(([level, value]) => value !== undefined)
-                                        .map(([level, value]) => `${level}: ${computeScore(value)}`)
-                                        .join(', ') || 'None'}
-                                </ListGroup.Item>
-                            </ListGroup>
+                            
                             <p>Autonomous</p>
                             <ListGroup>
-                                <ListGroup.Item>{computeScore(robotProfileData.profile?.scoreCapability.autoCapability)}</ListGroup.Item>
+                                <ListGroup.Item>{computeScore(robotProfileData.profile?.scoreCapability.autoCapability) || 'N/A'}</ListGroup.Item>
                             </ListGroup>
                             
                             <p>Average Raw Score</p>
@@ -134,7 +122,9 @@ export default function Profile() {
                         </div>
                     </Tab>
                     <Tab eventKey="photos" title="Photos">
-
+                        <div className="section">
+                            
+                        </div>
                     </Tab>
                 </Tabs>
 
