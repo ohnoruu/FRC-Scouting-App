@@ -85,7 +85,7 @@ export default function RecordMatch() {
         };
 
         try {
-            await axios.post(`https://cyberlions-web-server-1028328220227.us-central1.run.app/addMatch/${teamNumber}`, matchData);
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/addMatch/${teamNumber}`, matchData);
         } catch (error) {
             console.error('Error making a POST request:', error);
         }

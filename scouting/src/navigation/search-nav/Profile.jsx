@@ -16,7 +16,7 @@ export default function Profile() {
     useEffect(() => {
         console.log(`Fetching data for team number: ${teamNumber}`);
         if (teamNumber) {
-            axios.get(`https://cyberlions-web-server-1028328220227.us-central1.run.app/getRobot/${teamNumber}`)
+            axios.get(`${process.env.REACT_APP_BASE_URL}/getRobot/${teamNumber}`)
                 .then((response) => {
                     console.log('Data fetched successfully:', response.data);
                     setRobotProfileData(response.data);

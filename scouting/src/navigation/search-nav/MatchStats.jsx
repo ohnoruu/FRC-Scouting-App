@@ -19,7 +19,7 @@ export default function MatchStats() {
 
     useEffect(() => {
         if (teamNumber) {
-            axios.get(`https://cyberlions-web-server-1028328220227.us-central1.run.app/getRobot/${teamNumber}`)
+            axios.get(`${process.env.REACT_APP_BASE_URL}/getRobot/${teamNumber}`)
                 .then((response) => {
                     setRobotProfileData(response.data);
                 })

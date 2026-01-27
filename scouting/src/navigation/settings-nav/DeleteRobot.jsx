@@ -12,7 +12,7 @@ export default function DeleteRobot() {
   const [robotList, setRobotList] = useState([]);
 
   useEffect(() => {
-    axios.get('https://cyberlions-web-server-1028328220227.us-central1.run.app/robotList') // imports data using axios
+    axios.get(`${process.env.REACT_APP_BASE_URL}/robotList`) // imports data using axios
       .then((response) => { // sets robotList to the data
         setRobotList(response.data);
       })
@@ -23,8 +23,8 @@ export default function DeleteRobot() {
 
   const removeRobot = async (teamNumber) => {
     // remove robot from robotList and update list on screen
-    await axios.get(`https://cyberlions-web-server-1028328220227.us-central1.run.app/removeRobot/${teamNumber}`);
-    let newList = await axios.get('https://cyberlions-web-server-1028328220227.us-central1.run.app/robotList');
+    await axios.get(`${process.env.REACT_APP_BASE_URL}/removeRobot/${teamNumber}`);
+    let newList = await axios.get(`${process.env.REACT_APP_BASE_URL}/robotList`);
     setRobotList((prev) => newList.data);
   };
 

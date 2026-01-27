@@ -17,7 +17,7 @@ export default function SelectProfile() {
   };
 
   useEffect(() => {
-    axios.get('https://cyberlions-web-server-1028328220227.us-central1.run.app/robotList')
+    axios.get(`${process.env.REACT_APP_BASE_URL}/robotList`)
       .then((response) => {
         setGenData(response.data);
         // if no active query, show all immediately
