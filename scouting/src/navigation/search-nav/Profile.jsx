@@ -7,7 +7,6 @@ import axios from 'axios';
 import MatchPreview from '../../components/search/MatchPreview.jsx'
 import fillerImg from '../../assets/interface-icons/filler-image.png';
 import './Profile.css';
-import IntakeCheck from '../../components/record/IntakeCheck.jsx';
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -52,7 +51,7 @@ export default function Profile() {
                             <h2>Team {robotProfileData.profile?.teamNumber}</h2>
                         </div>
                         <Image
-                            src={robotProfileData.profile?.robotImage || fillerImg}
+                            src={robotProfileData.profile?.robotImages?.[0] || fillerImg}
                             alt="Robot"
                             className="profile_img"
                             thumbnail
@@ -123,7 +122,29 @@ export default function Profile() {
                     </Tab>
                     <Tab eventKey="photos" title="Photos">
                         <div className="section">
-                            
+                            <h2>Robot Photos</h2>
+
+                            {robotProfileData.profile?.robotImages?.length > 0 ? (
+                                <div className="profile_photoGrid">
+                                    {robotProfileData.profile?.robotImages?.map((img, index) => (
+                                        <Card
+                                            key={index}
+                                            className="profile_photoCard"
+                                        >
+                                            <Image
+                                                src={img}
+                                                alt={`Robot Photo ${index + 1}`}
+                                                fluid
+                                                rounded
+                                                loading="lazy"
+                                            />
+                                            
+                                        </Card>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p>No photos uploaded.</p>
+                            )}
                         </div>
                     </Tab>
                 </Tabs>

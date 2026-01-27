@@ -10,7 +10,7 @@
 }
 
 .multiImageUpload-image {
-    objectFit: cover;
+    object-fit: cover;
 }
 
 .multiimageUpload-removeButton {
