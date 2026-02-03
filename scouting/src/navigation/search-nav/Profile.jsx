@@ -85,11 +85,26 @@ export default function Profile() {
                             </ListGroup>
                         </div>
 
+                        <div>
+                            <h2>Design & Constraints</h2>
+                            <ListGroup>
+                                <ListGroup.Item><strong>Lane Preference:</strong>{robotProfileData.profile?.lanePreference || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Hopper Capacity:</strong>{robotProfileData.profile?.hopperCapacity || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Feeding Style:</strong>{robotProfileData.profile?.feedingStyle || 'N/A'}</ListGroup.Item>
+                            </ListGroup>
+                        </div>
+
                         <div className="section">
                             <h2>Scoring Capabilities</h2>
                             <ListGroup>
                                 <p>Scoring Fuel</p>
                                 <ListGroup.Item><strong>Hub: </strong>{computeScore(robotProfileData.profile?.scoring.hub) || 'N/A'}</ListGroup.Item>
+                            </ListGroup>
+
+                            <ListGroup>
+                                <p>Speed</p>
+                                <ListGroup.Item><strong>Reported Cycle Time: {robotProfileData.profile?.cycleTime || 'N/A'}</strong></ListGroup.Item>
+                                <ListGroup.Item><strong>Max Speed: {robotProfileData.profile?.maxSpeed || 'N/A'}</strong></ListGroup.Item>
                             </ListGroup>
                             
                             <p>Autonomous</p>

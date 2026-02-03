@@ -30,10 +30,29 @@ export default function CreateProfile() {
         fuel: { ground: null, source: null }
     });
 
-    //Scoring Data (recorded by consistency)
+    
+    //Design 
+    const [lanePreference, setLanePreference] = useState({
+        bump: false,
+        trench: false
+    });
+    
+    const [hopperCapacity, setHopperCapacity] = useState(null);
+
+    const [feedingStyle, setFeedingStyle] = useState({
+        dump: false,
+        launch: false
+    });
+
+    //Capabilities (recorded by consistency)
     const [scoring, setScoring] = useState({
         hub: null,
     });
+
+    const [cycleTime, setCycleTime] = useState(null);
+
+    const [maxSpeed, setMaxSpeed] = useState(null);
+
     const [climbing, setClimbing] = useState({
         lowRung: null,
         midRung: null,
@@ -61,9 +80,14 @@ export default function CreateProfile() {
                     setDimensions(profile.dimensions || { height: null, extendedHeight: null, weight: null });
                     setDrivebase(profile.drivebase || '');                    setIntake(profile.intake || {  });
                     setIntake(profile.intake || { fuel: { ground: null, source: null } });
+                    setLanePreference(profile.lanePreference || { bump: false, trench: false });
+                    setHopperCapacity(profile.hopperCapacity || null);
+                    setFeedingStyle(profile.feedingStyle || { dump: false, launch: false });
                     setScoring(profile.scoring || {
                         hub: null
                     });
+                    setCycleTime(profile.cycleTime || null);
+                    setMaxSpeed(profile.maxSpeed || null);
                     setClimbing(profile.climbing || { lowRung: null, midRung: null, highRung: null });
                     setAuto(profile.auto || null);
                     setAutoDetails(profile.autoDetails || '');
@@ -103,7 +127,12 @@ export default function CreateProfile() {
                 dimensions,
                 drivebase,
                 intake,
+                lanePreference,
+                hopperCapacity,
+                feedingStyle,
                 scoring,
+                cycleTime,
+                maxSpeed,
                 climbing,
                 auto,
                 autoDetails,
@@ -134,7 +163,7 @@ export default function CreateProfile() {
     return (
         <Container className="createProfile_container" fluid="md">
             <FaArrowLeft onClick={() => navigate(-1)} className="createProfile_backButton"/>
-            <h1 style={{ textAlign: 'center'}}>{ isEditing ? "Edit Profile" : "Create Profile" }</h1>
+            <h1 style={{ textAlign: 'center' }}>{ isEditing ? "Edit Profile" : "Create Profile" }</h1>
 
             <div className="section">
                 <h2>General Information</h2>
@@ -181,21 +210,33 @@ export default function CreateProfile() {
                         label="Height (inches)"
                         className="mb-3"
                     >
-                        <Form.Control type="number" placeholder="Enter height"/>
+                        <Form.Control 
+                            type="number" 
+                            placeholder="Enter height"
+                            onChange={(e) => setDimensions(prev => ({ ...prev, height: e.target.value }))}
+                        />
                     </FloatingLabel>
                     <FloatingLabel
                         controlId="extendedHeightInput"
                         label="Height when extended (inches)"
                         className="mb-3"
                     >
-                        <Form.Control type="number" placeholder="Enter extended height"/>
+                        <Form.Control 
+                            type="number" 
+                            placeholder="Enter extended height"
+                            onChange={(e) => setDimensions(prev => ({ ...prev, extendedHeight: e.target.value }))}
+                        />
                     </FloatingLabel>
                     <FloatingLabel
                         controlId="weightInput"
                         label="Weight (pounds)"
                         className="mb-3"
                     >
-                        <Form.Control type="number" placeholder="Enter weight"/>
+                        <Form.Control 
+                            type="number" 
+                            placeholder="Enter weight"
+                            onChange={(e) => setDimensions(prev => ({ ...prev, weight: e.target.value }))}
+                        />
                     </FloatingLabel>
                 </Form>
             </div>
@@ -206,7 +247,8 @@ export default function CreateProfile() {
                 <Form.Select 
                     aria-label="Drivebase Selection" 
                     value={drivebase} 
-                    onChange={(e) => setDrivebase(e.target.value)}>
+                    onChange={(e) => setDrivebase(e.target.value)}
+                >
                     <option>Select Drivebase</option>
                     <option value="swerve">Swerve</option>
                     <option value="mechanum">Mechanum</option>
@@ -217,10 +259,10 @@ export default function CreateProfile() {
             </div>
 
             <div className="section">
-                <h1>Intake</h1>
+                <h2>Intake</h2>
                 <p className="createProfile_caption">"How does the robot pick up game pieces?"</p>
                 <IntakeCheck
-                    description="Fuel Intake"
+                    description="Fuel"
                     value={intake.fuel}
                     hasSource={true}
                     onChange={(key, val) => updateIntake('fuel', key, val)}
@@ -228,13 +270,99 @@ export default function CreateProfile() {
             </div>
 
             <div className="section">
-                <h1>Scoring</h1>
+                <h2>Shooter</h2>
+                <p className="createProfile_caption">"How does the robot pass game pieces?"</p>
+                <Form>
+                    <Form.Check
+                        type="checkbox"
+                        label="Dump"
+                        checked={feedingStyle.dump}
+                        onChange={(e) => setFeedingStyle(prev => ({ ...prev, dump: e.target.checked }))}
+                        className="form-check-white"
+                    />
+                    <Form.Check
+                        type="checkbox"
+                        label="Launch"
+                        checked={feedingStyle.launch}
+                        onChange={(e) => setFeedingStyle(prev => ({ ...prev, launch: e.target.checked }))}
+                        className="form-check-white"
+                    />
+                </Form>
+            </div>
+
+            <div className="section">
+                <h2>Constraints</h2>
+                <p className="createProfile_caption">"How many fuel pieces can the robot store?"</p>
+                <Form>
+                    <FloatingLabel
+                        controlId="hopperCapacityInput"
+                        label="Hopper Capacity (# fuel)"
+                        className="mb-3"
+                    >
+                        <Form.Control 
+                            type="number" 
+                            placeholder="Enter hopper capacity"
+                            onChange={(e) => setHopperCapacity(e.target.value)}
+                        />
+                    </FloatingLabel>
+                </Form>
+
+                <p className="createProfile_caption">"Can the robot traverse through the bump, trench, or both?"</p>
+                <Form>
+                    <Form.Check
+                        type="checkbox"
+                        label="Bump"
+                        checked={lanePreference.bump}
+                        onChange={(e) => setLanePreference(prev => ({ ...prev, bump: e.target.checked }))}
+                        className="form-check-white"
+                    />
+                    <Form.Check
+                        type="checkbox"
+                        label="Trench"
+                        checked={lanePreference.trench}
+                        onChange={(e) => setLanePreference(prev => ({ ...prev, trench: e.target.checked }))}
+                        className="form-check-white"
+                    />
+                </Form>
+            </div>
+
+            <div className="section">
+                <h2>Scoring</h2>
                 <p className="createProfile_caption">"How does the robot score during a match, and how consistently when doing so?"</p>
                 <RecordConsistency
                     description="Hub Scoring"
                     value={scoring.hub}
                     onChange={(val) => setScoring(prev => ({ ...prev, hub: val }))}
                 />
+            </div>
+
+            <div className="section">
+                <h2>Speed</h2>
+                <p className="createProfile_caption">"What is the robot's maximum speed and cycle time?"</p>
+                <Form>
+                    <FloatingLabel
+                        controlId="maxSpeedInput"
+                        label="Max Speed (feet/second)"
+                        className="mb-3"
+                    >
+                        <Form.Control 
+                            type="number" 
+                            placeholder="Enter max speed"
+                            onChange={(e) => setMaxSpeed(e.target.value)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel
+                        controlId="cycleTimeInput"
+                        label="Cycle Time (seconds)"
+                        className="mb-3"
+                    >
+                        <Form.Control 
+                            type="number" 
+                            placeholder="Enter cycle time"
+                            onChange={(e) => setCycleTime(e.target.value)}
+                        />
+                    </FloatingLabel>
+                </Form>
             </div>
 
             <div className="section">
@@ -294,8 +422,8 @@ export default function CreateProfile() {
             </div>
 
             <div className="section">
-                <h2>Robot Photo</h2>
-                <p className="createProfile_caption">Politely ask the team to take a photo of their robot :)</p>
+                <h2>Robot Photos</h2>
+                <p className="createProfile_caption">Politely ask the team to take photos of their robot :)</p>
                 <MultiImageUpload
                     images={robotImages}
                     onChange={setRobotImages}
