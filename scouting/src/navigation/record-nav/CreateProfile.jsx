@@ -16,6 +16,7 @@ export default function CreateProfile() {
     const isEditing = location.state?.isEditing; //Determining if editing mode
     const [loading, setLoading] = useState(isEditing); // Set loading to true if editing
     const [matches, setMatches] = useState([]); 
+    const baseURL ="https://glowing-invention-7v9w4xq9g79j3gvg-3001.app.github.dev";
 
     //General Information
     const [teamName, setTeamName] = useState('');
@@ -72,7 +73,7 @@ export default function CreateProfile() {
     useEffect(() => {
         console.log("Team number", initialTeamNumber);
         if (isEditing) {
-            axios.get(`${process.env.REACT_APP_BASE_URL}/getRobot/${initialTeamNumber}`)
+            axios.get(`${baseURL}/getRobot/${initialTeamNumber}`)
                 .then(response => {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
@@ -145,10 +146,10 @@ export default function CreateProfile() {
         try {
             if (isEditing) {
                 // PUT request to update existing profile
-                await axios.put(`${process.env.REACT_APP_BASE_URL}/updateProfile/${initialTeamNumber}`, profileData);
+                await axios.put(`${baseURL}/updateProfile/${initialTeamNumber}`, profileData);
             } else {
                 // POST request to create a new profile
-                await axios.post(`${process.env.REACT_APP_BASE_URL}/addProfile`, profileData);
+                await axios.post(`${baseURL}/addProfile`, profileData);
             }
         } catch (error) {
             console.error('Error submitting profile:', error);
