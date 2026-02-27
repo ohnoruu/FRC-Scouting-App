@@ -1,10 +1,11 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeleteRobotSkeleton from '../../components/settings/DeleteRobotSkeleton';
-import { FaArrowLeft } from 'react-icons/fa';
 import fillerImg from '../../assets/interface-icons/filler-image.png'
 import axios from 'axios';
 import './DeleteRobot.css';
+
+import BackButton from '../../components/BackButton.jsx';
 
 export default function DeleteRobot() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function DeleteRobot() {
         <div className="deleteRobot_topPiece" />
         <div className="deleteRobot_middlePiece">
           <div className="deleteRobot_titleContainer">
-              <FaArrowLeft onClick={() => navigate(-1)} className = "deleteRobot_return-icon"/>
+              <BackButton/>
             <span className="deleteRobot_title">Select Robot to Delete</span>
           </div>
           <span className="deleteRobot_subText">This action CANNOT BE UNDONE. DO NOT CLICK PROFILES YOU DO NOT WANT TO DELETE.</span>

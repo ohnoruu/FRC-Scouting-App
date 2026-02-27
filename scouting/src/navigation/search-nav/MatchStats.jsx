@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Container, ListGroup, Overlay, Tooltip, Table } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaArrowLeft, FaInfoCircle } from 'react-icons/fa';
+import { FaInfoCircle } from 'react-icons/fa';
 import axios from 'axios';
 import './MatchStats.css';
+
+import BackButton from '../../components/BackButton.jsx';
 
 export default function MatchStats() {
     const navigate = useNavigate();
@@ -31,7 +33,7 @@ export default function MatchStats() {
 
     return (
         <Container className="matchStats_container" fluid="md">
-            <FaArrowLeft onClick={() => navigate(-1)} className="matchStats_backButton"/>
+            <BackButton/>
                 {matchData && robotProfileData && 
                 <>
                     <div className="matchStats_header">

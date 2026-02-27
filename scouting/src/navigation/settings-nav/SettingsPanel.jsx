@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
+
+import BackButton from '../../components/BackButton.jsx';
 import './SettingsPanel.css';
 
 export default function SettingsPanel() {
@@ -13,7 +14,7 @@ export default function SettingsPanel() {
                 
                 <div className="settingsPanel_middlePiece">
                     <div className="settingsPanel_titleContainer">
-                            <FaArrowLeft onClick={() => navigate(-1)} className="iconButton"/>
+                            <BackButton/>
                         <span className="settingsPanel_title">Settings Panel</span>
                     </div>
 

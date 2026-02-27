@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Image, Tab, Tabs, ListGroup, Card } from 'react-bootstrap';
-import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 
+import BackButton from '../../components/BackButton.jsx';
 import MatchPreview from '../../components/search/MatchPreview.jsx'
 import fillerImg from '../../assets/interface-icons/filler-image.png';
 import './Profile.css';
@@ -42,7 +42,7 @@ export default function Profile() {
 
     return (
         <Container className="profile_container" fluid="md">
-            <FaArrowLeft onClick={() => navigate(-1)} className="profile_backButton"/>
+            <BackButton/>
             {robotProfileData ? (
                 <div className="profile_content">
                     <div className="profile_header">

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { Container, FloatingLabel, Form, Button} from 'react-bootstrap';
 import axios from 'axios';
-import { FaArrowLeft } from 'react-icons/fa';
+
 import Counter from '../../components/record/Counter.jsx';
 import CheckRecord from '../../components/record/CheckRecord.jsx';
 import './RecordMatch.css';
@@ -95,6 +96,9 @@ export default function RecordMatch() {
 
     return (
         <>
+            <Container className="recordMatch_container" fluid="md">
+
+            </Container>
         </>
     );
 }

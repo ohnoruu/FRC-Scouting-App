@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useLocation, ScrollRestoration } from 'react-router-dom';
 import { Container, Form, Button, Col, Row, FloatingLabel } from 'react-bootstrap';
-import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 
+import BackButton from '../../components/BackButton';
 import IntakeCheck from '../../components/record/IntakeCheck';
 import RecordConsistency from '../../components/record/RecordConsistency';
 import MultiImageUpload from '../../components/record/MultiImageUpload';
@@ -16,7 +16,6 @@ export default function CreateProfile() {
     const isEditing = location.state?.isEditing; //Determining if editing mode
     const [loading, setLoading] = useState(isEditing); // Set loading to true if editing
     const [matches, setMatches] = useState([]); 
-    const baseURL ="https://glowing-invention-7v9w4xq9g79j3gvg-3001.app.github.dev";
 
     //General Information
     const [teamName, setTeamName] = useState('');
@@ -73,7 +72,7 @@ export default function CreateProfile() {
     useEffect(() => {
         console.log("Team number", initialTeamNumber);
         if (isEditing) {
-            axios.get(`${baseURL}/getRobot/${initialTeamNumber}`)
+            axios.get(`${process.env.REACT_APP_BASE_URL}/getRobot/${initialTeamNumber}`)
                 .then(response => {
                     const profile = response.data.profile;
                     setTeamName(profile.teamName || '');
@@ -146,10 +145,10 @@ export default function CreateProfile() {
         try {
             if (isEditing) {
                 // PUT request to update existing profile
-                await axios.put(`${baseURL}/updateProfile/${initialTeamNumber}`, profileData);
+                await axios.put(`${process.env.REACT_APP_BASE_URL}/updateProfile/${initialTeamNumber}`, profileData);
             } else {
                 // POST request to create a new profile
-                await axios.post(`${baseURL}/addProfile`, profileData);
+                await axios.post(`${process.env.REACT_APP_BASE_URL}/addProfile`, profileData);
             }
         } catch (error) {
             console.error('Error submitting profile:', error);
@@ -163,7 +162,7 @@ export default function CreateProfile() {
 
     return (
         <Container className="createProfile_container" fluid="md">
-            <FaArrowLeft onClick={() => navigate(-1)} className="createProfile_backButton"/>
+            <BackButton/>
             <h1 style={{ textAlign: 'center' }}>{ isEditing ? "Edit Profile" : "Create Profile" }</h1>
 
             <div className="section">

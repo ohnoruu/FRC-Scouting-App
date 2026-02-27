@@ -3,12 +3,6 @@
   flex-direction: column;
 }
 
-.profile_backButton {
-  color: var(--primary-color-3);
-  font-size: 1.5rem;
-  margin: 1rem 0;
-}
-
 .profile_header {
   display: flex;
   align-items: row;

@@ -3,12 +3,6 @@
   flex-direction: column;
 }
 
-.matchStats_backButton {
-  color: var(--primary-color-3);
-  font-size: 1.5rem;
-  margin: 1rem 0;
-}
-
 .matchStats_matchInfo{
     margin-top: 2rem;
 }

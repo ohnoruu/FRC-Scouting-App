@@ -8,12 +8,6 @@
     color: var(--secondary-color-1);
 }
 
-.createProfile_backButton {
-    color: var(--primary-color-3);
-    font-size: 1.5rem;
-    margin: 1rem 0;
-}
-
 .submitProfile_button {
     margin-top: 1.5rem;
     margin-bottom: 2rem;
