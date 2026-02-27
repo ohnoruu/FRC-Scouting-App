@@ -3,8 +3,8 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Container, FloatingLabel, Form, Button} from 'react-bootstrap';
 import axios from 'axios';
 
-import Counter from '../../components/record/Counter.jsx';
-import CheckRecord from '../../components/record/CheckRecord.jsx';
+import BackButton from '../../components/BackButton.jsx';
+import MultiCounter from '../../components/record/MultiCounter';
 import './RecordMatch.css';
 
 export default function RecordMatch() {
@@ -21,7 +21,7 @@ export default function RecordMatch() {
     ];
 
     //General Info
-    const [matchType, setMatchType] = useState("Practice Match");
+    const [matchType, setMatchType] = useState("");
     const [matchNumber, setMatchNumber] = useState(null);
 
     //Autonomous
@@ -97,7 +97,103 @@ export default function RecordMatch() {
     return (
         <>
             <Container className="recordMatch_container" fluid="md">
+                <BackButton/>
+                <h1 style={{ textAlign: 'center' }}>Record Match for Team {teamNumber}</h1>
 
+                <div className="section">
+                    <h2>General Match Info</h2>
+                    <Form>
+                        <Form.Select
+                            aria-label="Match Type"
+                            value={matchType}
+                            onChange={(e) => setMatchType(e.target.value)}
+                        >
+                            <option>Select Match Type</option>
+                            <option value="Practice Match">Practice Match</option>
+                            <option value="Qualification Match">Qualification Match</option>
+                            <option value="Playoff Match">Playoff Match</option>
+                            <option value="Finals">Finals</option>
+                        </Form.Select>
+                    </Form>
+                    <Form style={{ marginTop: '1rem'}}>
+                        <FloatingLabel
+                            controlId="matchNumberInput"
+                            label="Match Number"
+                            className="mb-3"
+                        >
+                            <Form.Control
+                                type="number"
+                                placeholder="Match Number"
+                                value={matchNumber}
+                                onChange={(e) => setMatchNumber(e.target.value)}
+                            />
+                        </FloatingLabel>
+                    </Form>
+                </div>
+
+                <div className="section">
+                    <h2>Autonomous</h2>
+                    <MultiCounter
+                        title="Fuel Scores"
+                        target={autoFuelScores}
+                        setTarget={setAutoFuelScores}
+                    />
+                    <MultiCounter
+                        title="Fuel Misses"
+                        target={autoFuelMisses}
+                        setTarget={setAutoFuelMisses}
+                    />
+                    <Form>
+                        <Form.Check
+                            type="checkbox"
+                            label="Climbed Low Rung"
+                            checked={autoLowRungClimb}
+                            onChange={(e) => setAutoLowRungClimb(e.target.checked)}
+                            className="form-check-white"
+                        />
+                    </Form>
+                </div>
+
+                <div className="section">
+                    <h2>Teleop</h2>
+                    <MultiCounter
+                        title="Fuel Scores"
+                        target={teleopFuelScores}
+                        setTarget={setTeleopFuelScores}
+                    />
+                    <MultiCounter
+                        title="Fuel Misses"
+                        target={teleopFuelMisses}
+                        setTarget={setTeleopFuelMisses}
+                    />
+                </div>
+
+                <div className="section">
+                    <h2>Endgame Actions</h2>
+                    <Form>
+                        <Form.Check
+                            type="checkbox"                            
+                            label="Climbed Low Rung"
+                            checked={lowRungClimb}
+                            onChange={(e) => setLowRungClimb(e.target.checked)}
+                            className="form-check-white"
+                        />
+                        <Form.Check
+                            type="checkbox"                            
+                            label="Climbed Mid Rung"
+                            checked={midRungClimb}
+                            onChange={(e) => setMidRungClimb(e.target.checked)}
+                            className="form-check-white"
+                        />
+                        <Form.Check
+                            type="checkbox"                            
+                            label="Climbed High Rung"
+                            checked={highRungClimb}
+                            onChange={(e) => setHighRungClimb(e.target.checked)}
+                            className="form-check-white"
+                        />
+                    </Form>
+                </div>
             </Container>
         </>
     );
