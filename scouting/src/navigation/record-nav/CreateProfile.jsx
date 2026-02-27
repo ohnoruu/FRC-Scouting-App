@@ -243,7 +243,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Drivebase</h2>
-                <p className="createProfile_caption">"What type of drivebase does the robot use? What type of modules are on the drivebase?"</p>
+                <p className="caption">"What type of drivebase does the robot use? What type of modules are on the drivebase?"</p>
                 <Form.Select 
                     aria-label="Drivebase Selection" 
                     value={drivebase} 
@@ -260,7 +260,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Intake</h2>
-                <p className="createProfile_caption">"How does the robot pick up game pieces?"</p>
+                <p className="caption">"How does the robot pick up game pieces?"</p>
                 <IntakeCheck
                     description="Fuel"
                     value={intake.fuel}
@@ -271,7 +271,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Shooter</h2>
-                <p className="createProfile_caption">"How does the robot pass game pieces?"</p>
+                <p className="caption">"How does the robot pass game pieces?"</p>
                 <Form>
                     <Form.Check
                         type="checkbox"
@@ -292,7 +292,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Constraints</h2>
-                <p className="createProfile_caption">"How many fuel pieces can the robot store?"</p>
+                <p className="caption">"How many fuel pieces can the robot store?"</p>
                 <Form>
                     <FloatingLabel
                         controlId="hopperCapacityInput"
@@ -307,7 +307,7 @@ export default function CreateProfile() {
                     </FloatingLabel>
                 </Form>
 
-                <p className="createProfile_caption">"Can the robot traverse through the bump, trench, or both?"</p>
+                <p className="caption">"Can the robot traverse through the bump, trench, or both?"</p>
                 <Form>
                     <Form.Check
                         type="checkbox"
@@ -328,7 +328,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Scoring</h2>
-                <p className="createProfile_caption">"How does the robot score during a match, and how consistently when doing so?"</p>
+                <p className="caption">"How does the robot score during a match, and how consistently when doing so?"</p>
                 <RecordConsistency
                     description="Hub Scoring"
                     value={scoring.hub}
@@ -338,7 +338,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Speed</h2>
-                <p className="createProfile_caption">"What is the robot's maximum speed and cycle time?"</p>
+                <p className="caption">"What is the robot's maximum speed and cycle time?"</p>
                 <Form>
                     <FloatingLabel
                         controlId="maxSpeedInput"
@@ -367,7 +367,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Climbing</h2>
-                <p className="createProfile_caption">"Where can the robot climb, and how consistently when doing so?"</p>
+                <p className="caption">"Where can the robot climb, and how consistently when doing so?"</p>
                 <RecordConsistency
                     description="Low Rung"
                     value={climbing.lowRung}
@@ -387,7 +387,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Autonomous</h2>
-                <p className="createProfile_caption">"What does the robot do during auto? Is the auto consistent/reliable?"</p>
+                <p className="caption">"What does the robot do during auto? Is the auto consistent/reliable?"</p>
                 <Form style={{ marginBottom: '1rem' }}>
                     <Form.Group>
                             <Form.Control
@@ -423,7 +423,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Robot Photos</h2>
-                <p className="createProfile_caption">Politely ask the team to take photos of their robot :)</p>
+                <p className="caption">Politely ask the team to take photos of their robot :)</p>
                 <MultiImageUpload
                     images={robotImages}
                     onChange={setRobotImages}

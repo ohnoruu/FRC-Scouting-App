@@ -175,25 +175,99 @@ export default function RecordMatch() {
                             type="checkbox"                            
                             label="Climbed Low Rung"
                             checked={lowRungClimb}
-                            onChange={(e) => setLowRungClimb(e.target.checked)}
+                            onChange={
+                                (e) => {
+                                    if (midRungClimb || highRungClimb) {
+                                        setMidRungClimb(false);
+                                        setHighRungClimb(false);
+                                    }
+                                    setLowRungClimb(e.target.checked);
+                                }
+                            }
                             className="form-check-white"
                         />
                         <Form.Check
                             type="checkbox"                            
                             label="Climbed Mid Rung"
                             checked={midRungClimb}
-                            onChange={(e) => setMidRungClimb(e.target.checked)}
+                            onChange={
+                                (e) => {
+                                    if (lowRungClimb || highRungClimb) {
+                                        setLowRungClimb(false);
+                                        setHighRungClimb(false);
+                                    }
+                                    setMidRungClimb(e.target.checked);
+                                }
+                            }
                             className="form-check-white"
                         />
                         <Form.Check
                             type="checkbox"                            
                             label="Climbed High Rung"
                             checked={highRungClimb}
-                            onChange={(e) => setHighRungClimb(e.target.checked)}
+                            onChange={
+                                (e) => {
+                                    if (lowRungClimb || midRungClimb) {
+                                        setLowRungClimb(false);
+                                        setMidRungClimb(false);
+                                    }
+                                    setHighRungClimb(e.target.checked);
+                                }
+                            }
                             className="form-check-white"
                         />
                     </Form>
                 </div>
+                <div className="section">
+                    <h2>Playstyle</h2>
+                    <p className="caption">What role(s) did the robot play during the match?</p>
+                    <Form>
+                        <Form.Check
+                            type="checkbox"
+                            label="Scoring"
+                            checked={playstyle.scoring}
+                            onChange={(e) => setPlaystyle({...playstyle, scoring: e.target.checked})}
+                            className="form-check-white"
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            label="Passing"
+                            checked={playstyle.passing}
+                            onChange={(e) => setPlaystyle({...playstyle, passing: e.target.checked})}
+                            className="form-check-white"
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            label="Defense"
+                            checked={playstyle.defense}
+                            onChange={(e) => setPlaystyle({...playstyle, defense: e.target.checked})}
+                            className="form-check-white"
+                        />
+                    </Form>
+                </div>
+                
+                <div className="section">
+                    <h2>Comments</h2>
+                    <Form>
+                        <Form.Group>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                placeholder="Notable details about the match (e.g., issues, standout moments)?"
+                                value={comments}
+                                onChange={(e) => setComments(e.target.value)}
+                            />
+                        </Form.Group>
+                    </Form>
+                </div>
+
+                <Button
+                    variant="primary"
+                    onClick={submitMatch}
+                    className="recordMatch-submitButton"
+                >
+                    Submit Match Report
+                </Button>
             </Container>
         </>
     );

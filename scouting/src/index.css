@@ -90,6 +90,11 @@ code {
     monospace;
 }
 
+/* General Customization */
+.caption {
+  font-size: 0.8rem;
+  color: var(--secondary-color-1);
+}
 /* Layout Classes */
 .section {
   margin-top: 2rem;
