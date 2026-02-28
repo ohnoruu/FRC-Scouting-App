@@ -60,7 +60,7 @@ export default function CreateProfile() {
     });
 
     //Autonomous
-    const [auto, setAuto] = useState(null);
+    const [auto, setAuto] = useState(null); //recorded as consistency on scale of 0,1,2
     const [autoDetails, setAutoDetails] = useState('');
 
     //Additional Details
@@ -78,7 +78,7 @@ export default function CreateProfile() {
                     setTeamName(profile.teamName || '');
                     setTeamNumberState(profile.teamNumber ? profile.teamNumber.toString() : '');
                     setDimensions(profile.dimensions || { height: null, extendedHeight: null, weight: null });
-                    setDrivebase(profile.drivebase || '');                    setIntake(profile.intake || {  });
+                    setDrivebase(profile.drivebase || '');
                     setIntake(profile.intake || { fuel: { ground: null, source: null } });
                     setLanePreference(profile.lanePreference || { bump: false, trench: false });
                     setHopperCapacity(profile.hopperCapacity || null);
@@ -120,8 +120,12 @@ export default function CreateProfile() {
     };
 
     const submitProfile = async () => {
-        const profileData = {
-            profile: {
+        const formData = new FormData();
+
+        // Append profile JSON as string
+        formData.append(
+            "profile",
+            JSON.stringify({
                 teamName,
                 teamNumber: Number(teamNumberState),
                 dimensions,
@@ -137,22 +141,34 @@ export default function CreateProfile() {
                 auto,
                 autoDetails,
                 additionalDetails,
-                robotImages
-            },
-            matchData: Array.isArray(matches) ? matches : [], // Ensure matches is an array
-        };
-    
+            })
+        );
+
+        // Append images separately
+        robotImages.forEach((img) => {
+            if (img instanceof File) {
+                formData.append("robotImages", img);
+            }
+        });
+
         try {
             if (isEditing) {
-                // PUT request to update existing profile
-                await axios.put(`${process.env.REACT_APP_BASE_URL}/updateProfile/${initialTeamNumber}`, profileData);
+                await axios.put(
+                    `${process.env.REACT_APP_BASE_URL}/updateProfile/${initialTeamNumber}`,
+                    formData,
+                    { headers: { "Content-Type": "multipart/form-data" } }
+                );
             } else {
-                // POST request to create a new profile
-                await axios.post(`${process.env.REACT_APP_BASE_URL}/addProfile`, profileData);
+                await axios.post(
+                    `${process.env.REACT_APP_BASE_URL}/addProfile`,
+                    formData,
+                    { headers: { "Content-Type": "multipart/form-data" } }
+                );
             }
         } catch (error) {
-            console.error('Error submitting profile:', error);
+            console.error("Error submitting profile:", error);
         }
+
         navigate(-1);
     };
 
@@ -212,6 +228,7 @@ export default function CreateProfile() {
                     >
                         <Form.Control 
                             type="number" 
+                            value={dimensions.height}
                             placeholder="Enter height"
                             onChange={(e) => setDimensions(prev => ({ ...prev, height: e.target.value }))}
                         />
@@ -223,7 +240,7 @@ export default function CreateProfile() {
                     >
                         <Form.Control 
                             type="number" 
-                            placeholder="Enter extended height"
+                            value={dimensions.extendedHeight}
                             onChange={(e) => setDimensions(prev => ({ ...prev, extendedHeight: e.target.value }))}
                         />
                     </FloatingLabel>
@@ -234,6 +251,7 @@ export default function CreateProfile() {
                     >
                         <Form.Control 
                             type="number" 
+                            value={dimensions.weight}
                             placeholder="Enter weight"
                             onChange={(e) => setDimensions(prev => ({ ...prev, weight: e.target.value }))}
                         />
@@ -301,6 +319,7 @@ export default function CreateProfile() {
                     >
                         <Form.Control 
                             type="number" 
+                            value={hopperCapacity}
                             placeholder="Enter hopper capacity"
                             onChange={(e) => setHopperCapacity(e.target.value)}
                         />
@@ -347,6 +366,7 @@ export default function CreateProfile() {
                     >
                         <Form.Control 
                             type="number" 
+                            value={maxSpeed}
                             placeholder="Enter max speed"
                             onChange={(e) => setMaxSpeed(e.target.value)}
                         />
@@ -358,6 +378,7 @@ export default function CreateProfile() {
                     >
                         <Form.Control 
                             type="number" 
+                            value={cycleTime}
                             placeholder="Enter cycle time"
                             onChange={(e) => setCycleTime(e.target.value)}
                         />

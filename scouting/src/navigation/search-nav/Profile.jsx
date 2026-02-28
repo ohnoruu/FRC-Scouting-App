@@ -12,6 +12,7 @@ export default function Profile() {
     const navigate = useNavigate();
     const { teamNumber } = useParams();
     const [robotProfileData, setRobotProfileData] = useState(null);
+    const img = process.env.REACT_APP_BASE_URL + '/uploads/';
 
     useEffect(() => {
         console.log(`Fetching data for team number: ${teamNumber}`);
@@ -20,6 +21,7 @@ export default function Profile() {
                 .then((response) => {
                     console.log('Data fetched successfully:', response.data);
                     setRobotProfileData(response.data);
+                    console.log('Images:', response.data.robotImages);
                 })
                 .catch((error) => {
                     console.error("Error making GET Request (Profile, getRobot teamNumber): ", error);
@@ -51,7 +53,7 @@ export default function Profile() {
                             <h2>Team {robotProfileData.profile?.teamNumber}</h2>
                         </div>
                         <Image
-                            src={robotProfileData.profile?.robotImages?.[0] || fillerImg}
+                            src={`${img}${robotProfileData.profile?.robotImages?.[0] || fillerImg}`}
                             alt="Robot"
                             className="profile_img"
                             thumbnail
@@ -68,48 +70,70 @@ export default function Profile() {
                         <div className="section">
                             <h2>Robot Overview</h2>
                             <ListGroup>
-                                <ListGroup.Item><strong>Drivebase:</strong> {robotProfileData.profile?.drivebase || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item><strong>Height:</strong> {robotProfileData.profile?.dimensions.height || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item><strong>Extended Height:</strong> {robotProfileData.profile?.dimensions.extendedHeight || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item><strong>Weight:</strong> {robotProfileData.profile?.dimensions.weight || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Drivebase: </strong> {robotProfileData.profile?.drivebase || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Height: </strong> {robotProfileData.profile?.dimensions.height || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Extended Height: </strong> {robotProfileData.profile?.dimensions.extendedHeight || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Weight: </strong> {robotProfileData.profile?.dimensions.weight || 'N/A'}</ListGroup.Item>
                                 <ListGroup.Item><strong>Autonomous Details:</strong> {robotProfileData.profile?.autoDetails || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item><strong>Climbing:</strong>
+                                <ListGroup.Item><strong>Climbing: </strong>
                                     Low Rung ({computeScore(robotProfileData.profile?.climbing.lowRung) || 'N/A'}), 
                                     Mid Rung ({computeScore(robotProfileData.profile?.climbing.midRung) || 'N/A'}),
                                     High Rung ({computeScore(robotProfileData.profile?.climbing.highRung) || 'N/A'})
                                 </ListGroup.Item>
-                                <ListGroup.Item><strong>Intake:</strong>
+                                <ListGroup.Item><strong>Intake: </strong>
                                     Fuel (Ground): {robotProfileData.profile?.intake.fuel.ground?.toString() || 'N/A'}, 
                                     Fuel (Source): {robotProfileData.profile?.intake.fuel.source?.toString() || 'N/A'}
                                 </ListGroup.Item>
                             </ListGroup>
                         </div>
 
-                        <div>
+                        <div className="section">
                             <h2>Design & Constraints</h2>
                             <ListGroup>
-                                <ListGroup.Item><strong>Lane Preference:</strong>{robotProfileData.profile?.lanePreference || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item><strong>Hopper Capacity:</strong>{robotProfileData.profile?.hopperCapacity || 'N/A'}</ListGroup.Item>
-                                <ListGroup.Item><strong>Feeding Style:</strong>{robotProfileData.profile?.feedingStyle || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item>
+                                    <strong>Lane Preference: </strong>
+                                    {robotProfileData.profile?.lanePreference
+                                        ? [
+                                            robotProfileData.profile.lanePreference.bump && "Bump",
+                                            robotProfileData.profile.lanePreference.trench && "Trench"
+                                        ]
+                                            .filter(Boolean)
+                                            .join(", ") || "None"
+                                        : "N/A"}
+                                </ListGroup.Item>
+                                <ListGroup.Item><strong>Hopper Capacity: </strong>{robotProfileData.profile?.hopperCapacity || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item>
+                                    <strong>Feeding Style: </strong>
+                                    {robotProfileData.profile?.feedingStyle 
+                                        ? [
+                                            robotProfileData.profile.feedingStyle.dump && "Dump", 
+                                            robotProfileData.profile.feedingStyle.launch && "Launch"
+                                        ]
+                                            .filter(Boolean)
+                                            .join(", ") || "None"
+                                        : "N/A"
+                                    }
+                                
+                                </ListGroup.Item>
                             </ListGroup>
                         </div>
 
                         <div className="section">
                             <h2>Scoring Capabilities</h2>
+                            <p>Scoring Fuel</p>
                             <ListGroup>
-                                <p>Scoring Fuel</p>
                                 <ListGroup.Item><strong>Hub: </strong>{computeScore(robotProfileData.profile?.scoring.hub) || 'N/A'}</ListGroup.Item>
                             </ListGroup>
 
+                            <p>Speed</p>
                             <ListGroup>
-                                <p>Speed</p>
                                 <ListGroup.Item><strong>Reported Cycle Time: {robotProfileData.profile?.cycleTime || 'N/A'}</strong></ListGroup.Item>
                                 <ListGroup.Item><strong>Max Speed: {robotProfileData.profile?.maxSpeed || 'N/A'}</strong></ListGroup.Item>
                             </ListGroup>
                             
                             <p>Autonomous</p>
                             <ListGroup>
-                                <ListGroup.Item>{computeScore(robotProfileData.profile?.scoreCapability.autoCapability) || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item>{computeScore(robotProfileData.profile?.auto) || 'N/A'}</ListGroup.Item>
                             </ListGroup>
                             
                             <p>Average Raw Score</p>
@@ -141,13 +165,13 @@ export default function Profile() {
 
                             {robotProfileData.profile?.robotImages?.length > 0 ? (
                                 <div className="profile_photoGrid">
-                                    {robotProfileData.profile?.robotImages?.map((img, index) => (
+                                    {robotProfileData.profile?.robotImages?.map((filename, index) => (
                                         <Card
                                             key={index}
                                             className="profile_photoCard"
                                         >
                                             <Image
-                                                src={img}
+                                                src={`${img}${filename || fillerImg}`}
                                                 alt={`Robot Photo ${index + 1}`}
                                                 fluid
                                                 rounded

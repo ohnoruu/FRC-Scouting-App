@@ -15,7 +15,9 @@ export default function MultiImageUpload({ images, onChange, isEditing = false})
             return URL.createObjectURL(img); //create temp URL for file otherwise
         });
 
-        setPreviews(newPreviews);
+        if (!isEditing) {
+            setPreviews(newPreviews);
+        }
 
         return () => { // Cleanup function to revoke object URLs
             newPreviews.forEach((p) => {
