@@ -245,7 +245,7 @@ export default function RecordMatch() {
                         />
                     </Form>
                 </div>
-                
+
                 <div className="section">
                     <h2>Comments</h2>
                     <Form>

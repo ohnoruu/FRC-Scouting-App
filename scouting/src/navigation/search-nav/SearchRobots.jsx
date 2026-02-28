@@ -8,6 +8,7 @@ import './SearchRobots.css';
 
 export default function SearchRobots() {
   const navigate = useNavigate();
+  const img = process.env.REACT_APP_BASE_URL + '/uploads/';
   const [genData, setGenData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -91,6 +92,7 @@ export default function SearchRobots() {
                 <StatGlimpse 
                   name={teamName || 'Unknown'}
                   teamNumber={teamNumber != null ? teamNumber : '—'}
+                  img={img + (robot?.profile?.robotImages?.[0] || '')}
                   playstyle={[
                     robot.profile?.playstyle?.algae && "Algae Scorer",
                     robot.profile?.playstyle?.coral && "Coral Scorer",

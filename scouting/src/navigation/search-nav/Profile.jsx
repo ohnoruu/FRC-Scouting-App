@@ -127,8 +127,8 @@ export default function Profile() {
 
                             <p>Speed</p>
                             <ListGroup>
-                                <ListGroup.Item><strong>Reported Cycle Time: {robotProfileData.profile?.cycleTime || 'N/A'}</strong></ListGroup.Item>
-                                <ListGroup.Item><strong>Max Speed: {robotProfileData.profile?.maxSpeed || 'N/A'}</strong></ListGroup.Item>
+                                <ListGroup.Item><strong>Reported Cycle Time: </strong>{robotProfileData.profile?.cycleTime || 'N/A'}</ListGroup.Item>
+                                <ListGroup.Item><strong>Max Speed: </strong>{robotProfileData.profile?.maxSpeed || 'N/A'}</ListGroup.Item>
                             </ListGroup>
                             
                             <p>Autonomous</p>
