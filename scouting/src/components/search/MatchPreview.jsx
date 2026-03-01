@@ -10,7 +10,7 @@ export default function MatchPreview({matchData}){
                         <Card.Title>Match {matchData.matchNumber}</Card.Title>
                         <Card.Subtitle>{matchData.matchType}</Card.Subtitle>
                     </div>
-                    <Badge bg="primary">Raw Score: {matchData.score}</Badge>
+                    <Badge bg="primary">Raw Score: {matchData.totalScore}</Badge>
                 </div>
             </Card.Body>
         </Card>

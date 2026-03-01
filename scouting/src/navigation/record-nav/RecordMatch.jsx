@@ -8,6 +8,7 @@ import MultiCounter from '../../components/record/MultiCounter';
 import './RecordMatch.css';
 
 export default function RecordMatch() {
+    const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
     const { teamNumber } = useParams();
     const location = useLocation();
@@ -47,27 +48,65 @@ export default function RecordMatch() {
     })
     const [comments, setComments] = useState('');
 
-    //Overall Score & Accuracy
-    const [score, setScore] = useState(0);
-    const [accuracy, setAccuracy] = useState(0);
+    // Seperate Scores & Accuracies
+    const [autoScore, setAutoScore] = useState(0);
+    const [teleopScore, setTeleopScore] = useState(0);
+    const [autoAccuracy, setAutoAccuracy] = useState(0);
+    const [teleopAccuracy, setTeleopAccuracy] = useState(0);
 
-    const computeScore = () => {
-       const autoScore = autoFuelScores + (autoLowRungClimb ? 15 : 0);
-       const teleopScore = teleopFuelScores;
-       const climbScore = (lowRungClimb ? 10 : 0) + (midRungClimb ? 20 : 0) + (highRungClimb ? 30 : 0);
+    //Overall Score & Accuracy
+    const [totalScore, setTotalScore] = useState(0);
+    const [totalAccuracy, setTotalAccuracy] = useState(0);
+
+    const computeAutoScore = () => {
+        return autoFuelScores + (autoLowRungClimb ? 15 : 0);
+    }
+
+    const computeTeleopScore = () => {
+        return teleopFuelScores;
+    }
+
+    const computeClimbScore = () => {
+        return (lowRungClimb ? 10 : 0) + (midRungClimb ? 20 : 0) + (highRungClimb ? 30 : 0);
+    }
+
+    const computeTotalScore = () => {
+       const autoScore = computeAutoScore();
+       const teleopScore = computeTeleopScore();
+       const climbScore = computeClimbScore();
        return autoScore + teleopScore + climbScore;
     }
 
-    const computeAccuracy = () => {
+    const computeAutoAccuracy = () => {
+        const totalAutoShots = autoFuelScores + autoFuelMisses;
+        if (totalAutoShots === 0) return 0;
+        return Math.round((autoFuelScores / totalAutoShots) * 100);
+    }
+
+    const computeTeleopAccuracy = () => {
+        const totalTeleopShots = teleopFuelScores + teleopFuelMisses;
+        if (totalTeleopShots === 0) return 0;
+        return Math.round((teleopFuelScores / totalTeleopShots) * 100);
+    }
+
+    const computeTotalAccuracy = () => {
         const totalShots = autoFuelScores + autoFuelMisses + teleopFuelScores + teleopFuelMisses;
         const totalScores = autoFuelScores + teleopFuelScores;
         if (totalShots === 0) return 0;
-        return (totalScores / totalShots) * 100;
+        return Math.round((totalScores / totalShots) * 100);
     }
 
     const submitMatch = async () => {
-        setScore(computeScore());
-        setAccuracy(computeAccuracy());
+        if (submitting) return;
+        setSubmitting(true);
+        
+        const calculatedAutoScore = computeAutoScore();
+        const calculatedTeleopScore = computeTeleopScore();
+        const calculatedTotalScore = computeTotalScore();
+        const calculatedAutoAccuracy = computeAutoAccuracy();
+        const calculatedTeleopAccuracy = computeTeleopAccuracy();
+        const calculatedTotalAccuracy = computeTotalAccuracy();
+        
         const matchData = {
             matchType,
             matchNumber: Number(matchNumber),
@@ -81,8 +120,12 @@ export default function RecordMatch() {
             highRungClimb,
             playstyle,
             comments,
-            score,
-            accuracy
+            autoScore: calculatedAutoScore,
+            teleopScore: calculatedTeleopScore,
+            autoAccuracy: calculatedAutoAccuracy,
+            teleopAccuracy: calculatedTeleopAccuracy,
+            totalScore: calculatedTotalScore,
+            totalAccuracy: calculatedTotalAccuracy    
         };
 
         try {
@@ -91,6 +134,7 @@ export default function RecordMatch() {
             console.error('Error making a POST request:', error);
         }
 
+        setSubmitting(false);
         navigate(-1);
     };
 
@@ -265,8 +309,9 @@ export default function RecordMatch() {
                     variant="primary"
                     onClick={submitMatch}
                     className="recordMatch-submitButton"
+                    disabled={submitting}
                 >
-                    Submit Match Report
+                    {submitting ? "Submitting..." : "Submit Match Report"}
                 </Button>
             </Container>
         </>

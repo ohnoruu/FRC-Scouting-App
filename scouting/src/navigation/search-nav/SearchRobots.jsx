@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 import SearchRobotsSkeleton from '../../components/search/SearchRobotsSkeleton.jsx';
 import StatGlimpse from '../../components/StatGlimpse.jsx';
 import axios from 'axios';
+import fillerImg from '../../assets/interface-icons/filler-image.png';
 import './SearchRobots.css';
 
 export default function SearchRobots() {
@@ -92,11 +93,9 @@ export default function SearchRobots() {
                 <StatGlimpse 
                   name={teamName || 'Unknown'}
                   teamNumber={teamNumber != null ? teamNumber : '—'}
-                  img={img + (robot?.profile?.robotImages?.[0] || '')}
+                  img={robot?.profile?.robotImages?.[0] ? img + robot.profile.robotImages[0] : fillerImg  }
                   playstyle={[
-                    robot.profile?.playstyle?.algae && "Algae Scorer",
-                    robot.profile?.playstyle?.coral && "Coral Scorer",
-                    robot.profile?.playstyle?.defense && "Defender"
+                    
                   ].filter(Boolean)}
                 />
               </div>

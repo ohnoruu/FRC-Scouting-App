@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Container, Image, Tab, Tabs, ListGroup, Card } from 'react-bootstrap';
+import { Container, Image, Tab, Tabs, ListGroup, Card, Overlay, Tooltip} from 'react-bootstrap';
 import axios from 'axios';
 
 import BackButton from '../../components/BackButton.jsx';
@@ -42,6 +42,77 @@ export default function Profile() {
         }
     };
 
+    const computeAvgAutoScore = () => {
+        if (!robotProfileData?.matches || robotProfileData.matches.length === 0) return 'N/A';
+
+        const totalAutoScore = robotProfileData.matches.reduce((autoScore, match) => {
+            if (match.matchType != 'Practice Match') {
+                autoScore += match.autoScore || 0;
+            }
+            return autoScore;
+        }, 0)
+        return Math.round(totalAutoScore / robotProfileData.matches.filter(m => m.matchType != 'Practice Match').length);
+    }
+
+    const computeAvgTeleopScore = () => {
+        if (!robotProfileData?.matches || robotProfileData.matches.length === 0) return 'N/A';
+
+        const totalTeleopScore = robotProfileData.matches.reduce((teleopScore, match) => {
+            if (match.matchType != 'Practice Match') {
+                teleopScore += match.teleopScore || 0;
+            }
+            return teleopScore;
+        }, 0)
+        return Math.round(totalTeleopScore / robotProfileData.matches.filter(m => m.matchType != 'Practice Match').length);
+    }
+
+    const computeAvgTotalScore = () => {
+        if (!robotProfileData?.matches || robotProfileData.matches.length === 0) return 'N/A';
+
+        const totalTotalScore = robotProfileData.matches.reduce((totalScore, match) => {
+            if (match.matchType != 'Practice Match') {
+                totalScore += match.totalScore || 0;
+            }
+            return totalScore;
+        }, 0)
+        return Math.round(totalTotalScore / robotProfileData.matches.filter(m => m.matchType != 'Practice Match').length);
+    }
+
+    const computeAvgAutoAccuracy = () => {
+        if (!robotProfileData?.matches || robotProfileData.matches.length === 0) return 'N/A';
+
+        const totalAutoAccuracy = robotProfileData.matches.reduce((autoAccuracy, match) => {
+            if (match.matchType != 'Practice Match') {
+                autoAccuracy += match.autoAccuracy || 0;
+            }
+            return autoAccuracy;
+        }, 0)
+        return Math.round(totalAutoAccuracy / robotProfileData.matches.filter(m => m.matchType != 'Practice Match').length);
+    }
+
+    const computeAvgTeleopAccuracy = () => {
+        if (!robotProfileData?.matches || robotProfileData.matches.length === 0) return 'N/A';
+
+        const totalTeleopAccuracy = robotProfileData.matches.reduce((teleopAccuracy, match) => {
+            if (match.matchType != 'Practice Match') {
+                teleopAccuracy += match.teleopAccuracy || 0;
+            }
+            return teleopAccuracy;
+        }, 0)
+        return Math.round(totalTeleopAccuracy / robotProfileData.matches.filter(m => m.matchType != 'Practice Match').length);
+    }
+
+    const computeAvgTotalAccuracy = () => {
+        if (!robotProfileData?.matches || robotProfileData.matches.length === 0) return 'N/A';
+        const totalTotalAccuracy = robotProfileData.matches.reduce((totalAccuracy, match) => {
+            if (match.matchType != 'Practice Match') {
+                totalAccuracy += match.totalAccuracy || 0;
+            }
+            return totalAccuracy;
+        }, 0)
+        return Math.round(totalTotalAccuracy / robotProfileData.matches.filter(m => m.matchType != 'Practice Match').length); 
+    }
+
     return (
         <Container className="profile_container" fluid="md">
             <BackButton/>
@@ -53,7 +124,11 @@ export default function Profile() {
                             <h2>Team {robotProfileData.profile?.teamNumber}</h2>
                         </div>
                         <Image
-                            src={`${img}${robotProfileData.profile?.robotImages?.[0] || fillerImg}`}
+                            src={
+                                robotProfileData.profile?.robotImages?.[0]
+                                    ? `${img}${robotProfileData.profile.robotImages[0]}`
+                                    : fillerImg
+                            }
                             alt="Robot"
                             className="profile_img"
                             thumbnail
@@ -130,18 +205,29 @@ export default function Profile() {
                                 <ListGroup.Item><strong>Reported Cycle Time: </strong>{robotProfileData.profile?.cycleTime || 'N/A'}</ListGroup.Item>
                                 <ListGroup.Item><strong>Max Speed: </strong>{robotProfileData.profile?.maxSpeed || 'N/A'}</ListGroup.Item>
                             </ListGroup>
-                            
+
                             <p>Autonomous</p>
                             <ListGroup>
                                 <ListGroup.Item>{computeScore(robotProfileData.profile?.auto) || 'N/A'}</ListGroup.Item>
                             </ListGroup>
-                            
-                            <p>Average Raw Score</p>
-                            <ListGroup>
-                                <ListGroup.Item><strong>Autonomous:</strong></ListGroup.Item>
-                                <ListGroup.Item><strong>Teleop:</strong></ListGroup.Item>
-                                <ListGroup.Item><strong>Total:</strong></ListGroup.Item>
-                            </ListGroup>
+                        </div>
+
+                        <div className="section">
+                            <h2>Average Stats</h2>
+                                
+                                <p>Average Raw Score</p>
+                                <ListGroup>
+                                    <ListGroup.Item><strong>Autonomous: </strong>{computeAvgAutoScore()}</ListGroup.Item>
+                                    <ListGroup.Item><strong>Teleop: </strong>{computeAvgTeleopScore()}</ListGroup.Item>
+                                    <ListGroup.Item><strong>Total: </strong>{computeAvgTotalScore()}</ListGroup.Item>
+                                </ListGroup>
+
+                                <p>Average Accuracy</p>
+                                <ListGroup>
+                                    <ListGroup.Item><strong>Autonomous: </strong>{computeAvgAutoAccuracy()}%</ListGroup.Item>
+                                    <ListGroup.Item><strong>Teleop: </strong>{computeAvgTeleopAccuracy()}%</ListGroup.Item>
+                                    <ListGroup.Item><strong>Total: </strong>{computeAvgTotalAccuracy()}%</ListGroup.Item>
+                                </ListGroup>
                         </div>
                     </Tab>
                     <Tab eventKey="match" title="Matches">

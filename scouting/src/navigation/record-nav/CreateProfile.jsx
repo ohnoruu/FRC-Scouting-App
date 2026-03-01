@@ -10,6 +10,7 @@ import MultiImageUpload from '../../components/record/MultiImageUpload';
 import './CreateProfile.css';
 
 export default function CreateProfile() {
+    const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const { teamNumber: initialTeamNumber } = useParams(); //get profile ID from URL if editing
@@ -120,6 +121,9 @@ export default function CreateProfile() {
     };
 
     const submitProfile = async () => {
+        if (submitting) return; // prevent multiple submissions
+        setSubmitting(true);
+
         const formData = new FormData();
 
         // Append profile JSON as string
@@ -167,9 +171,10 @@ export default function CreateProfile() {
             }
         } catch (error) {
             console.error("Error submitting profile:", error);
+        } finally {
+            setSubmitting(false);
+            navigate(-1); // Go back to the previous page after submission
         }
-
-        navigate(-1);
     };
 
     if (loading) {
@@ -219,7 +224,7 @@ export default function CreateProfile() {
 
             <div className="section">
                 <h2>Dimensions</h2>
-                <p className="createProfile_caption">"What are the dimensions and weight of the robot?"</p>
+                <p className="caption">"What are the dimensions and weight of the robot?"</p>
                 <Form>
                     <FloatingLabel
                         controlId="heightInput"
@@ -241,6 +246,7 @@ export default function CreateProfile() {
                         <Form.Control 
                             type="number" 
                             value={dimensions.extendedHeight}
+                            placeholder="Enter extended height"
                             onChange={(e) => setDimensions(prev => ({ ...prev, extendedHeight: e.target.value }))}
                         />
                     </FloatingLabel>
@@ -456,8 +462,9 @@ export default function CreateProfile() {
                 variant="primary"
                 onClick={submitProfile}
                 className="submitProfile_button"
+                disabled={submitting}
             >
-                { isEditing ? "Save Changes" : "Create Profile" }
+                { submitting ? "Submitting..." : isEditing ? "Save Changes" : "Create Profile" }
             </Button>
         </Container>
     );

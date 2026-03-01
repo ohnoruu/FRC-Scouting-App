@@ -46,7 +46,7 @@ export default function MatchStats() {
                         <ListGroup>
                             <ListGroup.Item><strong>Match Type: </strong> {matchData.matchType}</ListGroup.Item>
                             <ListGroup.Item className="position-relative">
-                                <strong>Raw Score: </strong> {matchData.score}
+                                <strong>Total Raw Score: </strong> {matchData.totalScore}
                                 <span ref={infoRef} className="d-inline-block">
                                     <FaInfoCircle
                                         className="matchStats_infoIcon"
@@ -69,9 +69,18 @@ export default function MatchStats() {
                                     </Tooltip>
                                 </Overlay>
                             </ListGroup.Item>
-                            <ListGroup.Item><strong>Accuracy: </strong>{matchData.accuracy || "N/A"}</ListGroup.Item>
-                            <ListGroup.Item><strong>Reported Playstyle: </strong>{matchData.playstyle || "N/A"}</ListGroup.Item>
-                            <ListGroup.Item><strong>Comments: </strong>{matchData.comment || "None"}</ListGroup.Item>
+                            <ListGroup.Item><strong>Total Accuracy: </strong>{matchData.totalAccuracy || "N/A"}%</ListGroup.Item>
+                            <ListGroup.Item><strong>Reported Playstyle: </strong>
+                                {matchData.playstyle 
+                                ? [
+                                    matchData.playstyle.scoring && "Scoring",
+                                    matchData.playstyle.passing && "Passing",
+                                    matchData.playstyle.defense && "Defense"
+                                ].filter(Boolean)
+                                .join(", ")  || "None"
+                                : "N/A"}
+                            </ListGroup.Item>
+                            <ListGroup.Item><strong>Comments: </strong>{matchData.comments || "None"}</ListGroup.Item>
                         </ListGroup>
 
 
@@ -96,6 +105,12 @@ export default function MatchStats() {
                                     </tr>
                                 </tbody>
                             </Table>
+                            
+                            <ListGroup>
+                                <ListGroup.Item><strong>Score: </strong>{matchData.autoScore || "N/A"}</ListGroup.Item>
+                                <ListGroup.Item><strong>Accuracy: </strong>{matchData.autoAccuracy || "N/A"}%</ListGroup.Item>
+                            </ListGroup>
+
                         </div>
 
                         <div className="section">
@@ -115,6 +130,11 @@ export default function MatchStats() {
                                     </tr>
                                 </tbody>
                             </Table>
+
+                            <ListGroup>
+                                <ListGroup.Item><strong>Score: </strong>{matchData.teleopScore || "N/A"}</ListGroup.Item>
+                                <ListGroup.Item><strong>Accuracy: </strong>{matchData.teleopAccuracy || "N/A"}%</ListGroup.Item>
+                            </ListGroup>
                         </div>
 
                         <div className="section">

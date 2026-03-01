@@ -19,7 +19,7 @@ export default function StatGlimpse({ name, teamNumber, playstyle = [], img, isL
           <Card.Title className="statglimpse-header">{teamNumber} - {name}</Card.Title>
 
           <Card.Text className="statglimpse-description">
-            
+              
           </Card.Text>
         </div>
 
