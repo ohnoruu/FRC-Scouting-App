@@ -16,6 +16,7 @@ export default function MultiCounter({title, target, setTarget}) {
                 max={max}
                 value={target}
                 onChange={(e) => setTarget(clamp(Number(e.target.value)))}
+                className="multiCounter-slider"
             />
             <p>{title}</p>
             <div className="multiCounter-row">
