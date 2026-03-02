@@ -175,6 +175,8 @@ export default function RecordMatch() {
                     </Form>
                 </div>
 
+                <p className="caption" style={{margin: '1rem 0'}}>Record the amount of fuel scored/missed to the best of your ability. Estimates are acceptable; you are not expected to count an exact amount</p>
+
                 <div className="section">
                     <h2>Autonomous</h2>
                     <MultiCounter
