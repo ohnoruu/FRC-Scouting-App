@@ -91,12 +91,7 @@ export default function SearchRobots() {
                 className="searchRobots_pressable"
               >
                 <StatGlimpse 
-                  name={teamName || 'Unknown'}
-                  teamNumber={teamNumber != null ? teamNumber : '—'}
-                  img={robot?.profile?.robotImages?.[0] ? img + robot.profile.robotImages[0] : fillerImg  }
-                  playstyle={[
-                    
-                  ].filter(Boolean)}
+                  robot={robot}
                 />
               </div>
             );

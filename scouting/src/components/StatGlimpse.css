@@ -8,26 +8,14 @@
   padding: 1rem;
 }
 
-.statglimpse-card:hover {
-
-}
-
-.statglimpse-text {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  padding-right: 1rem;
-  color: var(--primary-color-1);
-}
-
 .statglimpse-header {
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
 }
 .statglimpse-description {
   font-size: 0.9rem;
   color: var(--primary-color-1);
+  margin: 0;
 }
 
 .statglimpse-image {

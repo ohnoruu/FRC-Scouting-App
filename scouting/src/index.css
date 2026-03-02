@@ -7,7 +7,7 @@ html, body {
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  font-family: 'consolas', 'monaco', 'lucida console', monospace;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
