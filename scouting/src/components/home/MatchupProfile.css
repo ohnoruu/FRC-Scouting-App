@@ -1,0 +1,19 @@
+.matchupProfile-container {
+    margin-top: 1rem;
+}
+
+.matchupProfile-card {
+    flex: 1;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.matchupProfile-blue {
+    background-color: var(--primary-color-4);
+    color: var(--primary-color-3);
+}
+
+.matchupProfile-red {
+    background-color: var(--primary-color-2);
+    color: var(--primary-color-3);
+}
