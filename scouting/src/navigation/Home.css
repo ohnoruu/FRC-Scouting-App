@@ -21,3 +21,11 @@
 .home-alliance {
     width: 100%;
 }
+
+.prediction-red {
+    color: var(--primary-color-2);
+}
+
+.prediction-blue {
+    color: var(--primary-color-4);
+}

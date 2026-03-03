@@ -17,12 +17,6 @@ export default function MatchupProfile({ robot, allianceColor }) {
                 <Card.Body>
                     <Card.Title>{robot.profile?.teamNumber}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{robot.profile?.teamName}</Card.Subtitle>
-
-                    <Stack direction="horizontal" gap={2} style={{flexWrap: 'wrap'}}>
-                        {hasPlayedRole('scoring') && <Badge bg="light">Scoring</Badge>}
-                        {hasPlayedRole('passing') && <Badge bg="light">Passing</Badge>}
-                        {hasPlayedRole('defense') && <Badge bg="light">Defense</Badge>}
-                    </Stack>
                 </Card.Body>
             </Card>
         </div>

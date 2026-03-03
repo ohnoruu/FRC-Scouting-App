@@ -21,7 +21,7 @@ export default function Launch() {
                 <div className="welcome_image">
                     <img className="welcome_logo" alt="CyberLions logo" src={Logo} />
                 </div>
-                <p>This is the scouting application for FRC Team 8521 CyberLions. Here, you can record data of other FRC robots by creating robot profiles for each team. For match scouting, click on an existing robot profile to start recording data.</p>
+                <p>This is the scouting application for FRC Team 8521 CyberLions. Record data by creating robot profiles, our scout matches for existing profiles. Scouting data can also be used for predictions and strategic analysis.</p>
 
                 <Button variant="primary" className="welcome_button" onClick={navigateToMain}>
                     Continue to App
