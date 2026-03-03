@@ -29,6 +29,28 @@ export default function Home() {
       .catch((error) => console.error("Error fetching robot list: ", error));
   }, []);
 
+  useEffect(() => {
+    const saved = localStorage.getItem("matchPrediction");
+    if (!saved || robots.length === 0) return;
+
+    const parsed = JSON.parse(saved);
+
+    const restoreAlliance = (teamNumbers) =>
+      teamNumbers.map(num =>
+        robots.find(r => r.profile.teamNumber === num) || null
+      );
+
+    const restoredRed = restoreAlliance(parsed.red);
+    const restoredBlue = restoreAlliance(parsed.blue);
+
+    setRedAlliance(restoredRed);
+    setBlueAlliance(restoredBlue);
+    setAnalyzedRed(restoredRed);
+    setAnalyzedBlue(restoredBlue);
+    setDisplayedScores(parsed.displayedScores);
+    setPrediction(parsed.prediction);
+  }, [robots]);
+
   const renderSlot = (robot, alliance, index, color) => { // Helper function to render each alliance slot
     const setAlliance = alliance === 'red' ? setRedAlliance : setBlueAlliance; // Determine which alliance state to update based on the alliance color
     const allianceState = alliance === 'red' ? redAlliance : blueAlliance; // Get the current state of the alliance
@@ -128,7 +150,30 @@ export default function Home() {
             : 'Tie'
     });
 
+    // scroll to top
     topRef.current.scrollIntoView({ behavior: 'smooth' });
+
+    // save data to local storage
+    const result = {
+      red: redAlliance.map(r => r?.profile.teamNumber || null),
+      blue: blueAlliance.map(r => r?.profile.teamNumber || null),
+      displayedScores: {
+        red: redScore,
+        blue: blueScore
+      },
+      prediction: {
+        red: redScore,
+        blue: blueScore,
+        winner:
+          redScore > blueScore
+            ? 'Red Alliance Victory'
+            : blueScore > redScore
+            ? 'Blue Alliance Victory'
+            : 'Tie'
+      }
+    };
+
+    localStorage.setItem("matchPrediction", JSON.stringify(result));
   }
 
   return (
