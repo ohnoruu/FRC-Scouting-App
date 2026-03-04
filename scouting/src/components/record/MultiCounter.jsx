@@ -5,7 +5,7 @@ import './MultiCounter.css';
 export default function MultiCounter({title, target, setTarget}) {
     const amounts = [2,5,10];
     const min = 0;
-    const max = 200;
+    const max = 500;
     
     const clamp = (value) => Math.min(max, Math.max(min, value)); // Helper function to clamp values within the min and max range
 
