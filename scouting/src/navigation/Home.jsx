@@ -79,7 +79,7 @@ export default function Home() {
       return (
         <Form.Select
           onChange={(e) => handleSelect(e.target.value)}
-          style={{ margin: '0.5rem', backgroundColor: color === 'red' ? 'var(--primary-color-2)' : 'var(--primary-color-4)', color: 'white' }}
+          style={{ marginTop: '0.5rem', backgroundColor: color === 'red' ? 'var(--primary-color-2)' : 'var(--primary-color-4)', color: 'white' }}
         >
           <option value="">Select Team</option>
           {robots.map(r => (
