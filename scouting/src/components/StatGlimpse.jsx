@@ -3,7 +3,7 @@ import { Card, Image, Badge, Stack } from 'react-bootstrap';
 import fillerImg from '../assets/interface-icons/filler-image.png';
 import './StatGlimpse.css';
 
-export default function StatGlimpse({ robot, isLoading }) {
+export default function StatGlimpse({ robot }) {
   const [ hovered, setHovered ] = useState(false);
   const img = process.env.REACT_APP_BASE_URL + '/uploads/';
 

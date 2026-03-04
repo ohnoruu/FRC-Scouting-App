@@ -3,9 +3,11 @@ import { Container, Form, Card, Button } from 'react-bootstrap';
 import './Home.css';
 
 import MatchupProfile from '../components/home/MatchupProfile';
+import StatGlimpsev2 from '../components/StatGlimpsev2';
 
 export default function Home() {
   const topRef = useRef(null);
+  const [analyzed, setAnalyzed] = useState(false);
   const [robots, setRobots] = useState([]);
 
   const [redAlliance, setRedAlliance] = useState([null, null, null]);
@@ -49,6 +51,8 @@ export default function Home() {
     setAnalyzedBlue(restoredBlue);
     setDisplayedScores(parsed.displayedScores);
     setPrediction(parsed.prediction);
+
+    setAnalyzed(parsed.analyzed);
   }, [robots]);
 
   const renderSlot = (robot, alliance, index, color) => { // Helper function to render each alliance slot
@@ -170,10 +174,22 @@ export default function Home() {
             : blueScore > redScore
             ? 'Blue Alliance Victory'
             : 'Tie'
-      }
+      },
+      analyzed: true
     };
 
     localStorage.setItem("matchPrediction", JSON.stringify(result));
+    setAnalyzed(true);
+  }
+
+  const resetAll = () => {
+    setRedAlliance([null, null, null]);
+    setBlueAlliance([null, null, null]);
+    setAnalyzed(false);
+    setPrediction(null);
+    setDisplayedScores({ red: 0, blue: 0 });
+    setAnalyzedRed([]);
+    setAnalyzedBlue([]);
   }
 
   return (
@@ -199,9 +215,6 @@ export default function Home() {
             <Card>
               <Card.Body>
                 <Card.Title style={{color: "var(--primary-color-2)"}}>{redAlliance.length > 0 ? `Red Alliance Score: ${displayedScores.red}` : "Red Alliance Score: 0"}</Card.Title>
-                <Card.Subtitle>{analyzedRed[0] ? `${analyzedRed[0].profile.teamNumber} - ${computeAverage(analyzedRed[0])}` : "Red 1: No Team Selected"}</Card.Subtitle>
-                <Card.Subtitle>{analyzedRed[1] ? `${analyzedRed[1].profile.teamNumber} - ${computeAverage(analyzedRed[1])}` : "Red 2: No Team Selected"}</Card.Subtitle>
-                <Card.Subtitle>{analyzedRed[2] ? `${analyzedRed[2].profile.teamNumber} - ${computeAverage(analyzedRed[2])}` : "Red 3: No Team Selected"}</Card.Subtitle>
               </Card.Body>
             </Card>
           </div>
@@ -210,14 +223,29 @@ export default function Home() {
             <Card>
               <Card.Body>
                 <Card.Title style={{color: "var(--primary-color-4)"}}>{blueAlliance.length > 0 ? `Blue Alliance Score: ${displayedScores.blue}` : "Blue Alliance Score: 0"}</Card.Title>
-                <Card.Subtitle>{analyzedBlue[0] ? `${analyzedBlue[0].profile.teamNumber} - ${computeAverage(analyzedBlue[0])}` : "Blue 1: No Team Selected"}</Card.Subtitle>
-                <Card.Subtitle>{analyzedBlue[1] ? `${analyzedBlue[1].profile.teamNumber} - ${computeAverage(analyzedBlue[1])}` : "Blue 2: No Team Selected"}</Card.Subtitle>
-                <Card.Subtitle>{analyzedBlue[2] ? `${analyzedBlue[2].profile.teamNumber} - ${computeAverage(analyzedBlue[2])}` : "Blue 3: No Team Selected"}</Card.Subtitle>
               </Card.Body>
             </Card>
           </div>
         </div>
       </div>
+
+      { analyzed && (
+        <div className="section">
+          <h2 style={{textAlign: "center"}}>Red Alliance Overview</h2>
+          <StatGlimpsev2 robot={analyzedRed[0]} allianceColor="red"/>
+          <StatGlimpsev2 robot={analyzedRed[1]} allianceColor="red"/>
+          <StatGlimpsev2 robot={analyzedRed[2]} allianceColor="red"/>
+        </div>
+      )}
+
+      { analyzed && (
+        <div className="section">
+          <h2 style={{textAlign: "center"}}>Blue Alliance Overview</h2>
+          <StatGlimpsev2 robot={analyzedBlue[0]} allianceColor="blue"/>
+          <StatGlimpsev2 robot={analyzedBlue[1]} allianceColor="blue"/>
+          <StatGlimpsev2 robot={analyzedBlue[2]} allianceColor="blue"/>
+        </div>
+      )}
 
       <div className="section">
         <h2 style={{textAlign: "center"}}>Input Matchup</h2>
@@ -239,13 +267,21 @@ export default function Home() {
         </div>
 
         <Button
+          variant="secondary"
+          onClick={resetAll}
+          style={{ display: 'block', margin: '1rem auto' }}
+        >
+          Reset All
+        </Button>
+
+        <Button
           variant="success"
           size="lg"
           style={{ display: 'block', margin: '2rem auto' }}
           onClick={analyzeMatchup}
           disabled={!allSelected}
         >
-          Analyze Matchup
+          Analyze Matchup (⌐■_■)
         </Button>
       </div>
     </Container>
