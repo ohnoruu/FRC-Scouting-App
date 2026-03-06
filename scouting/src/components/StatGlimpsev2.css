@@ -1,0 +1,50 @@
+.statglimpsev2-card{
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    min-height: 20vh;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.statglimpsev2-header {
+    font-size: 1.5rem;
+}
+
+.statglimpsev2-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.statglimpsev2-description {
+    font-size: 0.9rem;
+    color: var(--primary-color-1);
+    margin: 0;
+}
+
+.statglimpsev2-button {
+    margin-top: 1rem;
+    width: fit-content;
+}
+
+.statglimpsev2-image {
+    height: 5rem;
+    max-height: 5rem;
+    width: auto;
+    object-fit: cover;
+    /* keep the image from shrinking so it stays consistent */
+    flex: 0 0 auto;
+    /* push image to the right when available */
+    margin-left: auto;
+    border-radius: 8px;
+    align-self: center;
+}
+
+.statglimpsev2-red {
+    color: var(--primary-color-2);
+}
+
+.statglimpsev2-blue {
+    color: var(--primary-color-4);
+}

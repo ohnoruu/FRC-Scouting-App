@@ -1,0 +1,24 @@
+import React from 'react';
+import { Card, Stack, Badge } from 'react-bootstrap';
+import './MatchupProfile.css';
+
+export default function MatchupProfile({ robot, allianceColor }) {  
+  const hasPlayedRole = (role) => {
+    return robot?.matches?.some(
+      (match) => 
+        match.matchType !== 'Practice Match' &&
+        match.playstyle?.[role] === true
+    );
+  }
+    
+    return (
+        <div className="matchupProfile-container">
+            <Card className={`matchupProfile-card matchupProfile-${allianceColor}`}>
+                <Card.Body>
+                    <Card.Title>{robot.profile?.teamNumber}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{robot.profile?.teamName}</Card.Subtitle>
+                </Card.Body>
+            </Card>
+        </div>
+    );
+}

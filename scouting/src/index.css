@@ -1,17 +1,159 @@
+/* Global Styles */
 html, body {
+  background-color: var(--primary-color-1);
+  position: relative;
   height: 100%;
   margin: 0;
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --primary-color-1: #1C1C1C;
+  --primary-color-2: #df3838;
+  --primary-color-3: #ffffff;
+  --primary-color-4: #315fd3;
+
+  --secondary-color-1: #a7aaaf;
+  --hyperlink-color: #7DA2FF;
+
+  --topbar-height: 7.5vh;
+  --bottombar-height: 7.5vh;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-color-1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+  border: 3px solid var(--primary-color-1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font-size: 1.2rem;
+  color: var(--primary-color-3);
+  line-height: 2.4rem;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.5rem;
+  color: var(--primary-color-3);
+  font-weight: 500;
+}
+
+a {
+  color: var(--primary-color-3);
+  text-decoration: underline;
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+  font-weight: 400;
+  transition: 0.5s;
+}
+
+li {
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+  font-weight: 400;
+  color: var(--primary-color-3);
+}
+
+a:hover {
+  color: var(--hyperlink-color);
+  cursor: pointer;
+  transition: 0.5s;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* General Customization */
+.caption {
+  font-size: 0.8rem;
+  color: var(--secondary-color-1);
+  line-height: 1.2rem;
+}
+/* Layout Classes */
+.section {
+  margin-top: 2rem;
+  border: 2px solid var(--primary-color-2);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.section-blue {
+  margin-top: 2rem;
+  border: 2px solid var(--primary-color-4);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+/* Bootstrap Modifications */
+/* Form */ 
+.form-check-white {
+  color: var(--primary-color-3);
+}
+
+/* Utility Classes */
+
+.no-bullets {
+  list-style-type: none;
+}
+
+/* Animations */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1; 
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: scale(0.9);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
 }

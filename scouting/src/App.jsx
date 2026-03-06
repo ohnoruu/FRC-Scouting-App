@@ -1,8 +1,9 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Launch from './components/Launch.jsx';
-import Welcome from './components/Welcome.jsx';
-import Navigator from './components/Navigator.jsx';
+import Launch from './Launch';
+import Welcome from './Welcome';
+import Navigator from './Navigator';
 
 export default function App() {
     return (
@@ -13,5 +14,6 @@ export default function App() {
                 <Route path="/navigator/*" element={<Navigator />} /> {/*Home, Record, Search, and Settings are now rendered inside Navigator.jsx*/}
             </Routes>
         </Router>
+        
     );
 }

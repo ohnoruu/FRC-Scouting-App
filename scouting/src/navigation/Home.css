@@ -1,0 +1,31 @@
+.home-container {
+    margin-bottom: 2rem;
+}
+
+.home-predictionRow {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-scoreRow {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-alliance {
+    width: 100%;
+}
+
+.prediction-red {
+    color: var(--primary-color-2);
+}
+
+.prediction-blue {
+    color: var(--primary-color-4);
+}
