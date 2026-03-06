@@ -30,7 +30,7 @@ jobs:
       uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: "${{ secrets.GITHUB_TOKEN }}"
-        firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEAM8521_SCOUTING_WEBAPP }}"
+        firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEAM8521_SCOUTING_WEBAPP }}" # updated 2026
         channelId: live  # Use 'live' for production or 'preview' for preview channels
         projectId: team8521-scouting-webapp  # Replace with your Firebase project ID
         entryPoint: ./scouting
