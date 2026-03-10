@@ -33,6 +33,6 @@ jobs:
       uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
-        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEAM8521_SCOUTING_WEBAPP }}
-        projectId: scout-cac06  # Replace with your Firebase project ID
+        firebaseServiceAccount: ${{ secrets.FIREBASE_TOKEN }} # updated 3/9/2026
+        projectId: team8521-scouting-webapp  # Replace with your Firebase project ID
         entryPoint: ./scouting
