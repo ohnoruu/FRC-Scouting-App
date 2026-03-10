@@ -30,7 +30,7 @@ jobs:
       uses: FirebaseExtended/action-hosting-deploy@v0
       with:
         repoToken: ${{ secrets.GITHUB_TOKEN }}
-        firebaseToken: ${{ secrets.FIREBASE_TOKEN }} # updated 3/9/2026
+        firebaseServiceAccount: ${{ secrets.GCP_SA_KEY }} # updated 3/9/2026
         channelId: live  # Use 'live' for production or 'preview' for preview channels
         projectId: scout-cac06  # Replace with your Firebase project ID
         entryPoint: ./scouting
