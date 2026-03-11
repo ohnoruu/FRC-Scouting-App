@@ -74,17 +74,9 @@ export default function MultiImageUpload({ images, onChange, isEditing = false})
                     type="file"
                     accept="image/*"
                     onChange={(e) => {
-                        const files = e.target.files?.[0];
-                        if (!files || files.length === 0) return;
-                        
-                        const file = e.target.files[0];
-                        console.log("File:", file);
-
-                        addImage(file);
-                        e.target.value = "";
+                        const file = e.target.files?.[0];
+                        if (file) addImage(file);
                     }}
-                    capture="environment" // Open camera on mobile devices
-                    multiple={false}
                 />
             </Form.Group>
 
@@ -95,7 +87,6 @@ export default function MultiImageUpload({ images, onChange, isEditing = false})
                     return (
                         <div className="multiImageUpload-imageItem" key={index}>
                             <Image
-                                key={index}
                                 src={src}
                                 fluid
                                 rounded
