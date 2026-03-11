@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Form, Image, Button } from 'react-bootstrap';
+import heic2any from "heic2any";
 
 import './MultiImageUpload.css';
 
@@ -28,9 +29,32 @@ export default function MultiImageUpload({ images, onChange, isEditing = false})
         };
     }, [images])
 
-    const addImage = (file) => {
-        if (!file) return; // Exit for null/undefined file
-        onChange([...images, file]); // Append new file to images array
+    const addImage = async (file) => {
+        if (!file) return;
+
+        let processedFile = file;
+
+        // Detect HEIC images from iPhones
+        if (file.type === "image/heic" || file.type === "image/heif") {
+            try {
+                const convertedBlob = await heic2any({
+                    blob: file,
+                    toType: "image/jpeg",
+                    quality: 0.9
+                });
+
+                processedFile = new File(
+                    [convertedBlob],
+                    file.name.replace(/\.heic/i, ".jpg"),
+                    { type: "image/jpeg" }
+                );
+            } catch (err) {
+                console.error("HEIC conversion failed:", err);
+                return;
+            }
+        }
+
+        onChange([...images, processedFile]);
     };
 
     const removeImage = (index) => {
@@ -50,8 +74,8 @@ export default function MultiImageUpload({ images, onChange, isEditing = false})
                     type="file"
                     accept="image/*"
                     onChange={(e) => {
-                        addImage(e.target.files[0]);
-                        e.target.value = null; // Reset input value to allow re-uploading same file
+                        const file = e.target.files?.[0];
+                        if (file) addImage(file);
                     }}
                 />
             </Form.Group>
