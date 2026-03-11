@@ -74,7 +74,7 @@ export default function MultiImageUpload({ images, onChange, isEditing = false})
                     type="file"
                     accept="image/*"
                     onChange={(e) => {
-                        const file = e.target.files?.[0];
+                        const files = e.target.files?.[0];
                         if (!files || files.length === 0) return;
                         
                         const file = e.target.files[0];
