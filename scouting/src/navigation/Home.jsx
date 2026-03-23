@@ -80,6 +80,7 @@ export default function Home() {
         <Form.Select
           onChange={(e) => handleSelect(e.target.value)}
           style={{ marginTop: '0.5rem', backgroundColor: color === 'red' ? 'var(--primary-color-2)' : 'var(--primary-color-4)', color: 'white' }}
+          value={robot?.profile.teamNumber || ""}
         >
           <option value="">Select Team</option>
           {robots.map(r => (
