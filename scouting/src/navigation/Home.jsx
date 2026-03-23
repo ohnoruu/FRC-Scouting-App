@@ -253,14 +253,14 @@ export default function Home() {
         <div className="home-predictionRow">
           <div className="home-alliance">
             {redAlliance.map((robot, i) => (
-              <div key={i}>
+              <div key={`red-${i}-${robot ? robot.profile.teamNumber : "empty"}`}>
                 {renderSlot(robot, 'red', i, 'red')}
               </div>
             ))}
           </div>
           <div className="home-alliance">
             {blueAlliance.map((robot, i) => (
-              <div key={i}>
+              <div key={`blue-${i}-${robot ? robot.profile.teamNumber : "empty"}`}>
                 {renderSlot(robot, 'blue', i, 'blue')}
               </div>
             ))}
